@@ -1,0 +1,204 @@
+{% extends "base/base.html" %}
+
+{% block title %}Care{% endblock %}
+
+{% block sidebar %}
+
+  {% if myTotalBalance %}
+    <h4>My Balance</h4>
+    <font id="userMessageFont">    
+      Total
+    <br />
+    {% if myTotalBalanceFloat < 0.0 %} 
+      <font style="color:red">
+    {% else %}
+      <font style="color:green">
+    {% endif %}
+      &#8364 <b>{{ myTotalBalance }}</b> 
+    </font>
+    
+    {% for group in groups %}   
+      <br /><br />
+      {{ group.name }}
+      <br />
+      {% if group.myBalanceFloat < 0.0 %} 
+        <font style="color:red">
+      {% else %}
+        <font style="color:green">
+      {% endif %}
+        &#8364 <b>{{ group.myBalance }}</b>
+      </font>
+    {% endfor %}
+    </font>
+  {% endif %}
+      
+{% endblock %}
+
+
+{% block content %}
+<div id="row">
+  <div id="col_left">
+    <center><h4>Virtual Transactions</h4></center>
+    
+    {% if transactionsAll %}
+    <table>
+      <tr>
+        <th><b>&#8364</b></th>
+        <th><b>What</b></th>
+        <th><b>Who</b></th>
+      </tr>
+      
+      {% for transaction in transactionsAll %}
+      <tr>
+        <td {% if transaction.amountPerPersonFloat <= 0.0 %} style="color:red" {% else %}
+          style="color:green"
+          {% endif %}>
+          <b>{{ transaction.amountPerPerson }}</b>
+        </td>
+        <td > <b>{{ transaction.what }}</b> </td> 
+        <td>
+          {% ifequal transaction.buyer.displayname displayname %}
+            <b>{{ transaction.buyer }}</b>
+          {% else %}
+            {{ transaction.buyer }}
+          {% endifequal %}
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+  
+    {% else %}
+      <center>
+      <font id="userMessageFont">
+        No virtual transactions available.
+      </font>
+      </center>
+    {% endif %}
+  </div>
+
+  <div id="col_right">
+    <center><h4>Real Transactions</h4></center>
+  
+    {% if transactionsRealAll %}
+      <table>
+      <tr>
+        <th><b>&#8364</b></th>
+        <th><b>From</b></th>
+        <th><b>To</b></th>
+      </tr>
+      {% for transaction in transactionsRealAll %}
+      <tr>
+        <td {% if transaction.amountPerPersonFloat <= 0.0 %} style="color:red" {% else %}
+            style="color:green"
+            {% endif %}>
+            <b>{{ transaction.amountPerPerson }}</b>
+        </td>
+        <td>
+        {% ifequal transaction.sender.displayname displayname %}
+          <b>{{ transaction.sender }}</b>
+        {% else %}
+          {{ transaction.sender }}
+        {% endifequal %}
+        </td>
+        <td>
+          {% ifequal transaction.receiver.displayname displayname %}
+            <b>{{ transaction.receiver }}</b>
+          {% else %}
+            {{ transaction.receiver }}
+          {% endifequal %}
+        </td>
+      </tr>
+      {% endfor %}
+      </table>
+  
+    {% else %}
+      <center>
+      <font id="userMessageFont">
+        No real transactions available.
+      </font>
+      </center>
+    {% endif %}
+  </div>
+  
+</div>
+
+<div id="row">
+  <div id="col_right">
+    <center><h4>Friends</h4></center>
+    
+    {% if friends %}
+    <table>
+      <tr>
+        <th><b>Name</b></th>
+      </tr>
+      <tr>
+        <td>
+          {% for friend in friends %}
+            <b>{{ friend.displayname }}</b>,
+          {% endfor %}
+        </td>
+      </tr>
+    </table>
+    {% else %}
+      <center>
+      <font id="userMessageFont">
+        No friends :(
+      </font>
+      </center>
+    {% endif %}
+  </div> 
+  
+  <div id="col_left">
+    <center><h4>Invites</h4></center>
+    
+    {% if invitesAll %}
+    <table>
+      <tr>
+        <th><b>Group</b></th>
+        <th><b>Inviter</b></th>
+        <th><b>Invitee</b></th>
+        <th><b>Status</b></th>
+      </tr>
+      {% for invite in invitesAll %}
+      <tr>
+        <td>
+          {{ invite.groupAccount }}
+        </td>
+        <td>
+          {% ifequal invite.inviter.displayname displayname %}
+            <b>{{ invite.inviter }}</b>
+          {% else %}
+            {{ invite.inviter }}
+          {% endifequal %}
+        </td>
+        <td>
+          {% ifequal invite.invitee.displayname displayname %}
+            <b>{{ invite.invitee }}</b></font>
+          {% else %}
+            {{ invite.invitee }}</font>
+          {% endifequal %}
+        </td>
+        {% if invite.isAccepted %}
+          <td style="color:green"> <b>Accepted</b> </td>
+        {% elif invite.isDeclined %}
+          <td style="color:red"> <b>Declined</b> </td>
+        {% else %}
+          <td > 
+            <b>Open</b>
+          </td>
+        {% endif %}
+      </tr>
+      {% endfor %}
+    </table>
+    
+    {% else %}
+      <center>
+      <font id="userMessageFont">
+        No invites.
+      </font>
+      </center>
+    {% endif %}
+    
+  </div> 
+</div> 
+{% endblock %}

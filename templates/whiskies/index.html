@@ -1,0 +1,35 @@
+{% extends "whiskies/base.html" %}
+
+{% block title %}Malt{% endblock %}
+
+{% block content %}
+
+<center><h3>Whiskies</h3></center>
+
+  {% if whiskies_list %}
+    <table>
+    <tr>
+      <td><b>Distillery</b></td>
+      <td><b>Type</b></td>
+      <td><b>Age</b></td>
+      <td><b>%</b></td>
+      <td><b>Region</b></td>
+      <td><b>Date</b></td>
+    </tr>
+    {% for whisky in whiskies_list %}
+    <tr>
+      <td>{{ whisky.distillery }}</td>
+      <td>{{ whisky.name }}</td>
+      <td>{{ whisky.age }}</td>
+      <td>{{ whisky.alcoholPercentage_int }}</td>
+      <td>{{ whisky.distillery.region }}</td>
+      <td>{{ whisky.date|date:"SHORT_DATE_FORMAT" }}</td>
+    </tr>
+  {% endfor %}
+    </table>
+
+  {% else %}
+      <p>No polls are available.</p>
+  {% endif %}
+
+{% endblock %}

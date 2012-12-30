@@ -1,0 +1,34 @@
+{% extends "drinks/base.html" %}
+
+{% block title %}Malt{% endblock %}
+
+{% block content %}
+
+<center><h3>Drinks</h3></center>
+
+  {% if all_drinks_list %}
+    <table>
+      <tr>
+        <td><b>Who</b></td>
+        <td><b>Bottle</b></td>
+        <td><b>Volume</b></td>
+        <td><b>Price</b></td>
+        <td><b>Date</b></td>
+      </tr>
+    
+    {% for drink in all_drinks_list %}
+      <tr>
+        <td>{{ drink.user }}</td>
+        <td>{{ drink.bottle }}</td>
+        <td>{{ drink.volume }}</td>
+        <td>{{ drink.price }}</td>
+        <td>{{ drink.date|date:"SHORT_DATE_FORMAT"  }}</td>
+      </tr>
+    {% endfor %}
+    </table>
+
+  {% else %}
+      <p>No polls are available.</p>
+  {% endif %}
+
+{% endblock %}

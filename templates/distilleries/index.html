@@ -1,0 +1,30 @@
+{% extends "distilleries/base.html" %}
+
+{% block title %}Malt{% endblock %}
+
+{% block content %}
+
+<center><h3>Distilleries</h3></center>
+
+  {% if distilleries_list %}
+    <table>
+    
+    <tr>
+      <td><b>Name</b></td>
+      <td><b>Region</b></td>
+    </tr>
+    
+    {% for distillery in distilleries_list %}
+      <tr>
+        <td>{{ distillery.name }}</td>
+        <td>{{ distillery.region }}</td>
+      </tr>
+    {% endfor %}
+    
+    </table>
+
+  {% else %}
+      <p>No distilleries available.</p>
+  {% endif %}
+
+{% endblock %}
