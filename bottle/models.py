@@ -4,7 +4,7 @@ from whisky.models import Whisky
 
 class Bottle(models.Model):
   whisky = models.ForeignKey(Whisky)
-  volume = models.FloatField('volume')
+  volume = models.FloatField('volume', default=700.0)
   volumeConsumedInitial = models.FloatField('initially consumed', default=0.0)
   empty = models.BooleanField(default=False)
   price = models.FloatField('price', default=0.0)
