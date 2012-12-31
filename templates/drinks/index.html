@@ -20,8 +20,8 @@
       <tr>
         <td >{{ drink.user }}</td>
         <td><b>{{ drink.bottle }}</b></td>
-        <td>{{ drink.volume }}</td>
-        <td>{{ drink.price }}</td>
+        <td>{{ drink.volume_int }} ml</td>
+        <td>&euro; {{ drink.price }}</td>
         <td>{{ drink.date|date:"SHORT_DATE_FORMAT"  }}</td>
       </tr>
     {% endfor %}

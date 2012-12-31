@@ -28,7 +28,7 @@
       <td><b>{{ bottle.age_int }}</b></td>
       <td>{{ bottle.alcoholPercentage_int }}</td>
       <td>{{ bottle.distillery.region }}</td>
-      <td>{{ bottle.volume_liters }}</td>
+      <td>{{ bottle.volume_liters }} L</td>
       <td>
         <div class="meter-wrap" style="background: #ffffff url({{ STATIC_URL }}/images/bottle_meter_outline_28px.png)">
             <div class="meter-value" style="background: #ffffff url({{ STATIC_URL }}/images/bottle_meter_outline_28px.png); background-color: #ded05a; width: {{ bottle.statusMeterWidth }}%;">
@@ -38,7 +38,7 @@
             </div>
         </div>
       </td>
-      <td>{{ bottle.price }}</td>
+      <td>&euro; {{ bottle.price }}</td>
       <td>{{ bottle.date|date:"SHORT_DATE_FORMAT"  }}</td>
     </tr>
   {% endfor %}
