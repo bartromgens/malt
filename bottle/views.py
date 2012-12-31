@@ -1,15 +1,18 @@
+from __future__ import division
 from base.views import BaseView
 from bottle.models import Bottle
+from math import ceil
 
 class CollectionView(BaseView):
   template_name = "collection/index.html"
-  context_object_name = "transaction"
   
   def addBottleInfo(self, bottles):
     for bottle in bottles:
       bottle.distillery = bottle.whisky.distillery
       bottle.volume_liters = '%.1f L' % (bottle.volume / 1000.0)
       bottle.volumeActual = bottle.getActualVolume()
+      bottle.age_int = int(bottle.whisky.age)
+      bottle.alcoholPercentage_int = int(bottle.whisky.alcoholPercentage)
       bottle.percentageLeft = '%.0f' % (bottle.volumeActual/bottle.volume * 100.0)
       bottle.percentageGone = '%.0f' % (100 - (bottle.volumeActual/bottle.volume * 100.0))
       bottle.statusMeterWidth = '%.0f' % (bottle.volumeActual/bottle.volume * 75.0)
@@ -34,6 +37,17 @@ class CollectionView(BaseView):
     bottles = self.addBottleInfo(bottles)
     return bottles
   
+  def getOverviewBottleLists(self):
+    bottlesList = []
+    nPerRow = 15
+    for i in range( 0, int(Bottle.objects.count()/nPerRow)+1 ):
+      bottles = Bottle.objects.filter(empty=False).order_by("date")[(i*nPerRow)+1:(i+1)*nPerRow+1]
+      if bottles.count() != 0:
+        self.addBottleInfo(bottles)
+        bottlesList.append(bottles)
+    
+    return bottlesList
+  
   def get_context_data(self, **kwargs):
     context = super(CollectionView, self).get_context_data(**kwargs)
     bottles = self.getAllBottles()
@@ -45,7 +59,6 @@ class CollectionView(BaseView):
 
 class StockView(CollectionView):
   template_name = "collection/index.html"
-  context_object_name = "transaction"
   
   def get_context_data(self, **kwargs):
     context = super(StockView, self).get_context_data(**kwargs)
@@ -58,12 +71,23 @@ class StockView(CollectionView):
 
 class EmptyBottleView(CollectionView):
   template_name = "collection/index.html"
-  context_object_name = "transaction"
   
   def get_context_data(self, **kwargs):
     context = super(EmptyBottleView, self).get_context_data(**kwargs)
     bottles = self.getEmptyBottles()
     context['full_collection_list'] = bottles
+    
+    context['collectionsection'] = True
+    return context
+  
+  
+class OverviewView(CollectionView):
+  template_name = "collection/overview.html"
+  
+  def get_context_data(self, **kwargs):
+    context = super(OverviewView, self).get_context_data(**kwargs)
+    bottlesList = self.getOverviewBottleLists()
+    context['stock_lists'] = bottlesList
     
     context['collectionsection'] = True
     return context

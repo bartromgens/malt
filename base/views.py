@@ -46,12 +46,17 @@ class BaseUpdateView(UpdateView):
 
 class HomeView(BaseView):
   template_name = "base/index.html"
-  context_object_name = "homepage"
   
   def get_context_data(self, **kwargs):
     # Call the base implementation first to get a context
     context = super(HomeView, self).get_context_data(**kwargs)
     user = self.request.user
+    
+    from bottle.views import CollectionView
+    collectionView = CollectionView()
+    bottlesList = CollectionView.getOverviewBottleLists(collectionView)
+    context['stock_lists'] = bottlesList 
+    context['homesection'] = True 
 
     userProfile = UserProfile.objects.get(user=user)
     return context
