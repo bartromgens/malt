@@ -47,35 +47,56 @@ font {
   font-family:"Arial",Georgia,Serif;
 }
 
-table {
+table 
+{
   width:90%;
-  border-top:2px solid $firstColor;
-  border-right:2px solid $firstColor;
-  border-bottom:2px solid $firstColor;
-  border-left:2px solid $firstColor;
+  border-top:0px;
+  border-right:0px;
+  border-bottom:0px;
+  border-left:0px;
   margin:1em auto;
   border-collapse:collapse;
 }
 
-td {
+td 
+{
   color:$firstColor;
-  border-left:0px solid #8e8e8e;
-  border-bottom:1px solid $firstColor;
-  padding:1em 0.8em;
+  border-left:0px;
+  border-bottom:1px solid $secondColor;
+  padding:0.8em 0.8em;
   text-align:left;
   font-size:0.8em;
   font-family:"Arial",Georgia,Serif;
 }
 
-th {
-  background-color:$firstColor;
+th 
+{
+  background-color:$secondColor;
   color:#FFFFFF;
-  border-left:1px solid $firstColor;
-  border-bottom:1px solid $firstColor;
+  border-left:1px solid $secondColor;
+  border-bottom:1px solid $secondColor;
   padding:.3em 1em;
   text-align:left;
   font-size:0.8em;
   font-family:"Arial",Georgia,Serif;
+}
+
+.rotate {
+  -webkit-transform: rotate(-90deg);
+  -moz-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -o-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+
+  /* also accepts left, right, top, bottom coordinates; not required, but a good idea for styling */
+  -webkit-transform-origin: 10% 33%;
+  -moz-transform-origin: 10% 33%;
+  -ms-transform-origin: 10% 33%;
+  -o-transform-origin: 10% 33%;
+  transform-origin: 10% 33%;
+
+  /* Should be unset in IE9+ I think. */
+  filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
 }
 
 #userMessageFont {
@@ -170,7 +191,7 @@ th {
 #content {
   background-color:#FFFFFF;
   height:720px;
-  width:765px;
+  width:805px;
   float:left;
   padding-left:10px;
   padding-top:20px;
@@ -296,7 +317,7 @@ div.selectgroupmenu a:hover, div.selectgroupmenu a:active {
 div.verticalmenu {
   background-color:#FFFFFF;
   height:735px;
-  width:170px;
+  width:130px;
   float:left;
   padding-left:15px;
   padding-top:5px;
