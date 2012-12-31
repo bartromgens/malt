@@ -14,16 +14,14 @@
       <th><b>Age</b></th>
       <th><b>%</b></th>
       <th><b>Region</b></th>
-      <th><b>Date</b></th>
     </tr>
     {% for whisky in whiskies_list %}
     <tr>
       <td><b>{{ whisky.distillery }}<b></td>
       <td>{{ whisky.name }}</td>
-      <td>{{ whisky.age }}</td>
+      <td><b>{{ whisky.age }}</b></td>
       <td>{{ whisky.alcoholPercentage_int }}</td>
       <td>{{ whisky.distillery.region }}</td>
-      <td>{{ whisky.date|date:"SHORT_DATE_FORMAT" }}</td>
     </tr>
   {% endfor %}
     </table>
