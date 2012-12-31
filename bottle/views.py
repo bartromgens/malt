@@ -9,7 +9,7 @@ class CollectionView(BaseView):
   def addBottleInfo(self, bottles):
     for bottle in bottles:
       bottle.distillery = bottle.whisky.distillery
-      bottle.volume_liters = '%.1f L' % (bottle.volume / 1000.0)
+      bottle.volume_liters = '%.1f' % (bottle.volume / 1000.0)
       bottle.volumeActual = bottle.getActualVolume()
       bottle.age_int = int(bottle.whisky.age)
       bottle.alcoholPercentage_int = int(bottle.whisky.alcoholPercentage)

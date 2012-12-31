@@ -6,10 +6,11 @@ class GlassAdmin(admin.ModelAdmin):
   fieldsets = [
     (None, {'fields': ['bottle']}),
     (None, {'fields': ['volume']}),
+    (None, {'fields': ['mass']}),
     (None, {'fields': ['user']}),
     (None, {'fields': ['rating']}),
     ]
-  list_display = ('pk', 'bottle', 'volume', 'user', 'rating')
+  list_display = ('pk', 'bottle', 'volume', 'mass', 'user', 'rating')
   search_fields = ['bottle']
   date_hierarchy = 'date'
 

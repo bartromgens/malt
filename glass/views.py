@@ -9,7 +9,8 @@ class DrinksView(BaseView):
   
   def addDrinkInfo(self, drinks):
     for drink in drinks:
-      drink.price = '%.2f' % drink.getPrice()
+      drink.price = '%.2f' % drink.getPrice() 
+      drink.volume_int = '%.0f' % drink.volume 
       
     return drinks
   
