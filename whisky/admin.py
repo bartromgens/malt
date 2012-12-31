@@ -24,9 +24,12 @@ class DistilleryAdmin(admin.ModelAdmin):
   fieldsets = [
     (None, {'fields': ['name']}),
     (None, {'fields': ['region']}),
+    (None, {'fields': ['lat']}),
+    (None, {'fields': ['lon']}),
     (None, {'fields': ['url']}),
+    (None, {'fields': ['image']}),
     ]
-  list_display = ('name', 'region', 'url')
+  list_display = ('name', 'region', 'lat', 'lon', 'url', 'image')
   search_fields = ['name']
   date_hierarchy = 'date'
 

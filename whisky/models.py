@@ -14,7 +14,10 @@ class Region(models.Model):
 class Distillery(models.Model):
   name = models.CharField(max_length=200)
   region = models.ForeignKey(Region)
-  url = models.URLField(max_length=400, default='', blank=True) 
+  lat = models.FloatField('longitude', default='0.0')
+  lon = models.FloatField('latitude', default='0.0')
+  url = models.URLField(max_length=400, default='', blank=True)
+  image = models.URLField(max_length=400, default='', blank=True)
   
   date = models.DateTimeField(auto_now=True, auto_now_add=True)
   
@@ -32,5 +35,5 @@ class Whisky(models.Model):
   date = models.DateTimeField(auto_now=True, auto_now_add=True)
   
   def __unicode__(self):
-    return str(self.distillery) + ', ' + self.name + ', ' + str(int(self.age)) + 'y, ' + str(self.alcoholPercentage) + '%'
+    return str(self.distillery) + '  ' + self.name + '  ' + str(int(self.age))
   
