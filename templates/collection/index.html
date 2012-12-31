@@ -9,23 +9,24 @@
   {% if full_collection_list %}
     <table>
     <tr>
-      <td><b>Bottle #</b></td>
-      <td><b>Distillery</b></td>
-      <td><b>Type</b></td>
-      <td><b>Age</b></td>
-      <td><b>%</b></td>
-      <td><b>Region</b></td>
-      <td><b>Volume</b></td>
-      <td><b>Status</b></td>
-      <td><b>Date</b></td>
+      <th><b>#</b></th>
+      <th><b>Distillery</b></th>
+      <th><b>Type</b></th>
+      <th><b>Age</b></th>
+      <th><b>%</b></th>
+      <th><b>Region</b></th>
+      <th><b>Volume</b></th>
+      <th><b>Status</b></th>
+      <th><b>Price</b></th>
+      <th><b>Date</b></th>
     </tr>
     {% for bottle in full_collection_list %}
     <tr>
       <td><a href="/transactions/{{ transaction.id }}/">{{ bottle.id }}</a></td>
-      <td>{{ bottle.distillery.name }}</td>
+      <td><b>{{ bottle.distillery.name }}</b></td>
       <td>{{ bottle.whisky.name }}</td>
-      <td>{{ bottle.whisky.age }}</td>
-      <td>{{ bottle.whisky.alcoholPercentage }}</td>
+      <td><b>{{ bottle.age_int }}</b></td>
+      <td>{{ bottle.alcoholPercentage_int }}</td>
       <td>{{ bottle.distillery.region }}</td>
       <td>{{ bottle.volume_liters }}</td>
       <td>
@@ -37,6 +38,7 @@
             </div>
         </div>
       </td>
+      <td>{{ bottle.price }}</td>
       <td>{{ bottle.date|date:"SHORT_DATE_FORMAT"  }}</td>
     </tr>
   {% endfor %}

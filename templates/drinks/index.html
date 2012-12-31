@@ -9,17 +9,17 @@
   {% if all_drinks_list %}
     <table>
       <tr>
-        <td><b>Who</b></td>
-        <td><b>Bottle</b></td>
-        <td><b>Volume</b></td>
-        <td><b>Price</b></td>
-        <td><b>Date</b></td>
+        <th><b>Who</b></th>
+        <th><b>Bottle</b></th>
+        <th><b>Volume</b></th>
+        <th><b>Price</b></th>
+        <th><b>Date</b></th>
       </tr>
     
     {% for drink in all_drinks_list %}
       <tr>
-        <td>{{ drink.user }}</td>
-        <td>{{ drink.bottle }}</td>
+        <td >{{ drink.user }}</td>
+        <td><b>{{ drink.bottle }}</b></td>
         <td>{{ drink.volume }}</td>
         <td>{{ drink.price }}</td>
         <td>{{ drink.date|date:"SHORT_DATE_FORMAT"  }}</td>

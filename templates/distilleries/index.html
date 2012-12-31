@@ -10,14 +10,20 @@
     <table>
     
     <tr>
-      <td><b>Name</b></td>
-      <td><b>Region</b></td>
+      <th><b>Name</b></th>
+      <th><b>Region</b></th>
+      <th><b>Image</b></th>
     </tr>
     
     {% for distillery in distilleries_list %}
       <tr>
-        <td>{{ distillery.name }}</td>
-        <td>{{ distillery.region }}</td>
+        <td><b>{{ distillery.name }}</b></td>
+        <td><b>{{ distillery.region }}</b></td>
+        {% if distillery.image != '' %}
+          <td> <a href="{{ distillery.image }}"><img src="{{ distillery.image }}" height="150px"/></a> </td>
+        {% else %}
+          <td></td>          
+        {% endif %}
       </tr>
     {% endfor %}
     

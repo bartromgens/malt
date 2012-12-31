@@ -9,16 +9,16 @@
   {% if whiskies_list %}
     <table>
     <tr>
-      <td><b>Distillery</b></td>
-      <td><b>Type</b></td>
-      <td><b>Age</b></td>
-      <td><b>%</b></td>
-      <td><b>Region</b></td>
-      <td><b>Date</b></td>
+      <th><b>Distillery</b></th>
+      <th><b>Type</b></th>
+      <th><b>Age</b></th>
+      <th><b>%</b></th>
+      <th><b>Region</b></th>
+      <th><b>Date</b></th>
     </tr>
     {% for whisky in whiskies_list %}
     <tr>
-      <td>{{ whisky.distillery }}</td>
+      <td><b>{{ whisky.distillery }}<b></td>
       <td>{{ whisky.name }}</td>
       <td>{{ whisky.age }}</td>
       <td>{{ whisky.alcoholPercentage_int }}</td>
