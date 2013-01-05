@@ -30,8 +30,8 @@
       <td>{{ bottle.distillery.region }}</td>
       <td>{{ bottle.volume_liters }} L</td>
       <td>
-        <div class="meter-wrap" style="background: #ffffff url({{ STATIC_URL }}/images/bottle_meter_outline_28px.png)">
-            <div class="meter-value" style="background: #ffffff url({{ STATIC_URL }}/images/bottle_meter_outline_28px.png); background-color: #ded05a; width: {{ bottle.statusMeterWidth }}%;">
+        <div class="meter-wrap" style="background: #ffffff url({{ STATIC_URL }}images/bottle_meter_outline_28px.png)">
+            <div class="meter-value" style="background: #ffffff url({{ STATIC_URL }}images/bottle_meter_outline_28px.png); background-color: #ded05a; width: {{ bottle.statusMeterWidth }}%;">
                 <div class="meter-text">
                     {{ bottle.percentageLeft }}%
                 </div>
