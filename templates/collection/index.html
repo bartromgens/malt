@@ -18,7 +18,6 @@
       <th><b>Volume</b></th>
       <th><b>Status</b></th>
       <th><b>Price</b></th>
-      <th><b>Date</b></th>
     </tr>
     {% for bottle in full_collection_list %}
     <tr>
@@ -39,7 +38,6 @@
         </div>
       </td>
       <td>&euro; {{ bottle.price }}</td>
-      <td>{{ bottle.date|date:"SHORT_DATE_FORMAT"  }}</td>
     </tr>
   {% endfor %}
     </table>
