@@ -7,27 +7,34 @@
 <center><h3>Whiskies</h3></center>
 
   {% if whiskies_list %}
-    <table>
-    <tr>
-      <th><b>Distillery</b></th>
-      <th><b>Type</b></th>
-      <th><b>Age</b></th>
-      <th><b>%</b></th>
-      <th><b>Region</b></th>
-    </tr>
-    {% for whisky in whiskies_list %}
-    <tr>
-      <td><b>{{ whisky.distillery }}<b></td>
-      <td>{{ whisky.name }}</td>
-      <td><b>{{ whisky.age }}</b></td>
-      <td>{{ whisky.alcoholPercentage_int }}</td>
-      <td>{{ whisky.distillery.region }}</td>
-    </tr>
-  {% endfor %}
+    <table id="myTable" class="tablesorter">
+      
+      <thead>
+        <tr>
+          <th><b>Distillery</b></th>
+          <th><b>Type</b></th>
+          <th><b>Age</b></th>
+          <th><b>%</b></th>
+          <th><b>Region</b></th>
+        </tr> 
+      </thead>
+     
+      <tbody>    
+        {% for whisky in whiskies_list %}
+        <tr>
+          <td><b>{{ whisky.distillery }}<b></td>
+          <td>{{ whisky.name }}</td>
+          <td><b>{{ whisky.age }}</b></td>
+          <td>{{ whisky.alcoholPercentage_int }}</td>
+          <td>{{ whisky.distillery.region }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+     
     </table>
 
   {% else %}
-      <p>No polls are available.</p>
+      <p>No whiskies in the database.</p>
   {% endif %}
 
 {% endblock %}
