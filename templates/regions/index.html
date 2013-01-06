@@ -4,6 +4,46 @@
 
 {% block content %}
 
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLcb7Fv12D9aJ7AuEIcI0PoKIejqbNX4k&sensor=false">
+    </script>
+    
+    <script>
+      function initialize() 
+      {
+        {% for region in region_list %}
+        var mapOptions{{ region.name }} = 
+        {
+          zoom: 8,
+          center: new google.maps.LatLng({{ region.lat }}, {{ region.lon }}),
+          mapTypeId: google.maps.MapTypeId.SATELLITE
+        }
+        
+        var map{{ region.name }} = new google.maps.Map(document.getElementById('{{ region.name }}'), mapOptions{{ region.name }});
+
+        var image{{ region.name }} = 'images/beachflag.png';
+        var myLatLng{{ region.name }} = new google.maps.LatLng({{ region.lat }}, {{ region.lon }});
+        var beachMarker{{ region.name }} = new google.maps.Marker({
+            position: myLatLng{{ region.name }},
+            map: map{{ region.name }},
+            icon: image{{ region.name }}
+        });
+        {% endfor %}
+      }
+
+      function loadScript() 
+      {
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+        script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBLcb7Fv12D9aJ7AuEIcI0PoKIejqbNX4k&sensor=false&callback=initialize";
+        document.body.appendChild(script);
+      }
+
+      window.onload = loadScript;
+    </script>
+    
   <center><h3>Regions</h3></center>
 
   {% if region_list %}
@@ -12,8 +52,7 @@
       <thead>
       <tr>
         <th><b>Region</b></th>
-        <th><b>Lat</b></th>
-        <th><b>Lon</b></th>
+        <th><b>Map</b></th>
       </tr>
       </thead>
       
@@ -21,8 +60,7 @@
       {% for region in region_list %}
         <tr>
           <td><b>{{ region.name }}</b></td>
-          <td><b>{{ region.lat }}</b></td>
-          <td><b>{{ region.lon }}</b></td>
+          <td><center><div id="{{ region.name }}" style="width:500px; height:250px;"></div></center></td>
         </tr>
       {% endfor %}
       </tbody>

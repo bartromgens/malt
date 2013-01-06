@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 
 from whisky.views import WhiskiesView
 from whisky.views import DistilleriesView
-from whisky.views import RegionsView
+from whisky.views import RegionsView 
 
 urlpatterns = patterns('',
   url(r'^$', login_required(WhiskiesView.as_view())),
