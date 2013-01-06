@@ -29,3 +29,6 @@ class Bottle(models.Model):
   def __unicode__(self):
     return str(self.whisky) + ' (#' + str(self.pk) + ')'
   
+  class Meta:
+    ordering = ['whisky']
+  

@@ -2,7 +2,6 @@ from base.views import BaseView
 
 from whisky.models import Whisky
 from whisky.models import Distillery
-from userprofile.models import UserProfile
 
 class WhiskiesView(BaseView):
   template_name = "whiskies/index.html"

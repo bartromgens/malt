@@ -9,6 +9,9 @@ class Region(models.Model):
   
   def __unicode__(self):
     return self.name
+  
+  class Meta:
+    ordering = ['name']
 
 
 class Distillery(models.Model):
@@ -23,6 +26,9 @@ class Distillery(models.Model):
   
   def __unicode__(self):
     return self.name
+  
+  class Meta:
+    ordering = ['name']
 
 
 class Whisky(models.Model):
@@ -35,5 +41,13 @@ class Whisky(models.Model):
   date = models.DateTimeField(auto_now=True, auto_now_add=True)
   
   def __unicode__(self):
-    return str(self.distillery) + '  ' + self.name + '  ' + str(int(self.age))
+    name = ''
+    if self.name == 'normal':
+      name = str(self.distillery) + '  ' + str(int(self.age))
+    else:
+      name = str(self.distillery) + '  ' + self.name + '  ' + str(int(self.age))
+ 
+    return name
   
+  class Meta:
+    ordering = ['distillery']

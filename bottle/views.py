@@ -1,7 +1,6 @@
 from __future__ import division
 from base.views import BaseView
 from bottle.models import Bottle
-from math import ceil
 
 class CollectionView(BaseView):
   template_name = "collection/index.html"
@@ -20,19 +19,19 @@ class CollectionView(BaseView):
     return bottles
   
   def getAllBottles(self):
-    bottles = Bottle.objects.order_by("date")
+    bottles = Bottle.objects.order_by("whisky")
 
     bottles = self.addBottleInfo(bottles)
     return bottles
   
   def getStockBottles(self):
-    bottles = Bottle.objects.filter(empty=False).order_by("date")
+    bottles = Bottle.objects.filter(empty=False).order_by("whisky")
     
     bottles = self.addBottleInfo(bottles)
     return bottles
   
   def getEmptyBottles(self):
-    bottles = Bottle.objects.filter(empty=True).order_by("date")
+    bottles = Bottle.objects.filter(empty=True).order_by("whisky")
 
     bottles = self.addBottleInfo(bottles)
     return bottles
@@ -41,7 +40,7 @@ class CollectionView(BaseView):
     bottlesList = []
     nPerRow = 13
     for i in range( 0, int(Bottle.objects.count()/nPerRow)+1 ):
-      bottles = Bottle.objects.filter(empty=False).order_by("date")[(i*nPerRow):(i+1)*nPerRow]
+      bottles = Bottle.objects.filter(empty=False).order_by("whisky")[(i*nPerRow):(i+1)*nPerRow]
       if bottles.count() != 0:
         self.addBottleInfo(bottles)
         bottlesList.append(bottles)
