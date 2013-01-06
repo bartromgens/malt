@@ -1,5 +1,7 @@
 {% extends "collection/base.html" %}
 
+
+
 {% block title %}Malt{% endblock %}
 
 {% block content %}
@@ -7,7 +9,8 @@
 <center><h3>Collection</h3></center>
 
   {% if full_collection_list %}
-    <table>
+    <table id="myTable" class="tablesorter">
+    <thead>
     <tr>
       <th><b>#</b></th>
       <th><b>Distillery</b></th>
@@ -19,6 +22,8 @@
       <th><b>Status</b></th>
       <th><b>Price</b></th>
     </tr>
+    </thead> 
+    <tbody>
     {% for bottle in full_collection_list %}
     <tr>
       <td><a href="/transactions/{{ transaction.id }}/">{{ bottle.id }}</a></td>
@@ -39,11 +44,15 @@
       </td>
       <td>&euro; {{ bottle.price }}</td>
     </tr>
-  {% endfor %}
+    {% endfor %}
+    </tbody> 
     </table>
 
   {% else %}
       <p>No polls are available.</p>
   {% endif %}
 
+
+
 {% endblock %}
+

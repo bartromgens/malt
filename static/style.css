@@ -24,7 +24,56 @@ a {
 font {
   font-family: "Arial",Georgia,Serif; }
 
-table {
+/* tables */
+table.tablesorter {
+  font-family: arial;
+  background-color: #CDCDCD;
+  margin: 10px 0pt 15px;
+  font-size: 8pt;
+  width: 95%;
+  text-align: left;
+  border-collapse: collapse; }
+
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+  background-color: #106d2c;
+  color: #FFFFFF;
+  border-left: 1px solid #106d2c;
+  border-bottom: 1px solid #106d2c;
+  padding: 0.5em 1.0em;
+  text-align: left;
+  font-size: 1.2em;
+  font-family: "Arial",Georgia,Serif; }
+
+table.tablesorter thead tr .header {
+  background-image: url(bg.gif);
+  background-repeat: no-repeat;
+  background-position: center right;
+  cursor: pointer; }
+
+table.tablesorter tbody td {
+  color: #054719;
+  border-left: 0px;
+  border-bottom: 1px solid #106d2c;
+  text-align: left;
+  font-size: 1.2em;
+  font-family: "Arial",Georgia,Serif;
+  padding: 0.2em 0.2em 0.2em 0.8em;
+  vertical-align: middle;
+  background-color: #FFF; }
+
+table.tablesorter tbody tr.odd td {
+  background-color: #eaf4ea; }
+
+table.tablesorter thead tr .headerSortUp {
+  background-image: url(asc.gif); }
+
+table.tablesorter thead tr .headerSortDown {
+  background-image: url(desc.gif); }
+
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+  background-color: #054719; }
+
+table.rotate {
   width: 90%;
   border-top: 0px;
   border-right: 0px;
@@ -33,7 +82,7 @@ table {
   margin: 1em auto;
   border-collapse: collapse; }
 
-td {
+table.rotate td {
   color: #054719;
   border-left: 0px;
   border-bottom: 1px solid #106d2c;
@@ -42,7 +91,7 @@ td {
   font-size: 0.8em;
   font-family: "Arial",Georgia,Serif; }
 
-th {
+table.rotate th {
   background-color: #106d2c;
   color: #FFFFFF;
   border-left: 1px solid #106d2c;
