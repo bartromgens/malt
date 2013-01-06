@@ -63,8 +63,7 @@ table.tablesorter thead tr th, table.tablesorter tfoot tr th
 {
   background-color:$secondColor;
   color:#FFFFFF;
-  border-left:1px solid $secondColor;
-  border-bottom:1px solid $secondColor;
+  border:1px solid $firstColor;
   padding:0.5em 1.0em;
   text-align:left;
   font-size:1.2em;
@@ -87,8 +86,6 @@ table.tablesorter thead tr .header
 table.tablesorter tbody td 
 {
   color:$firstColor;
-  border-left:0px;
-  border-bottom:1px solid $secondColor;
   text-align:left;
   font-size:1.2em;
   font-family:"Arial",Georgia,Serif;
@@ -99,6 +96,8 @@ table.tablesorter tbody td
   padding-left: 0.8em;
   vertical-align: middle;
   background-color: #FFF;
+  
+  border:1px solid $secondColor;
 }
 
 table.tablesorter tbody tr.odd td 

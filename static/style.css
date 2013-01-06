@@ -37,8 +37,7 @@ table.tablesorter {
 table.tablesorter thead tr th, table.tablesorter tfoot tr th {
   background-color: #106d2c;
   color: #FFFFFF;
-  border-left: 1px solid #106d2c;
-  border-bottom: 1px solid #106d2c;
+  border: 1px solid #054719;
   padding: 0.5em 1.0em;
   text-align: left;
   font-size: 1.2em;
@@ -52,8 +51,6 @@ table.tablesorter thead tr .header {
 
 table.tablesorter tbody td {
   color: #054719;
-  border-left: 0px;
-  border-bottom: 1px solid #106d2c;
   text-align: left;
   font-size: 1.2em;
   font-family: "Arial",Georgia,Serif;
@@ -62,7 +59,8 @@ table.tablesorter tbody td {
   padding-right: 0.2em;
   padding-left: 0.8em;
   vertical-align: middle;
-  background-color: #FFF; }
+  background-color: #FFF;
+  border: 1px solid #106d2c; }
 
 table.tablesorter tbody tr.odd td {
   background-color: #eaf4ea; }
