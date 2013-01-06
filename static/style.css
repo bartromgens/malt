@@ -57,7 +57,10 @@ table.tablesorter tbody td {
   text-align: left;
   font-size: 1.2em;
   font-family: "Arial",Georgia,Serif;
-  padding: 0.2em 0.2em 0.2em 0.8em;
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+  padding-right: 0.2em;
+  padding-left: 0.8em;
   vertical-align: middle;
   background-color: #FFF; }
 

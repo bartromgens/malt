@@ -7,7 +7,8 @@
 <center><h3>Drinks</h3></center>
 
   {% if all_drinks_list %}
-    <table>
+    <table id="myTable" class="tablesorter">
+    <thead>
       <tr>
         <th><b>Who</b></th>
         <th><b>Bottle</b></th>
@@ -15,7 +16,8 @@
         <th><b>Price</b></th>
         <th><b>Date</b></th>
       </tr>
-    
+    </thead> 
+    <tbody>
     {% for drink in all_drinks_list %}
       <tr>
         <td >{{ drink.user }}</td>
@@ -25,6 +27,7 @@
         <td>{{ drink.date|date:"SHORT_DATE_FORMAT"  }}</td>
       </tr>
     {% endfor %}
+    </tbody>
     </table>
 
   {% else %}
