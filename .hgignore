@@ -3,3 +3,4 @@ syntax: glob
 */migrations/*
 *.sass-cache/*
 *~
+tools/tablesorter/*
