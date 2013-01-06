@@ -1,0 +1,36 @@
+{% extends "regions/base.html" %}
+
+{% block title %}Malt{% endblock %}
+
+{% block content %}
+
+  <center><h3>Regions</h3></center>
+
+  {% if region_list %}
+    <table id="myTable" class="tablesorter">
+    
+      <thead>
+      <tr>
+        <th><b>Region</b></th>
+        <th><b>Lat</b></th>
+        <th><b>Lon</b></th>
+      </tr>
+      </thead>
+      
+      <tbody>
+      {% for region in region_list %}
+        <tr>
+          <td><b>{{ region.name }}</b></td>
+          <td><b>{{ region.lat }}</b></td>
+          <td><b>{{ region.lon }}</b></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    
+    </table>
+
+  {% else %}
+      <p>No regions in the database.</p>
+  {% endif %}
+
+{% endblock %}

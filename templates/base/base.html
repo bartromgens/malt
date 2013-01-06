@@ -89,6 +89,14 @@
         </li>
         
         <li>
+        {% if regionssection %}
+          <a href="/malt/whiskies/regions/" id="selectedbutton">Regions</a>
+        {% else %}
+          <a href="/malt/whiskies/regions/">Regions</a>
+        {% endif %}
+        </li>
+        
+        <li>
           <a href="/malt/admin/">Admin</a>
         </li>
 

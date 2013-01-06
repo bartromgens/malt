@@ -2,6 +2,7 @@ from base.views import BaseView
 
 from whisky.models import Whisky
 from whisky.models import Distillery
+from whisky.models import Region
 
 class WhiskiesView(BaseView):
   template_name = "whiskies/index.html"
@@ -11,7 +12,7 @@ class WhiskiesView(BaseView):
       malt.alcoholPercentage_int = int(malt.alcoholPercentage)
   
   def getAllWhiskies(self):
-    malts = Whisky.objects.order_by("date")
+    malts = Whisky.objects.order_by("name")
 
     self.addExtraInfo(malts)
     return malts
@@ -29,7 +30,7 @@ class DistilleriesView(BaseView):
   template_name = "distilleries/index.html"
   
   def getAllDistilleries(self):
-    distilleries = Distillery.objects.order_by("date")
+    distilleries = Distillery.objects.order_by("name")
 
     return distilleries
   
@@ -39,4 +40,21 @@ class DistilleriesView(BaseView):
     context['distilleries_list'] = distilleries
     
     context['distilleriessection'] = True
+    return context
+  
+  
+class RegionsView(BaseView):
+  template_name = "regions/index.html"
+  
+  def getAllRegions(self):
+    distilleries = Region.objects.order_by("name")
+
+    return distilleries
+  
+  def get_context_data(self, **kwargs):
+    context = super(RegionsView, self).get_context_data(**kwargs)
+    regions = self.getAllRegions()
+    context['region_list'] = regions
+    
+    context['regionssection'] = True
     return context
