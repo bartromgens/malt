@@ -39,9 +39,9 @@ class CollectionView(BaseView):
   
   def getOverviewBottleLists(self):
     bottlesList = []
-    nPerRow = 15
+    nPerRow = 13
     for i in range( 0, int(Bottle.objects.count()/nPerRow)+1 ):
-      bottles = Bottle.objects.filter(empty=False).order_by("date")[(i*nPerRow)+1:(i+1)*nPerRow+1]
+      bottles = Bottle.objects.filter(empty=False).order_by("date")[(i*nPerRow):(i+1)*nPerRow]
       if bottles.count() != 0:
         self.addBottleInfo(bottles)
         bottlesList.append(bottles)

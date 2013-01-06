@@ -1,12 +1,14 @@
 from django.db import models
 
 from whisky.models import Whisky
+from userprofile.models import UserProfile
 
 class Bottle(models.Model):
   whisky = models.ForeignKey(Whisky)
   volume = models.FloatField('volume', default=700.0)
   volumeConsumedInitial = models.FloatField('initially consumed', default=0.0)
   empty = models.BooleanField(default=False)
+  buyer = models.ForeignKey(UserProfile, default=1)
   price = models.FloatField('price', default=0.0)
   
   date = models.DateTimeField(auto_now=True, auto_now_add=True)

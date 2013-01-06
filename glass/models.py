@@ -7,7 +7,7 @@ from userprofile.models import UserProfile
 class Glass(models.Model):
   bottle = models.ForeignKey(Bottle)
   mass = models.FloatField('mass', default=0.0, blank=True)
-  volume = models.FloatField('volume', default=0.0)
+  volume = models.FloatField('volume', default=50.0)
   user = models.ForeignKey(UserProfile)
   rating = models.IntegerField(default=-1, blank=True)
 
