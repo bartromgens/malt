@@ -26,12 +26,12 @@
     <tbody>
     {% for bottle in full_collection_list %}
     <tr>
-      <td><a href="/transactions/{{ transaction.id }}/">{{ bottle.id }}</a></td>
+      <td>{{ bottle.id }}</td>
       <td><b>{{ bottle.distillery.name }}</b></td>
       <td>{{ bottle.whisky.name }}</td>
       <td><b>{{ bottle.age_int }}</b></td>
       <td>{{ bottle.alcoholPercentage_int }}</td>
-      <td>{{ bottle.distillery.region }}</td>
+      <td><b>{{ bottle.distillery.region }}</b></td>
       <td>{{ bottle.volume_liters }} L</td>
       <td>
         <div class="meter-wrap" style="background: #ffffff url({{ STATIC_URL }}images/bottle_meter_outline_28px.png)">
