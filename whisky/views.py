@@ -10,6 +10,7 @@ class WhiskiesView(BaseView):
   def addExtraInfo(self, malts):
     for malt in malts:
       malt.alcoholPercentage_int = int(malt.alcoholPercentage)
+      malt.age_int = int(malt.age)
   
   def getAllWhiskies(self):
     malts = Whisky.objects.order_by("name")

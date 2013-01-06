@@ -24,7 +24,11 @@
         <tr>
           <td><b>{{ whisky.distillery }}<b></td>
           <td>{{ whisky.name }}</td>
-          <td><b>{{ whisky.age }}</b></td>
+          {% if whisky.age_int == 0 %}
+            <td><b> - </b></td>
+          {% else %}
+            <td><b>{{ whisky.age_int }}</b></td>
+          {% endif %}
           <td>{{ whisky.alcoholPercentage_int }}</td>
           <td>{{ whisky.distillery.region }}</td>
         </tr>
