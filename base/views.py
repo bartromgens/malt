@@ -5,6 +5,7 @@ from django.contrib import auth
 from django.views.generic.edit import UpdateView
 from itertools import chain
 from base.forms import LoginForm, UserCreateForm
+from bottle.models import Bottle
 from userprofile.models import UserProfile
 import logging
 
@@ -43,7 +44,6 @@ class BaseUpdateView(UpdateView):
       context['isLoggedin'] = True
     return context
 
-
 class HomeView(BaseView):
   template_name = "base/index.html"
   
@@ -54,8 +54,14 @@ class HomeView(BaseView):
     
     from bottle.views import CollectionView
     collectionView = CollectionView()
+    
+    totalInStock_L = Bottle.getActualVolumeAll(Bottle())
+      
+    totalInStock_L_str = '%.1f' % totalInStock_L
+    
     bottlesList = CollectionView.getOverviewBottleLists(collectionView)
     context['stock_lists'] = bottlesList 
+    context['totalInStock_L'] = totalInStock_L_str 
     context['homesection'] = True 
 
     userProfile = UserProfile.objects.get(user=user)
