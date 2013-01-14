@@ -13,6 +13,7 @@ urlpatterns = patterns('',
   url(r'^stock/$', login_required(StockView.as_view())),
   url(r'^overview/$', login_required(OverviewView.as_view())),
   url(r'^empty/$', login_required(EmptyBottleView.as_view())),
+  url(r'^plot/history/(?P<bottleId>\d+).png$', 'bottle.views.simple'),
 #  url(r'^new/$', login_required(SelectGroupTransactionView.as_view())),
 #  url(r'^new/(?P<groupAccountId>\d+)/$', 'transaction.views.newTransaction'),
 )

@@ -1,6 +1,15 @@
 from __future__ import division
+import datetime
+
+from matplotlib.figure import Figure
+from matplotlib.dates import DateFormatter
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+
+from django.http import HttpResponse 
+
 from base.views import BaseView
 from bottle.models import Bottle
+from glass.models import Glass
 
 class CollectionView(BaseView):
   template_name = "collection/index.html"
@@ -54,6 +63,52 @@ class CollectionView(BaseView):
     
     context['collectionsection'] = True
     return context
+
+
+def simple(request, bottleId):
+  fig=Figure()
+  canvas = FigureCanvas(fig)
+  ax=fig.add_subplot(111)
+  x=[]
+  y=[]
+  
+  bottle = Bottle.objects.get(id=bottleId)
+  drinks = Glass.objects.filter(bottle__id=bottleId)
+  volumeInitial = bottle.volume - bottle.volumeConsumedInitial
+  bottleDate = bottle.date
+  now = datetime.datetime.now()
+  
+  fig.suptitle(bottle)
+  
+  print volumeInitial
+  x.append(bottleDate-datetime.timedelta(1))
+  y.append(volumeInitial)
+  
+  for drink in drinks:
+    print drink.volume
+    print drink.date
+    x.append(drink.date)
+    y.append(volumeInitial)
+    volumeInitial -= drink.volume
+  
+  x.append(now)
+  y.append(volumeInitial)
+  
+  ax.step(x, y, '-')
+  
+  ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
+  ax.xaxis.set_label_text('Date')
+  ax.yaxis.set_label_text('Volume [ml]')
+  
+  ax.set_ylim(0.0, bottle.volume - bottle.volumeConsumedInitial + 100)
+  ax.set_xlim(bottleDate-datetime.timedelta(1), now)
+  
+  fig.autofmt_xdate()
+  fig.set_facecolor('white')
+  response = HttpResponse(content_type='image/png')
+  canvas.print_png(response)
+  
+  return response
   
 
 class StockView(CollectionView):
