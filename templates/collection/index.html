@@ -26,7 +26,7 @@
     <tbody>
     {% for bottle in full_collection_list %}
     <tr>
-      <td> <a href="/malt/collection/plot/history/{{ bottle.id }}.png">{{ bottle.id }}</a> </td>
+      <td> <a href="/malt/collection/bottle/{{ bottle.id }}/">{{ bottle.id }}</a> </td>
       <td><b>{{ bottle.distillery.name }}</b></td>
       <td>{{ bottle.whisky.name }}</td>
       <td><b>{{ bottle.age_int }}</b></td>
@@ -49,7 +49,7 @@
     </table>
 
   {% else %}
-      <p>No polls are available.</p>
+      <p>No bottles available.</p>
   {% endif %}
 
 

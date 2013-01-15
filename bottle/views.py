@@ -8,41 +8,44 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from django.http import HttpResponse 
 
 from base.views import BaseView
-from bottle.models import Bottle
+from bottle.models import Bottle, addBottleInfo, addBottlesInfo
 from glass.models import Glass
+
+
+class BottleView(BaseView):
+  template_name = "collection/bottle.html"
+  
+  def get_context_data(self, **kwargs):
+    context = super(BottleView, self).get_context_data(**kwargs)
+    bottleId = kwargs['bottleId']
+    bottle = Bottle.objects.get(id=bottleId)
+    bottle = addBottleInfo(bottle)
+    
+    context['bottle'] = bottle
+    context['collectionsection'] = True
+    
+    return context
+ 
 
 class CollectionView(BaseView):
   template_name = "collection/index.html"
   
-  def addBottleInfo(self, bottles):
-    for bottle in bottles:
-      bottle.distillery = bottle.whisky.distillery
-      bottle.volume_liters = '%.1f' % (bottle.volume / 1000.0)
-      bottle.volumeActual = bottle.getActualVolume()
-      bottle.age_int = int(bottle.whisky.age)
-      bottle.alcoholPercentage_int = int(bottle.whisky.alcoholPercentage)
-      bottle.percentageLeft = '%.0f' % (bottle.volumeActual/bottle.volume * 100.0)
-      bottle.percentageGone = '%.0f' % (100 - (bottle.volumeActual/bottle.volume * 100.0))
-      bottle.statusMeterWidth = '%.0f' % (bottle.volumeActual/bottle.volume * 75.0)
-    
-    return bottles
-  
   def getAllBottles(self):
     bottles = Bottle.objects.order_by("whisky")
 
-    bottles = self.addBottleInfo(bottles)
+    bottles = addBottlesInfo(bottles) 
     return bottles
   
   def getStockBottles(self):
     bottles = Bottle.objects.filter(empty=False).order_by("whisky")
     
-    bottles = self.addBottleInfo(bottles)
+    bottles = addBottlesInfo(bottles)
     return bottles
   
   def getEmptyBottles(self):
     bottles = Bottle.objects.filter(empty=True).order_by("whisky")
 
-    bottles = self.addBottleInfo(bottles)
+    bottles = addBottlesInfo(bottles)
     return bottles
   
   def getOverviewBottleLists(self):
@@ -51,7 +54,7 @@ class CollectionView(BaseView):
     for i in range( 0, int(Bottle.objects.count()/nPerRow)+1 ):
       bottles = Bottle.objects.filter(empty=False).order_by("whisky")[(i*nPerRow):(i+1)*nPerRow]
       if bottles.count() != 0:
-        self.addBottleInfo(bottles)
+        addBottlesInfo(bottles)
         bottlesList.append(bottles)
     
     return bottlesList
@@ -65,7 +68,7 @@ class CollectionView(BaseView):
     return context
 
 
-def simple(request, bottleId):
+def plotBottleHistory(request, bottleId):
   fig=Figure()
   canvas = FigureCanvas(fig)
   ax=fig.add_subplot(111)
@@ -78,7 +81,7 @@ def simple(request, bottleId):
   bottleDate = bottle.date
   now = datetime.datetime.now()
   
-  fig.suptitle(bottle)
+  fig.suptitle("Volume history " + str(bottle))
   
   print volumeInitial
   x.append(bottleDate-datetime.timedelta(1))

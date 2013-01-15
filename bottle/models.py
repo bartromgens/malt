@@ -1,7 +1,7 @@
 from django.db import models
 
 from whisky.models import Whisky
-from userprofile.models import UserProfile
+from userprofile.models import UserProfile 
 
 class Bottle(models.Model):
   whisky = models.ForeignKey(Whisky)
@@ -43,3 +43,21 @@ class Bottle(models.Model):
   class Meta:
     ordering = ['whisky']
   
+  
+def addBottleInfo(bottle):
+  bottle.distillery = bottle.whisky.distillery
+  bottle.volume_liters = '%.1f' % (bottle.volume / 1000.0)
+  bottle.volumeActual = bottle.getActualVolume()
+  bottle.age_int = int(bottle.whisky.age)
+  bottle.alcoholPercentage_int = int(bottle.whisky.alcoholPercentage)
+  bottle.percentageLeft = '%.0f' % (bottle.volumeActual/bottle.volume * 100.0)
+  bottle.percentageGone = '%.0f' % (100 - (bottle.volumeActual/bottle.volume * 100.0))
+  bottle.statusMeterWidth = '%.0f' % (bottle.volumeActual/bottle.volume * 75.0)
+    
+  return bottle
+
+def addBottlesInfo(bottles):
+  for bottle in bottles:
+    addBottleInfo(bottle)
+    
+  return bottles

@@ -22,6 +22,8 @@ a {
   font-family: "Arial",Georgia,Serif; }
 
 font {
+  color: #054719;
+  font-size: 1em;
   font-family: "Arial",Georgia,Serif; }
 
 /* tables */
@@ -133,15 +135,6 @@ table.rotate th {
   font-size: 0.9em;
   color: #054719; }
 
-#container {
-  width: 960px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 40px;
-  -moz-box-shadow: 1px 1px 8px #8e8e8e;
-  -webkit-box-shadow: 1px 1px 8px #8e8e8e;
-  box-shadow: 1px 1px 8px #8e8e8e; }
-
 #logotitle {
   font-family: "Arial";
   font-size: 60px;
@@ -152,20 +145,6 @@ table.rotate th {
   padding-left: 4px;
   font-size: 1.1em;
   color: #106d2c; }
-
-#header {
-  background-color: #FFFFFF;
-  padding-left: 30px;
-  padding-top: 18px;
-  padding-bottom: 13px; }
-
-#login {
-  height: 10px;
-  width: 300px;
-  position: absolute;
-  top: 10px;
-  left: 50%;
-  margin-left: 240px; }
 
 #loginfont {
   font-family: "Arial";
@@ -181,6 +160,29 @@ table.rotate th {
   font-size: 0.8em;
   color: #106d2c;
   text-decoration: none; }
+
+#container {
+  width: 960px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+  -moz-box-shadow: 1px 1px 8px #8e8e8e;
+  -webkit-box-shadow: 1px 1px 8px #8e8e8e;
+  box-shadow: 1px 1px 8px #8e8e8e; }
+
+#header {
+  background-color: #FFFFFF;
+  padding-left: 30px;
+  padding-top: 18px;
+  padding-bottom: 13px; }
+
+#login {
+  height: 10px;
+  width: 300px;
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  margin-left: 240px; }
 
 #formtable {
   width: 40%;

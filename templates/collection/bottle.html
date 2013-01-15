@@ -1,0 +1,44 @@
+{% extends "collection/base.html" %}
+
+
+
+{% block title %}Malt{% endblock %}
+
+{% block content %}
+
+<center><h3>{{ bottle }}</h3></center>
+
+<font>
+  <table>
+    <tr>
+      <td> Distillery: </td>
+      <td><b> {{ bottle.whisky.distillery }} </b></td>
+    <tr>
+    <tr>
+      <td> Type: </td>
+      <td><b> {{ bottle.whisky.name }} </b></td>
+    </tr>
+    <tr>
+      <td> Age: </td>
+      <td><b> {{ bottle.age_int }} </b></td>
+    </tr>
+    <tr>
+      <td> Alcohol: </td>
+      <td><b> {{ bottle.alcoholPercentage_int }} %</b></td>
+    </tr>
+    <tr>
+      <td> Region: </td>
+      <td><b> {{ bottle.whisky.distillery.region }} </b></td>
+    </tr>
+    <tr>
+      <td> Volume: </td>
+      <td><b> {{ bottle.volume_liters }} L </b></td>
+    </tr>
+  </table>
+</font>
+
+
+<center><img src="/malt/collection/plot/history/{{ bottle.id }}.png"></img></center>
+
+{% endblock %}
+
