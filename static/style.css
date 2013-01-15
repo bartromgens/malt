@@ -19,7 +19,8 @@ h4 {
   font-family: "Arial",Georgia,Serif; }
 
 a {
-  font-family: "Arial",Georgia,Serif; }
+  font-family: "Arial",Georgia,Serif;
+  color: inherit; }
 
 font {
   color: #054719;
