@@ -13,13 +13,26 @@ class Glass(models.Model):
 
   date = models.DateTimeField(auto_now=True, auto_now_add=True)
   
-  
   def getPrice(self):
     return self.bottle.price * self.volume / self.bottle.volume
   
   def __unicode__(self):
     return str(self.volume) + '[ml] of ' + str(self.bottle)
-  
+
+
+def addDrinkInfo(drink):
+  drink.price = '%.2f' % drink.getPrice() 
+  drink.volume_int = '%.0f' % drink.volume 
+    
+  return drink
+
+
+def addDrinksInfo(drinks):
+  for drink in drinks:
+    drink = addDrinkInfo(drink)
+    
+  return drinks
+
 
 def updateMassAndVolume(sender, **kwargs):
   drink = kwargs["instance"]

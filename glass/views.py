@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response
 
 from base.views import BaseView
 
-from glass.models import Glass
+from glass.models import Glass, addDrinksInfo
 from glass.forms import NewDrinkForm
 from userprofile.models import UserProfile
 
@@ -11,23 +11,16 @@ class DrinksView(BaseView):
   template_name = "drinks/index.html"
   context_object_name = "drinks"
   
-  def addDrinkInfo(self, drinks):
-    for drink in drinks:
-      drink.price = '%.2f' % drink.getPrice() 
-      drink.volume_int = '%.0f' % drink.volume 
-      
-    return drinks
-  
   def getAllDrinks(self):
     drinks = Glass.objects.order_by("date")
     
-    drinks = self.addDrinkInfo(drinks)
+    drinks = addDrinksInfo(drinks)
     return drinks
   
   def getMyDrinks(self, userProfileId):
     drinks = Glass.objects.filter(user__id=userProfileId).order_by("date")
     
-    drinks = self.addDrinkInfo(drinks)
+    drinks = addDrinksInfo(drinks)
     return drinks
   
   def get_context_data(self, **kwargs):
