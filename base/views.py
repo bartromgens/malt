@@ -44,6 +44,7 @@ class BaseUpdateView(UpdateView):
       context['isLoggedin'] = True
     return context
 
+
 class HomeView(BaseView):
   template_name = "base/index.html"
   
@@ -56,15 +57,18 @@ class HomeView(BaseView):
     collectionView = CollectionView()
     
     totalInStock_L = Bottle.getActualVolumeAll(Bottle())
+    totalActualValue = Bottle.getActualValueAll(Bottle())
       
     totalInStock_L_str = '%.1f' % totalInStock_L
     
     bottlesList = CollectionView.getOverviewBottleLists(collectionView)
     context['stock_lists'] = bottlesList 
     context['totalInStock_L'] = totalInStock_L_str 
+    context['total_actual_value'] = totalActualValue 
+    context['value_per_liter'] = totalActualValue / totalInStock_L
     context['homesection'] = True 
 
-    userProfile = UserProfile.objects.get(user=user)
+#    userProfile = UserProfile.objects.get(user=user)
     return context
   
   

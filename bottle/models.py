@@ -37,6 +37,17 @@ class Bottle(models.Model):
         
     return totalInStock_L
   
+  def getActualValueAll(self):
+    bottles = Bottle.objects.order_by("volume")
+    
+    totalValueStock = 0.0
+    
+    for bottle in bottles:
+      if not bottle.empty:
+        totalValueStock += bottle.getActualVolume() / bottle.volume * bottle.price
+        
+    return totalValueStock
+  
   def __unicode__(self):
     return str(self.whisky) + ' (#' + str(self.pk) + ')'
   
