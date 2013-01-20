@@ -254,7 +254,8 @@ div.horizontalmenu a:link, div.horizontalmenu a:visited {
   color: #FFFFFF;
   background-color: #054719;
   text-align: center;
-  padding: 6px;
+  padding-top: 6px;
+  padding-bottom: 6px;
   text-decoration: none;
   /*text-transform:uppercase;*/ }
 
