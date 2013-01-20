@@ -70,6 +70,8 @@ class StatsUserProfileView(BaseView):
     context['total_cost'] = totalCostStr
     context['average_cost_per_drink'] = averageCostStr
     
+    context['usersection'] = True
+    
     return context
   
   

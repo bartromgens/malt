@@ -87,7 +87,7 @@
           <a href="/malt/whiskies/distilleries/">Distilleries</a>
         {% endif %}
         </li>
-        
+                
         <li>
         {% if regionssection %}
           <a href="/malt/whiskies/regions/" id="selectedbutton">Regions</a>
@@ -96,6 +96,14 @@
         {% endif %}
         </li>
         
+        <li>
+        {% if usersection %}
+          <a href="/malt/userprofile/" id="selectedbutton">Users</a>
+        {% else %}
+          <a href="/malt/userprofile/">Users</a>
+        {% endif %}
+        </li>
+
         <li>
           <a href="/malt/admin/">Admin</a>
         </li>
