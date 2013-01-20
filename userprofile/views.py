@@ -98,7 +98,7 @@ def plotUserVolumeHistory(request, userprofileId):
     y.append(volume)
     volume += drink.volume
   
-  ax.step(x, y, '-')
+  ax.step(x, y, '-', color='#106D2C')
   
   ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
   ax.xaxis.set_label_text('Date')
