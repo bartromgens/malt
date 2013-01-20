@@ -138,13 +138,13 @@ table.rotate th {
 
 #logotitle {
   font-family: "Arial";
-  font-size: 60px;
+  font-size: 40px;
   color: #054719; }
 
 #logosubtitle {
   font-family: "Arial";
   padding-left: 4px;
-  font-size: 1.1em;
+  font-size: 1.0em;
   color: #106d2c; }
 
 #loginfont {
@@ -246,15 +246,15 @@ div.horizontalmenu li {
 
 div.horizontalmenu a {
   display: block;
-  width: 120px;
-  font-size: 1em; }
+  width: 100px;
+  font-size: 0.9em; }
 
 div.horizontalmenu a:link, div.horizontalmenu a:visited {
   font-weight: bold;
   color: #FFFFFF;
   background-color: #054719;
   text-align: center;
-  padding: 4px;
+  padding: 6px;
   text-decoration: none;
   /*text-transform:uppercase;*/ }
 
