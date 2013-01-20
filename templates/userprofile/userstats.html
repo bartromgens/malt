@@ -42,7 +42,7 @@
       <tbody>
       {% for drink in drinks %}
         <tr>
-          <td><b>{{ drink.bottle.whisky }}</b></td>
+          <td><b>{{ drink.bottle.whisky.distillery }}</b></td>
           <td><b>{{ drink.bottle.whisky.age|floatformat }}</b></td>
           <td>{{ drink.volume_int }} ml</td>
           <td>&euro; {{ drink.price }}</td>
