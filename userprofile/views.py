@@ -1,6 +1,7 @@
 from userprofile.forms import EditUserProfileForm
 from userprofile.models import UserProfile
 from base.views import BaseUpdateView, BaseView
+from glass.models import Glass, addDrinksInfo
 
 class EditUserProfileView(BaseUpdateView):
   model = UserProfile
@@ -20,13 +21,32 @@ class EditUserProfileView(BaseUpdateView):
       context['isAllowed'] = False;
     
     return context
-  
+
+
 class SuccessEditUserProfileView(BaseView):
   template_name = "userprofile/editsuccess.html"
-  context_object_name = "select transaction group"
   
   def get_context_data(self, **kwargs):    
     context = super(SuccessEditUserProfileView, self).get_context_data(**kwargs)
-    context['transactionssection'] = True
+#    context['transactionssection'] = True
+    
+    return context
+  
+  
+class StatsUserProfileView(BaseView):
+  template_name = "userprofile/userstats.html"
+  
+  def getUserDrinks(self, userProfileId):
+    drinks = Glass.objects.filter(user__id=userProfileId).order_by("bottle")
+    drinks = addDrinksInfo(drinks)
+    
+    return drinks
+  
+  def get_context_data(self, **kwargs):
+    userProfileId = kwargs['userProfileId']    
+    context = super(StatsUserProfileView, self).get_context_data(**kwargs)
+    
+    context['drinks'] = self.getUserDrinks(userProfileId)
+    context['drinker'] = UserProfile.objects.get(id=userProfileId)
     
     return context

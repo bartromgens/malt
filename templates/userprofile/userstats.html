@@ -1,31 +1,33 @@
-{% extends "drinks/base.html" %}
+{% extends "userprofile/base.html" %}
 
 {% block title %}Malt{% endblock %}
 
 {% block content %}
 
-<center><h3>Drinks</h3></center>
+<center><h3>{{ drinker }}'s drinks</h3></center>
 
-  {% if all_drinks_list %}
+  {% if drinks %}
     <table id="myTable" class="tablesorter">
       
       <thead>
         <tr>
-          <th><b>Who</b></th>
-          <th><b>Bottle</b></th>
+          <th><b>Whisky</b></th>
+          <th><b>Age</b></th>
           <th><b>Volume</b></th>
           <th><b>Price</b></th>
+          <th><b>Bottle</b></th>
           <th><b>Date</b></th>
         </tr>
       </thead> 
       
       <tbody>
-      {% for drink in all_drinks_list %}
+      {% for drink in drinks %}
         <tr>
-          <td ><a href="/malt/userprofile/stats/{{ drink.user.id }}/">{{ drink.user }}</a></td>
-          <td><b>{{ drink.bottle }}</b></td>
+          <td><b>{{ drink.bottle.whisky }}</b></td>
+          <td><b>{{ drink.bottle.whisky.age|floatformat }}</b></td>
           <td>{{ drink.volume_int }} ml</td>
           <td>&euro; {{ drink.price }}</td>
+          <td> <a href="/malt/collection/bottle/{{ drink.bottle.id }}/">{{ drink.bottle.id }}</a> </td>
           <td>{{ drink.date|date:"SHORT_DATE_FORMAT" }}</td>
         </tr>
       {% endfor %}
@@ -36,5 +38,8 @@
   {% else %}
       <p>No drinks in the database.</p>
   {% endif %}
+
+
+<center><img src="/malt/collection/plot/history/{{ bottle.id }}.png"></img></center>
 
 {% endblock %}
