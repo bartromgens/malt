@@ -46,7 +46,22 @@ class StatsUserProfileView(BaseView):
     userProfileId = kwargs['userProfileId']    
     context = super(StatsUserProfileView, self).get_context_data(**kwargs)
     
-    context['drinks'] = self.getUserDrinks(userProfileId)
+    drinks = self.getUserDrinks(userProfileId)
+    totalVolume = 0.0
+    totalCost = 0.0
+    
+    for drink in drinks:
+      totalVolume += drink.volume
+      totalCost += drink.bottle.price*drink.volume/drink.bottle.volume
+      
+    volumeLiters = '%.0f' % (totalVolume)
+    totalCostStr = '%.2f' % (totalCost)
+    averageCostStr = '%.2f' % (totalCost/drinks.count())
+    
+    context['drinks'] = drinks
     context['drinker'] = UserProfile.objects.get(id=userProfileId)
+    context['volume_ml'] = volumeLiters
+    context['total_cost'] = totalCostStr
+    context['average_cost_per_drink'] = averageCostStr
     
     return context

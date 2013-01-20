@@ -4,6 +4,25 @@
 
 {% block content %}
 
+<center><h3>{{ drinker }}'s stats</h3></center>
+
+<font>
+  <table>
+    <tr>
+      <td><b>Volume:</b> </td>
+      <td>{{ volume_ml }} ml</td>
+    <tr>
+    <tr>
+      <td><b> Cost: </b></td>
+      <td>&euro;  {{ total_cost }} </td>
+    </tr>
+    <tr>
+      <td><b> Cost per drink: </b></td>
+      <td>&euro;  {{ average_cost_per_drink }} </td>
+    </tr>
+  </table>
+</font>
+
 <center><h3>{{ drinker }}'s drinks</h3></center>
 
   {% if drinks %}
