@@ -1,3 +1,9 @@
+from matplotlib.figure import Figure
+from matplotlib.dates import DateFormatter
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+
+from django.http import HttpResponse 
+
 from userprofile.forms import EditUserProfileForm
 from userprofile.models import UserProfile
 from base.views import BaseUpdateView, BaseView
@@ -65,3 +71,45 @@ class StatsUserProfileView(BaseView):
     context['average_cost_per_drink'] = averageCostStr
     
     return context
+  
+  
+def plotUserVolumeHistory(request, userprofileId):
+  userprofile = UserProfile.objects.get(id=userprofileId)
+  
+  fig=Figure()
+  canvas = FigureCanvas(fig)
+  ax=fig.add_subplot(111)
+  x=[]
+  y=[]
+  
+  drinks = Glass.objects.filter(user=userprofile).order_by('date')
+  
+  fig.suptitle("Volume history " + str(userprofile.displayname))
+  
+  volume = 0.0
+  
+  x.append(userprofile.user.date_joined)
+  y.append(volume)
+  
+  for drink in drinks:
+    print drink.volume
+    print drink.date
+    x.append(drink.date)
+    y.append(volume)
+    volume += drink.volume
+  
+  ax.step(x, y, '-')
+  
+  ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
+  ax.xaxis.set_label_text('Date')
+  ax.yaxis.set_label_text('Volume [ml]')
+  
+#  ax.set_ylim(0.0, bottle.volume - bottle.volumeConsumedInitial + 100)
+#  ax.set_xlim(bottleDate-datetime.timedelta(1), now)
+  
+  fig.autofmt_xdate()
+  fig.set_facecolor('white')
+  response = HttpResponse(content_type='image/png')
+  canvas.print_png(response)
+  
+  return response

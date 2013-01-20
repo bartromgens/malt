@@ -20,10 +20,14 @@
       <td><b> Cost per drink: </b></td>
       <td>&euro;  {{ average_cost_per_drink }} </td>
     </tr>
+    <tr>
+      <td><b> Most consumed: </b></td>
+      <td>{{ most_consumed_whisky }} </td>
+    </tr>
   </table>
 </font>
 
-<center><h3>{{ drinker }}'s drinks</h3></center>
+<center><h4>{{ drinker }}'s drinks</h4></center>
 
   {% if drinks %}
     <table id="myTable" class="tablesorter">
@@ -59,6 +63,6 @@
   {% endif %}
 
 
-<center><img src="/malt/collection/plot/history/{{ bottle.id }}.png"></img></center>
+<center><img src="/malt/userprofile/plot/history/{{ drinker.id }}.png"></img></center>
 
 {% endblock %}
