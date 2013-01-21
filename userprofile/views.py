@@ -9,6 +9,19 @@ from userprofile.models import UserProfile
 from base.views import BaseUpdateView, BaseView
 from glass.models import Glass, addDrinksInfo
 
+
+class UserProfilesView(BaseView):
+  template_name = "userprofile/index.html"
+  
+  def get_context_data(self, **kwargs):    
+    context = super(UserProfilesView, self).get_context_data(**kwargs)
+    context['usersection'] = True
+    
+    context['userprofiles'] = UserProfile.objects.all().order_by('displayname')
+    
+    return context
+  
+
 class EditUserProfileView(BaseUpdateView):
   model = UserProfile
   form_class = EditUserProfileForm
