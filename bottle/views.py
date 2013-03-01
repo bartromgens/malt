@@ -82,14 +82,11 @@ def plotBottleHistory(request, bottleId):
   now = datetime.datetime.now()
   
   fig.suptitle("Volume history " + str(bottle))
-  
-  print volumeInitial
+
   x.append(bottleDate-datetime.timedelta(1))
   y.append(volumeInitial)
   
   for drink in drinks:
-    print drink.volume
-    print drink.date
     x.append(drink.date)
     y.append(volumeInitial)
     volumeInitial -= drink.volume

@@ -115,8 +115,6 @@ def plotUserVolumeHistory(request, userprofileId):
   y.append(volume)
   
   for drink in drinks:
-    print drink.volume
-    print drink.date
     x.append(drink.date)
     y.append(volume)
     volume += drink.volume
