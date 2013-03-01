@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response
 
 from base.views import BaseView
 
+from bottle.models import Bottle
 from glass.models import Glass, addDrinksInfo
 from glass.forms import NewDrinkForm
 from userprofile.models import UserProfile
@@ -51,6 +52,8 @@ def newDrink(request):
   def errorHandle(error):
     kwargs = {'user' : request.user}
     form = NewDrinkForm(**kwargs)
+    
+    
     context = RequestContext(request)
     context['error'] = error
     context['form'] = form
@@ -81,6 +84,7 @@ def newDrink(request):
   else:
     kwargs = {'user' : request.user}
     form = NewDrinkForm(**kwargs) # An unbound form
+    form.fields["bottle"].queryset = Bottle.objects.filter(empty=False)
     context = RequestContext(request)
     context['form'] = form
     context['drinkssection'] = True
