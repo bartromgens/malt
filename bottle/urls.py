@@ -9,7 +9,7 @@ from bottle.views import OverviewView
 from bottle.views import EmptyBottleView
 
 urlpatterns = patterns('',
-  url(r'^$', login_required(CollectionView.as_view())),
+  url(r'^$', login_required(StockView.as_view())),
   url(r'^all/$', login_required(CollectionView.as_view())),
   url(r'^stock/$', login_required(StockView.as_view())),
   url(r'^overview/$', login_required(OverviewView.as_view())),
