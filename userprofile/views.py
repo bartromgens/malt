@@ -2,6 +2,8 @@ from matplotlib.figure import Figure
 from matplotlib.dates import DateFormatter
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
+from datetime import datetime
+
 from django.http import HttpResponse 
 
 from userprofile.forms import EditUserProfileForm
@@ -73,9 +75,15 @@ class StatsUserProfileView(BaseView):
       totalVolume += drink.volume
       totalCost += drink.bottle.price*drink.volume/drink.bottle.volume
       
+    nDrinks = drinks.count()
+    if (nDrinks == 0):
+      averageCost = 0.0
+    else:
+      averageCost = totalCost/nDrinks
+
     volumeLiters = '%.0f' % (totalVolume)
     totalCostStr = '%.2f' % (totalCost)
-    averageCostStr = '%.2f' % (totalCost/drinks.count())
+    averageCostStr = '%.2f' % (averageCost)
     
     context['drinks'] = drinks
     context['drinker'] = UserProfile.objects.get(id=userProfileId)
@@ -112,6 +120,9 @@ def plotUserVolumeHistory(request, userprofileId):
     x.append(drink.date)
     y.append(volume)
     volume += drink.volume
+  
+  x.append(datetime.now())
+  y.append(volume)
   
   ax.step(x, y, '-', color='#106D2C')
   
