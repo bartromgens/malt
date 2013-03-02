@@ -67,6 +67,41 @@ class CollectionView(BaseView):
     context['collectionsection'] = True
     return context
 
+class StockView(CollectionView):
+  template_name = "collection/index.html"
+  
+  def get_context_data(self, **kwargs):
+    context = super(StockView, self).get_context_data(**kwargs)
+    bottles = self.getStockBottles()
+    context['full_collection_list'] = bottles
+    
+    context['collectionsection'] = True
+    return context
+  
+
+class EmptyBottleView(CollectionView):
+  template_name = "collection/index.html"
+  
+  def get_context_data(self, **kwargs):
+    context = super(EmptyBottleView, self).get_context_data(**kwargs)
+    bottles = self.getEmptyBottles()
+    context['full_collection_list'] = bottles
+    
+    context['collectionsection'] = True
+    return context
+  
+  
+class OverviewView(CollectionView):
+  template_name = "collection/overview.html"
+  
+  def get_context_data(self, **kwargs):
+    context = super(OverviewView, self).get_context_data(**kwargs)
+    bottlesList = self.getOverviewBottleLists()
+    context['stock_lists'] = bottlesList
+    
+    context['collectionsection'] = True
+    return context
+  
 
 def plotBottleHistory(request, bottleId):
   fig=Figure()
@@ -149,40 +184,4 @@ def plotBottleUserPieChart(request, bottleId):
   
   
   return response
-  
-
-class StockView(CollectionView):
-  template_name = "collection/index.html"
-  
-  def get_context_data(self, **kwargs):
-    context = super(StockView, self).get_context_data(**kwargs)
-    bottles = self.getStockBottles()
-    context['full_collection_list'] = bottles
-    
-    context['collectionsection'] = True
-    return context
-  
-
-class EmptyBottleView(CollectionView):
-  template_name = "collection/index.html"
-  
-  def get_context_data(self, **kwargs):
-    context = super(EmptyBottleView, self).get_context_data(**kwargs)
-    bottles = self.getEmptyBottles()
-    context['full_collection_list'] = bottles
-    
-    context['collectionsection'] = True
-    return context
-  
-  
-class OverviewView(CollectionView):
-  template_name = "collection/overview.html"
-  
-  def get_context_data(self, **kwargs):
-    context = super(OverviewView, self).get_context_data(**kwargs)
-    bottlesList = self.getOverviewBottleLists()
-    context['stock_lists'] = bottlesList
-    
-    context['collectionsection'] = True
-    return context
     

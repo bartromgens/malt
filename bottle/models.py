@@ -61,11 +61,25 @@ def addBottleInfo(bottle):
   bottle.volumeActual = bottle.getActualVolume()
   bottle.age_int = int(bottle.whisky.age)
   bottle.alcoholPercentage_int = int(bottle.whisky.alcoholPercentage)
-  bottle.percentageLeft = '%.0f' % (bottle.volumeActual/bottle.volume * 100.0)
-  bottle.percentageGone = '%.0f' % (100 - (bottle.volumeActual/bottle.volume * 100.0))
-  bottle.statusMeterWidth = '%.0f' % (bottle.volumeActual/bottle.volume * 75.0)
+  
+  percentageLeft = 0.0
+  percentageGone = 100.0
+  statusMeterWidth = 0.0
+  
+  if (bottle.volume != 0.0):
+    percentageLeft = bottle.volumeActual/bottle.volume * 100.0
+    percentageGone = 100 - (bottle.volumeActual/bottle.volume * 100.0)
+    statusMeterWidth = bottle.volumeActual/bottle.volume * 75.0 + 4
+    
+  if (percentageLeft < 0.0):
+    statusMeterWidth = 0.0
+    
+  bottle.percentageLeft = '%.0f' % percentageLeft
+  bottle.percentageGone = '%.0f' % percentageGone
+  bottle.statusMeterWidth = '%.0f' % statusMeterWidth
     
   return bottle
+
 
 def addBottlesInfo(bottles):
   for bottle in bottles:
