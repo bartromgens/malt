@@ -1,5 +1,12 @@
+from matplotlib.figure import Figure
+from matplotlib.dates import DateFormatter
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+
+from datetime import datetime
+
 from django.template import RequestContext
 from django.shortcuts import render_to_response
+from django.http import HttpResponse 
 
 from base.views import BaseView
 
@@ -46,7 +53,54 @@ class MyDrinksView(DrinksView):
     
     context['drinkssection'] = True
     return context
+  
 
+class DrinksStatsView(BaseView):
+  template_name = "drinks/stats.html"
+  context_object_name = "drinks stats"
+  
+  def get_context_data(self, **kwargs):
+    context = super(DrinksStatsView, self).get_context_data(**kwargs)
+    context['drinkssection'] = True
+    return context
+  
+  
+def plotDrinksVolumeHistory(request):
+  fig = Figure()
+  canvas = FigureCanvas(fig)
+  ax=fig.add_subplot(111)
+  x = []
+  y = []
+  
+  drinks = Glass.objects.order_by('date')
+  
+  fig.suptitle("Volume history")
+  
+  volume = 0.0
+  
+  for drink in drinks:
+    x.append(drink.date)
+    y.append(volume)
+    volume += drink.volume
+  
+  x.append(datetime.now())
+  y.append(volume)
+  
+  ax.step(x, y, '-', color='#106D2C', linewidth=2.0)
+  
+  ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
+  ax.xaxis.set_label_text('Date')
+  ax.yaxis.set_label_text('Volume [ml]')
+  
+#  ax.set_ylim(0.0, bottle.volume - bottle.volumeConsumedInitial + 100)
+#  ax.set_xlim(bottleDate-datetime.timedelta(1), now)
+  
+  fig.autofmt_xdate()
+  fig.set_facecolor('white')
+  response = HttpResponse(content_type='image/png')
+  canvas.print_png(response)
+  
+  return response
 
 def newDrink(request):
   def errorHandle(error):

@@ -134,7 +134,7 @@ def plotBottleUserPieChart(request, bottleId):
   for key in users:
     labels.append(key)
     fracs.append(users[key])
-    explode.append(0.00)
+    explode.append(0.0)
   
   try:
     ax.pie(fracs, explode=explode, colors=('#87F881', '#8F96F4', '#FFDE85', '#FF8488', 'r', 'g', 'b'), \
