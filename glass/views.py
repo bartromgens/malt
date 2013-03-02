@@ -13,13 +13,13 @@ class DrinksView(BaseView):
   context_object_name = "drinks"
   
   def getAllDrinks(self):
-    drinks = Glass.objects.order_by("date")
+    drinks = Glass.objects.order_by('-date')
     
     drinks = addDrinksInfo(drinks)
     return drinks
   
   def getMyDrinks(self, userProfileId):
-    drinks = Glass.objects.filter(user__id=userProfileId).order_by("date")
+    drinks = Glass.objects.filter(user__id=userProfileId).order_by('-date')
     
     drinks = addDrinksInfo(drinks)
     return drinks
