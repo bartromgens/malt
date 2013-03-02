@@ -15,6 +15,7 @@ urlpatterns = patterns('',
   url(r'^overview/$', login_required(OverviewView.as_view())),
   url(r'^empty/$', login_required(EmptyBottleView.as_view())),
   url(r'^plot/history/(?P<bottleId>\d+).png$', 'bottle.views.plotBottleHistory'),
+  url(r'^plot/users/(?P<bottleId>\d+).png$', 'bottle.views.plotBottleUserPieChart'),
   url(r'^bottle/(?P<bottleId>\d+)/$', login_required(BottleView.as_view())),
   
 #  url(r'^new/$', login_required(SelectGroupTransactionView.as_view())),

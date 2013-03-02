@@ -80,8 +80,6 @@ def plotBottleHistory(request, bottleId):
   volumeInitial = bottle.volume - bottle.volumeConsumedInitial
   bottleDate = bottle.date
   now = datetime.datetime.now()
-  
-  fig.suptitle("Volume history " + str(bottle))
 
   x.append(bottleDate-datetime.timedelta(1))
   y.append(volumeInitial)
@@ -94,7 +92,7 @@ def plotBottleHistory(request, bottleId):
   x.append(now)
   y.append(volumeInitial)
   
-  ax.step(x, y, color='#106D2C')
+  ax.step(x, y, color='#106D2C', linewidth=2.0)
   
   ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
   ax.xaxis.set_label_text('Date')
@@ -107,6 +105,48 @@ def plotBottleHistory(request, bottleId):
   fig.set_facecolor('white')
   response = HttpResponse(content_type='image/png')
   canvas.print_png(response)
+  
+  return response
+
+
+def plotBottleUserPieChart(request, bottleId):
+  fig = Figure()
+  canvas = FigureCanvas(fig)
+  ax = fig.add_subplot(111)
+  ax.axis('equal')
+
+  drinks = Glass.objects.filter(bottle__id=bottleId)
+  
+  drinksVolume = 0.0
+  users = dict()
+  labels = []
+  fracs = []
+  explode = []
+  
+  for drink in drinks:
+    if drink.user in users:
+      users[drink.user] = users[drink.user] + drink.volume
+    else:
+      users[drink.user] = drink.volume
+    
+    drinksVolume = drinksVolume + drink.volume
+    
+  for key in users:
+    labels.append(key)
+    fracs.append(users[key])
+    explode.append(0.00)
+  
+  try:
+    ax.pie(fracs, explode=explode, colors=('#87F881', '#8F96F4', '#FFDE85', '#FF8488', 'r', 'g', 'b'), \
+           labels=labels, autopct='%1.0f%%', shadow=False)
+  except:
+    print 'ERROR in pie chart'
+    return
+  
+  fig.set_facecolor('white')
+  response = HttpResponse(content_type='image/png')
+  canvas.print_png(response)
+  
   
   return response
   
