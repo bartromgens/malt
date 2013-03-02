@@ -9,6 +9,7 @@ urlpatterns = patterns('',
   url(r'^edit/success/$', login_required(SuccessEditUserProfileView.as_view())),
   url(r'^stats/(?P<userProfileId>\d+)/$', login_required(StatsUserProfileView.as_view())),
   url(r'^plot/history/(?P<userprofileId>\d+).png$', 'userprofile.views.plotUserVolumeHistory'),
+  url(r'^plot/region/(?P<userprofileId>\d+).png$', 'userprofile.views.plotRegionUserPieChart'),
 )
 
 urlpatterns += staticfiles_urlpatterns()

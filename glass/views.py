@@ -68,7 +68,7 @@ class DrinksStatsView(BaseView):
 def plotDrinksVolumeHistory(request):
   fig = Figure()
   canvas = FigureCanvas(fig)
-  ax=fig.add_subplot(111)
+  ax = fig.add_subplot(111)
   x = []
   y = []
   

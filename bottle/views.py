@@ -112,7 +112,7 @@ def plotBottleHistory(request, bottleId):
 def plotBottleUserPieChart(request, bottleId):
   fig = Figure()
   canvas = FigureCanvas(fig)
-  ax = fig.add_subplot(111)
+  ax = fig.add_axes([0,0,1,1])
   ax.axis('equal')
 
   drinks = Glass.objects.filter(bottle__id=bottleId)

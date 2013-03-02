@@ -137,3 +137,48 @@ def plotUserVolumeHistory(request, userprofileId):
   canvas.print_png(response)
   
   return response
+
+
+def plotRegionUserPieChart(request, userprofileId):
+  fig = Figure()
+  canvas = FigureCanvas(fig)
+  ax = fig.add_axes([0,0,1,1])
+  ax.axis('equal')
+
+  #fig.suptitle('Regions')
+
+  drinks = Glass.objects.filter(user_id=userprofileId)
+  
+  drinksVolume = 0.0
+  regions = dict()
+  labels = []
+  fracs = []
+  explode = []
+  
+  for drink in drinks:
+    region = drink.bottle.whisky.distillery.region
+    if region in regions:
+      regions[region] = regions[region] + drink.volume
+    else:
+      regions[region] = drink.volume
+    
+    drinksVolume = drinksVolume + drink.volume
+    
+  for key in regions:
+    labels.append(key)
+    fracs.append(regions[key])
+    explode.append(0.0)
+  
+  try:
+    ax.pie(fracs, explode=explode, colors=('#87F881', '#8F96F4', '#FFDE85', '#FF8488', 'r', 'g', 'b'), \
+           labels=labels, autopct='%1.0f%%', shadow=False)
+  except:
+    print 'ERROR in pie chart'
+    return
+  
+  fig.set_facecolor('white')
+  response = HttpResponse(content_type='image/png')
+  canvas.print_png(response)
+  
+  
+  return response
