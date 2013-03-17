@@ -107,7 +107,6 @@ def newDrink(request):
     kwargs = {'user' : request.user}
     form = NewDrinkForm(**kwargs)
     
-    
     context = RequestContext(request)
     context['error'] = error
     context['form'] = form
@@ -148,3 +147,49 @@ def newDrink(request):
       context['isLoggedin'] = True
       
     return render_to_response('drinks/new.html', context)
+  
+def newDrinkMobile(request):
+  def errorHandle(error):
+    kwargs = {'user' : request.user}
+    form = NewDrinkForm(**kwargs)
+    
+    context = RequestContext(request)
+    context['error'] = error
+    context['form'] = form
+    if request.user.is_authenticated():
+      context['user'] = request.user
+      context['isLoggedin'] = True
+      context['drinkssection'] = True
+    return render_to_response('drinks/newmobile.html', context)
+          
+  if request.method == 'POST': # If the form has been submitted...
+    kwargs = {'user' : request.user}
+    form = NewDrinkForm(request.POST, **kwargs) # A form bound to the POST data
+    
+    if form.is_valid(): # All validation rules pass
+      form.save()
+      context = RequestContext(request)
+
+      if request.user.is_authenticated():
+        context['user'] = request.user
+        context['isLoggedin'] = True
+        context['drinkssection'] = True
+
+      return render_to_response('drinks/newsuccess.html', context)
+    else:
+      error = u'form is invalid'
+      return errorHandle(error)
+  
+  else:
+    kwargs = {'user' : request.user}
+    form = NewDrinkForm(**kwargs) # An unbound form
+    form.fields["bottle"].queryset = Bottle.objects.filter(empty=False)
+    context = RequestContext(request)
+    context['form'] = form
+    context['drinkssection'] = True
+    
+    if request.user.is_authenticated():
+      context['user'] = request.user
+      context['isLoggedin'] = True
+      
+    return render_to_response('drinks/newmobile.html', context)
