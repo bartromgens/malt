@@ -7,6 +7,7 @@ from datetime import datetime
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from django.http import HttpResponse 
+from django.shortcuts import redirect
 
 from base.views import BaseView
 
@@ -122,14 +123,7 @@ def newDrink(request):
     
     if form.is_valid(): # All validation rules pass
       form.save()
-      context = RequestContext(request)
-
-      if request.user.is_authenticated():
-        context['user'] = request.user
-        context['isLoggedin'] = True
-        context['drinkssection'] = True
-
-      return render_to_response('drinks/newsuccess.html', context)
+      return redirect('/malt/drinks')
     else:
       error = u'form is invalid'
       return errorHandle(error)
@@ -168,14 +162,7 @@ def newDrinkMobile(request):
     
     if form.is_valid(): # All validation rules pass
       form.save()
-      context = RequestContext(request)
-
-      if request.user.is_authenticated():
-        context['user'] = request.user
-        context['isLoggedin'] = True
-        context['drinkssection'] = True
-
-      return render_to_response('drinks/newsuccess.html', context)
+      return redirect('/malt/drinks')
     else:
       error = u'form is invalid'
       return errorHandle(error)
