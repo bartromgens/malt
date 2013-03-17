@@ -10,6 +10,7 @@ class Bottle(models.Model):
   empty = models.BooleanField(default=False)
   buyer = models.ForeignKey(UserProfile, default=1)
   price = models.FloatField('price', default=0.0)
+  donation = models.BooleanField(default=False)
   
   date = models.DateTimeField(auto_now=True, auto_now_add=True)
   
