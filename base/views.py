@@ -3,6 +3,8 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib import auth
 from django.views.generic.edit import UpdateView
+from django.shortcuts import redirect
+
 from itertools import chain
 from base.forms import LoginForm, UserCreateForm
 from bottle.models import Bottle
@@ -137,10 +139,7 @@ def login(request):
         if user.is_active:
           # Redirect to a success page.
           auth.login(request, user)
-          context = RequestContext(request)
-          context['user'] = user
-          context['isLoggedin'] = True
-          return render_to_response('base/index.html', context)
+          return redirect('/malt/')
         else:
           # Return a 'disabled account' error message
           error = u'account disabled'
