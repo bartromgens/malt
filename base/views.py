@@ -160,5 +160,4 @@ def login(request):
     
 def logout(request):
   auth.logout(request)
-  context = RequestContext(request)
-  return render_to_response('base/index.html', context)
+  return redirect('/malt/')
