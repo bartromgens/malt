@@ -22,6 +22,7 @@
           <th><b>Volume</b></th>
           <th><b>Cost</b></th>
           <th><b>Drinkers</b></th>
+          <th><b></b></th>
         </tr>
       </thead> 
       
@@ -29,7 +30,7 @@
       {% for event in events_list %}
         <tr>
           <td>{{ event.date|date:"D" }}</td>
-          <td>{{ event.date|date:"SHORT_DATE_FORMAT" }}</td>
+          <td>{{ event.date|date:"Y-m-d" }}</td>
           <td>{{ event.nDrinks }}</td>
           <td>{{ event.volume_str }} ml</td>
           <td>&euro; {{ event.cost_str }}</td>
@@ -38,6 +39,7 @@
               {{ drinker }}
             {% endfor %}
           </td>
+          <td><a href="/malt/events/{{ event.tempID }}/"><img width=20px src="{{ STATIC_URL }}images/icon_statistics.png" /></a></td>
         </tr>
       {% endfor %}
       </tbody>

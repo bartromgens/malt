@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib.auth.decorators import login_required
 from django.contrib import admin
-from base.views import HomeView, AboutView, HelpView, EventsView
+from base.views import HomeView, AboutView, HelpView, EventsView, EventView
 
 # Uncomment the next two lines to enable the admin:
 # from django.contrib import admin
@@ -13,7 +13,8 @@ urlpatterns = patterns('',
   url(r'^malt/logout/$', 'base.views.logout'),
   url(r'^malt/register/$', 'base.views.register'),
   url(r'^malt/help/$', HelpView.as_view()),
-  url(r'^malt/events/$', EventsView.as_view()),
+  url(r'^malt/events/$', login_required( EventsView.as_view()) ),
+  url(r'^malt/events/(?P<eventId>\d+)/$', login_required( EventView.as_view()) ),
   url(r'^malt/about/$', AboutView.as_view()),
   
   url(r'^malt/userprofile/', include('userprofile.urls')),

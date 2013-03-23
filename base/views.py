@@ -117,6 +117,38 @@ class Event():
     self.volume += drink.volume
     self.cost += drink.getPrice()
     self.drinkers.add(drink.user.displayname)
+    
+
+def getEvents():
+  from glass.views import DrinksView
+  drinks = DrinksView().getAllDrinks()
+  events = []
+  
+  eventID = 1
+  j = 0
+  while (j < len(drinks)-1):
+    event = Event()
+    
+    while (j+1 < len(drinks) and drinks[j].date - timedelta(0, 3600*4) < drinks[j+1].date):
+      event.addDrink(drinks[j])
+      j = j + 1
+    
+    event.addDrink(drinks[j])
+    
+    event.volume_str = '%.0f' % event.volume
+    event.cost_str = '%.2f' % event.cost
+    
+    event.date = drinks[j].date
+    event.nDrinks = len(event.drinks)
+    event.tempID = eventID
+    
+    if (event.nDrinks > 1):
+      eventID += 1
+      events.append(event)
+    j = j + 1
+    
+  return events
+
 
 class EventsView(BaseView):
   template_name = "base/events.html"
@@ -124,34 +156,32 @@ class EventsView(BaseView):
   
   def get_context_data(self, **kwargs):
     context = super(EventsView, self).get_context_data(**kwargs)
-    
-    from glass.views import DrinksView
-    drinks = DrinksView().getAllDrinks()
-    #drinks = drinks.reverse()
-    
-    events = []
-    
-    j = 0
-    while (j < len(drinks)-1):
-      event = Event()
-      
-      while (j+1 < len(drinks) and drinks[j].date - timedelta(0, 3600*4) < drinks[j+1].date):
-        event.addDrink(drinks[j])
-        j = j + 1
-      
-      event.addDrink(drinks[j])
-      
-      event.volume_str = '%.0f' % event.volume
-      event.cost_str = '%.2f' % event.cost
-      
-      event.date = drinks[j].date
-      event.nDrinks = len(event.drinks)
-      
-      if (event.nDrinks > 1):
-        events.append(event)
-      j = j + 1
+
+    events = getEvents()
       
     context['events_list'] = events
+    context['eventssection'] = True
+    return context
+
+class EventView(BaseView):
+  template_name = "base/event.html"
+  context_object_name = "event"
+  
+  def get_context_data(self, **kwargs):
+    eventId = int(kwargs['eventId'])  
+    context = super(EventView, self).get_context_data(**kwargs)
+    
+    events = getEvents()
+    
+    selectedEvent = 0
+    
+    for event in events:
+      if event.tempID == eventId:
+        selectedEvent = event
+        break
+      
+    context['event'] = selectedEvent
+    context['eventssection'] = True
     return context
   
         
