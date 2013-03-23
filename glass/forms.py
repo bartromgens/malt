@@ -2,6 +2,9 @@ from django import forms
 
 from glass.models import Glass
 
+class NumberInput(forms.widgets.TextInput):
+    input_type = 'number'
+
 class NewDrinkForm(forms.ModelForm):
   emptiesBottle = forms.BooleanField(label='Bottle empty')
   
@@ -14,3 +17,4 @@ class NewDrinkForm(forms.ModelForm):
   class Meta:
     model = Glass
     exclude = ('date','rating', 'mass')
+    widgets = {'volume': NumberInput()}
