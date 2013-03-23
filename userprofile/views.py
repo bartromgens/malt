@@ -77,19 +77,19 @@ class StatsUserProfileView(BaseView):
       
     nDrinks = drinks.count()
     if (nDrinks == 0):
-      averageCost = 0.0
+      averageCost50ml = 0.0
     else:
-      averageCost = totalCost/nDrinks
+      averageCost50ml = totalCost/totalVolume * 50
 
     volumeLiters = '%.0f' % (totalVolume)
     totalCostStr = '%.2f' % (totalCost)
-    averageCostStr = '%.2f' % (averageCost)
+    averageCost50mlStr = '%.2f' % (averageCost50ml)
     
     context['drinks'] = drinks
     context['drinker'] = UserProfile.objects.get(id=userProfileId)
     context['volume_ml'] = volumeLiters
     context['total_cost'] = totalCostStr
-    context['average_cost_per_drink'] = averageCostStr
+    context['average_cost_per_50ml'] = averageCost50mlStr
     
     context['usersection'] = True
     

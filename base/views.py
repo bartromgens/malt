@@ -67,7 +67,7 @@ class HomeView(BaseView):
     context['stock_lists'] = bottlesList 
     context['totalInStock_L'] = totalInStock_L_str 
     context['total_actual_value'] = totalActualValue 
-    context['value_per_liter'] = totalActualValue / totalInStock_L
+    context['value_per_700ml'] = totalActualValue / totalInStock_L * 0.7
     context['homesection'] = True 
 
 #    userProfile = UserProfile.objects.get(user=user)
