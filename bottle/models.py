@@ -52,7 +52,12 @@ class Bottle(models.Model):
     return totalValueStock
   
   def __unicode__(self):
-    return str(self.whisky) + ' (#' + str(self.pk) + ')'
+    name = str(self.whisky)
+    
+    if (len(name) > 30):
+      name = name[:30]  
+    
+    return name
   
   class Meta:
     ordering = ['whisky']

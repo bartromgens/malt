@@ -47,7 +47,7 @@ class Whisky(models.Model):
     if self.name == 'normal':
       name = str(self.distillery) + '  ' + str(int(self.age))
     else:
-      name = str(self.distillery) + '  ' + self.name + '  ' + str(int(self.age))
+      name = str(self.distillery) + ' ' + str(int(self.age)) + ' - ' + self.name
  
     return name
   
