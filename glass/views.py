@@ -122,6 +122,12 @@ def newDrink(request):
     form = NewDrinkForm(request.POST, **kwargs) # A form bound to the POST data
     
     if form.is_valid(): # All validation rules pass
+      emptiesBottle = form.cleaned_data['emptiesBottle']
+      if (emptiesBottle):
+        bottle = form.cleaned_data['bottle']
+        bottle.empty = True
+        bottle.save()
+        
       form.save()
       return redirect('/malt/drinks')
     else:
@@ -161,6 +167,12 @@ def newDrinkMobile(request):
     form = NewDrinkForm(request.POST, **kwargs) # A form bound to the POST data
     
     if form.is_valid(): # All validation rules pass
+      emptiesBottle = form.cleaned_data['emptiesBottle']
+      if (emptiesBottle):
+        bottle = form.cleaned_data['bottle']
+        bottle.empty = True
+        bottle.save()
+        
       form.save()
       return redirect('/malt/drinks')
     else:
