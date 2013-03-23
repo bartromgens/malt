@@ -11,8 +11,9 @@ class BottleAdmin(admin.ModelAdmin):
     (None, {'fields': ['volumeConsumedInitial']}),
     (None, {'fields': ['empty']}),
     (None, {'fields': ['donation']}),
+    (None, {'fields': ['date']}),
     ]
-  list_display = ('pk', 'whisky', 'volume', 'price', 'buyer', 'volumeConsumedInitial', 'empty', 'donation')
+  list_display = ('pk', 'whisky', 'volume', 'price', 'buyer', 'volumeConsumedInitial', 'empty', 'donation', 'date')
   list_filter = ['volume']
   search_fields = ['whisky']
   date_hierarchy = 'date'

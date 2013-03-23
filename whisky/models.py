@@ -5,7 +5,7 @@ class Region(models.Model):
   lat = models.FloatField('latitude', default='0.0')
   lon = models.FloatField('longitude', default='0.0')
   
-  date = models.DateTimeField(auto_now=True, auto_now_add=True)
+  date = models.DateTimeField(default=datetime.now(), editable=True, blank=True)
   
   def __unicode__(self):
     return self.name

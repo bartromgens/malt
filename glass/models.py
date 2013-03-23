@@ -1,5 +1,7 @@
 from django.db.models import signals
 
+from datetime import datetime
+
 from django.db import models
 from bottle.models import Bottle
 from userprofile.models import UserProfile
@@ -11,7 +13,7 @@ class Glass(models.Model):
   user = models.ForeignKey(UserProfile)
   rating = models.IntegerField(default=-1, blank=True)
 
-  date = models.DateTimeField(auto_now=True, auto_now_add=True)
+  date = models.DateTimeField(default=datetime.now(), editable=True, blank=True)
   
   def getPrice(self):
     return self.bottle.price * self.volume / self.bottle.volume

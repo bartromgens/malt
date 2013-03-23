@@ -1,5 +1,7 @@
 from django.db import models
 
+from datetime import datetime
+
 from whisky.models import Whisky
 from userprofile.models import UserProfile 
 
@@ -12,7 +14,7 @@ class Bottle(models.Model):
   price = models.FloatField('price', default=0.0)
   donation = models.BooleanField(default=False)
   
-  date = models.DateTimeField(auto_now=True, auto_now_add=True)
+  date = models.DateTimeField(default=datetime.now(), editable=True, blank=True)
   
   def getActualVolume(self):
    
