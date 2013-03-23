@@ -15,6 +15,8 @@ urlpatterns = patterns('',
   url(r'^malt/help/$', HelpView.as_view()),
   url(r'^malt/events/$', login_required( EventsView.as_view()) ),
   url(r'^malt/events/(?P<eventId>\d+)/$', login_required( EventView.as_view()) ),
+  url(r'^malt/events/plots/regions/(?P<eventId>\d+).png$', 'base.views.plotRegionEventPieChart'),
+  url(r'^malt/events/plots/volumepie/(?P<eventId>\d+).png$', 'base.views.plotVolumeEventPieChart'),
   url(r'^malt/about/$', AboutView.as_view()),
   
   url(r'^malt/userprofile/', include('userprofile.urls')),

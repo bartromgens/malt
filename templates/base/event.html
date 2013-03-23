@@ -10,10 +10,10 @@
 {% block content %}
 
   {% if event %}
-
-  <center><h3>Event {{ event.tempID }} - {{ event.date|date:"D  d M Y" }} </h3></center>
-
-  <center><h4>Drinks</h4></center>
+  
+    <center><h3>Event {{ event.tempID }} - {{ event.date|date:"D  d M Y" }} </h3></center>
+  
+    <center><h4>Drinks</h4></center>
     <table id="myTable" class="tablesorter">
       
       <thead>
@@ -43,8 +43,17 @@
     
     </table>
 
+    <br />
+    <center><h4>Volume</h4></center>
+    <center><img src="/malt/events/plots/volumepie/{{ event.tempID }}.png"></img></center>
+    
+    <br />
+    <center><h4>Regions</h4></center>
+    <center><img src="/malt/events/plots/regions/{{ event.tempID }}.png"></img></center>
+
   {% else %}
-      <h3>No Events in the database.</h3>
+      <h3>Event not found.</h3>
   {% endif %}
+  
 
 {% endblock %}

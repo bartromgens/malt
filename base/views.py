@@ -1,3 +1,11 @@
+from matplotlib.figure import Figure
+from matplotlib.dates import DateFormatter
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
+
+from datetime import timedelta
+from sets import Set
+
+from django.http import HttpResponse 
 from django.views.generic import TemplateView
 from django.shortcuts import render_to_response
 from django.template import RequestContext
@@ -5,12 +13,10 @@ from django.contrib import auth
 from django.views.generic.edit import UpdateView
 from django.shortcuts import redirect
 
-from datetime import timedelta
-from sets import Set
-
 #from itertools import chain
 from base.forms import LoginForm, UserCreateForm
 from bottle.models import Bottle
+from glass.models import Glass
 from userprofile.models import UserProfile
 import logging
 
@@ -163,19 +169,21 @@ class EventsView(BaseView):
     context['eventssection'] = True
     return context
 
+
 class EventView(BaseView):
   template_name = "base/event.html"
   context_object_name = "event"
+  events = ''
   
   def get_context_data(self, **kwargs):
     eventId = int(kwargs['eventId'])  
     context = super(EventView, self).get_context_data(**kwargs)
     
-    events = getEvents()
+    EventView.events = getEvents()
     
     selectedEvent = 0
     
-    for event in events:
+    for event in EventView.events:
       if event.tempID == eventId:
         selectedEvent = event
         break
@@ -183,7 +191,107 @@ class EventView(BaseView):
     context['event'] = selectedEvent
     context['eventssection'] = True
     return context
+
+
+def plotVolumeEventPieChart(request, eventId):
+  fig = Figure()
+  canvas = FigureCanvas(fig)
+  ax = fig.add_axes([0,0,1,1])
+  ax.axis('equal')
+
+  events = EventView().events
   
+  selectedEvent = 0
+  for event in events:
+    if event.tempID == int(eventId):
+      selectedEvent = event
+      break
+  
+  drinks = selectedEvent.drinks
+  
+  drinksVolume = 0.0
+  users = dict()
+  labels = []
+  fracs = []
+  explode = []
+  
+  for drink in drinks:
+    if drink.user in users:
+      users[drink.user] = users[drink.user] + drink.volume
+    else:
+      users[drink.user] = drink.volume
+    
+    drinksVolume = drinksVolume + drink.volume
+    
+  for key in users:
+    labels.append(key)
+    fracs.append(users[key])
+    explode.append(0.0)
+  
+  try:
+    ax.pie(fracs, explode=explode, colors=('#87F881', '#8F96F4', '#FFDE85', '#FF8488', 'r', 'g', 'b'), \
+           labels=labels, autopct='%1.0f%%', shadow=False)
+  except:
+    print 'ERROR in pie chart'
+    return
+  
+  fig.set_facecolor('white')
+  response = HttpResponse(content_type='image/png')
+  canvas.print_png(response)
+  
+  return response
+
+
+def plotRegionEventPieChart(request, eventId):
+  fig = Figure()
+  canvas = FigureCanvas(fig)
+  ax = fig.add_axes([0,0,1,1])
+  ax.axis('equal')
+
+  events = EventView().events
+  
+  selectedEvent = 0
+  for event in events:
+    if event.tempID == int(eventId):
+      selectedEvent = event
+      break
+  
+  drinks = selectedEvent.drinks
+  
+  drinksVolume = 0.0
+  regions = dict()
+  labels = []
+  fracs = []
+  explode = []
+  
+  
+  for drink in drinks:
+    region = drink.bottle.whisky.distillery.region
+    if region in regions:
+      regions[region] = regions[region] + drink.volume
+    else:
+      regions[region] = drink.volume
+    
+    drinksVolume = drinksVolume + drink.volume
+    
+  for key in regions:
+    labels.append(key)
+    fracs.append(regions[key])
+    explode.append(0.0)
+  
+  try:
+    ax.pie(fracs, explode=explode, colors=('#87F881', '#8F96F4', '#FFDE85', '#FF8488', 'r', 'g', 'b'), \
+           labels=labels, autopct='%1.0f%%', shadow=False)
+  except:
+    print 'ERROR in pie chart'
+    return
+  
+  fig.set_facecolor('white')
+  response = HttpResponse(content_type='image/png')
+  canvas.print_png(response)
+  
+  return response
+
         
 def register(request):
   def errorHandle(error):
