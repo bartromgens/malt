@@ -16,16 +16,28 @@
       
       <thead>
         <tr>
+          <th><b>Day</b></th>
           <th><b>Date</b></th>
+          <th><b># Drinks</b></th>
           <th><b>Volume</b></th>
+          <th><b>Cost</b></th>
+          <th><b>Drinkers</b></th>
         </tr>
       </thead> 
       
       <tbody>
       {% for event in events_list %}
         <tr>
+          <td>{{ event.date|date:"D" }}</td>
           <td>{{ event.date|date:"SHORT_DATE_FORMAT" }}</td>
-          <td>{{ event.volume }}</td>
+          <td>{{ event.nDrinks }}</td>
+          <td>{{ event.volume_str }} ml</td>
+          <td>&euro; {{ event.cost_str }}</td>
+          <td>
+            {% for drinker in event.drinkers %}
+              {{ drinker }}
+            {% endfor %}
+          </td>
         </tr>
       {% endfor %}
       </tbody>

@@ -5,12 +5,12 @@ from django.contrib import auth
 from django.views.generic.edit import UpdateView
 from django.shortcuts import redirect
 
-from datetime import datetime, timedelta
+from datetime import timedelta
+from sets import Set
 
 #from itertools import chain
 from base.forms import LoginForm, UserCreateForm
 from bottle.models import Bottle
-from glass.models import Glass
 from userprofile.models import UserProfile
 import logging
 
@@ -104,7 +104,12 @@ class Event():
   def __init__(self):
     self.date = ''
     self.volume = 0.0
+    self.volume_str = ''
+    self.cost = 0.0
+    self.cost_str = ''
     self.drinks = []
+    self.drinkers = Set()
+    self.nDrinks = 0
 
 class EventsView(BaseView):
   template_name = "base/events.html"
@@ -126,20 +131,25 @@ class EventsView(BaseView):
       while (j+1 < len(drinks) and drinks[j].date - timedelta(0, 3600*4) < drinks[j+1].date):
         event.drinks.append(drinks[j])
         event.volume += drinks[j].volume
+        event.cost += drinks[j].getPrice()
+        event.drinkers.add(drinks[j].user.displayname)
         j = j + 1
       event.drinks.append(drinks[j])
       event.volume += drinks[j].volume
+      event.cost += drinks[j].getPrice()
+      event.drinkers.add(drinks[j].user.displayname)
+      
+      event.volume_str = '%.0f' % event.volume
+      event.cost_str = '%.2f' % event.cost
       
       event.date = drinks[j].date
+      event.nDrinks = len(event.drinks)
       
-      print len(event.drinks)
-      if (len(event.drinks) > 2):
+      if (event.nDrinks > 1):
         events.append(event)
       j = j + 1
       
     context['events_list'] = events
-    
-    context['eventssection'] = True
     return context
   
         
