@@ -18,9 +18,10 @@
       <th><b>Age</b></th>
       <th><b>%</b></th>
       <th><b>Region</b></th>
-      <th><b>Volume</b></th>
+      <th><b>Vol.</b></th>
       <th><b>Status</b></th>
       <th><b>Price</b></th>
+      <th><b>Date</b></th>
       <th><b></b></th>
     </tr>
     </thead> 
@@ -44,6 +45,7 @@
         </div>
       </td>
       <td>&euro; {{ bottle.price }}</td>
+      <td>{{ bottle.date|date:"SHORT_DATE_FORMAT" }}</td>
       <td> <a href="/malt/collection/bottle/{{ bottle.id }}/"><img width=20px src="{{ STATIC_URL }}images/icon_statistics.png" /></a></td>
     </tr>
     {% endfor %}
