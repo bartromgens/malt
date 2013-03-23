@@ -1,5 +1,7 @@
 from django.db import models
 
+from datetime import datetime
+
 class Region(models.Model):
   name = models.CharField(max_length=200)
   lat = models.FloatField('latitude', default='0.0')
