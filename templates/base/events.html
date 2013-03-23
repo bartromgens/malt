@@ -1,0 +1,39 @@
+{% extends "base/base.html" %}
+
+{% block title %}Malt{% endblock %}
+
+{% block sidebar %}
+
+{% endblock %}
+
+
+{% block content %}
+
+<center><h3>Events</h3></center>
+
+  {% if events_list %}
+    <table id="myTable" class="tablesorter">
+      
+      <thead>
+        <tr>
+          <th><b>Date</b></th>
+          <th><b>Volume</b></th>
+        </tr>
+      </thead> 
+      
+      <tbody>
+      {% for event in events_list %}
+        <tr>
+          <td>{{ event.date|date:"SHORT_DATE_FORMAT" }}</td>
+          <td>{{ event.volume }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    
+    </table>
+
+  {% else %}
+      <h3>No Events in the database.</h3>
+  {% endif %}
+
+{% endblock %}

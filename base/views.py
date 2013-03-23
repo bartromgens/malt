@@ -5,9 +5,12 @@ from django.contrib import auth
 from django.views.generic.edit import UpdateView
 from django.shortcuts import redirect
 
-from itertools import chain
+from datetime import datetime, timedelta
+
+#from itertools import chain
 from base.forms import LoginForm, UserCreateForm
 from bottle.models import Bottle
+from glass.models import Glass
 from userprofile.models import UserProfile
 import logging
 
@@ -91,10 +94,54 @@ class HelpView(BaseView):
   
   def get_context_data(self, **kwargs):
     # Call the base implementation first to get a context
-    context = super(HelpView, self).get_context_data(**kwargs)
+    context = super(HelpView, self).get_context_data(**kwargs)   
     context['helpsection'] = True
+  
     return context
-          
+  
+
+class Event():
+  def __init__(self):
+    self.date = ''
+    self.volume = 0.0
+    self.drinks = []
+
+class EventsView(BaseView):
+  template_name = "base/events.html"
+  context_object_name = "events"
+  
+  def get_context_data(self, **kwargs):
+    context = super(EventsView, self).get_context_data(**kwargs)
+    
+    from glass.views import DrinksView
+    drinks = DrinksView().getAllDrinks()
+    #drinks = drinks.reverse()
+    
+    events = []
+    
+    j = 0
+    while (j < len(drinks)-1):
+      event = Event()
+      
+      while (j+1 < len(drinks) and drinks[j].date - timedelta(0, 3600*4) < drinks[j+1].date):
+        event.drinks.append(drinks[j])
+        event.volume += drinks[j].volume
+        j = j + 1
+      event.drinks.append(drinks[j])
+      event.volume += drinks[j].volume
+      
+      event.date = drinks[j].date
+      
+      print len(event.drinks)
+      if (len(event.drinks) > 2):
+        events.append(event)
+      j = j + 1
+      
+    context['events_list'] = events
+    
+    context['eventssection'] = True
+    return context
+  
         
 def register(request):
   def errorHandle(error):

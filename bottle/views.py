@@ -67,6 +67,7 @@ class CollectionView(BaseView):
     context['collectionsection'] = True
     return context
 
+
 class StockView(CollectionView):
   template_name = "collection/index.html"
   
