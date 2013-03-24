@@ -6,7 +6,7 @@ class NumberInput(forms.widgets.TextInput):
     input_type = 'number'
 
 class NewDrinkForm(forms.ModelForm):
-  emptiesBottle = forms.BooleanField(label='Bottle empty')
+  emptiesBottle = forms.BooleanField(label='Bottle empty', required=False)
   
   def __init__(self, *args, **kwargs):
     user = kwargs.pop('user')
