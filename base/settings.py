@@ -1,5 +1,4 @@
 # Django settings for Malt project.
-import os
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -134,7 +133,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'south',
+    'south', # for database migration
     'userprofile',
     'whisky',
     'bottle',

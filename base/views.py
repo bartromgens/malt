@@ -1,5 +1,5 @@
 from matplotlib.figure import Figure
-from matplotlib.dates import DateFormatter
+#from matplotlib.dates import DateFormatter
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
 from datetime import timedelta
@@ -16,7 +16,6 @@ from django.shortcuts import redirect
 #from itertools import chain
 from base.forms import LoginForm, UserCreateForm
 from bottle.models import Bottle
-from glass.models import Glass
 from userprofile.models import UserProfile
 import logging
 
@@ -62,7 +61,7 @@ class HomeView(BaseView):
   def get_context_data(self, **kwargs):
     # Call the base implementation first to get a context
     context = super(HomeView, self).get_context_data(**kwargs)
-    user = self.request.user
+#    user = self.request.user
     
     from bottle.views import CollectionView
     collectionView = CollectionView()
