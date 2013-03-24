@@ -14,7 +14,7 @@ class Bottle(models.Model):
   price = models.FloatField('price', default=0.0)
   donation = models.BooleanField(default=False)
   
-  date = models.DateTimeField(default=datetime.now(), editable=True, blank=True)
+  date = models.DateTimeField(default=datetime.now, editable=True, blank=True)
   
   def getActualVolume(self):
    

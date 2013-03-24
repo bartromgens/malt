@@ -13,7 +13,7 @@ class Glass(models.Model):
   user = models.ForeignKey(UserProfile)
   rating = models.IntegerField(default=-1, blank=True)
 
-  date = models.DateTimeField(default=datetime.now(), editable=True, blank=True)
+  date = models.DateTimeField(default=datetime.now, editable=True, blank=True)
   
   def getPrice(self):
     return self.bottle.price * self.volume / self.bottle.volume
