@@ -28,7 +28,7 @@
           <td>{{ drink.bottle.whisky.distillery.region}}</td>
           <td>&euro; {{ drink.price }}</td>
           <td>{{ drink.volume_int }} ml</td>
-          <td>{{ drink.date|date:"SHORT_DATE_FORMAT" }}</td>
+          <td>{{ drink.date|date:"Y-m-d" }}</td>
           </tr>
       {% endfor %}
       </tbody>

@@ -54,7 +54,7 @@
           <td>{{ drink.volume_int }} ml</td>
           <td>&euro; {{ drink.price }}</td>
           <td> <a href="/malt/collection/bottle/{{ drink.bottle.id }}/">{{ drink.bottle.id }}</a> </td>
-          <td>{{ drink.date|date:"SHORT_DATE_FORMAT" }}</td>
+          <td>{{ drink.date|date:"Y-m-d" }}</td>
         </tr>
       {% endfor %}
       </tbody>
