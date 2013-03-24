@@ -44,10 +44,14 @@ class Whisky(models.Model):
   
   def __unicode__(self):
     name = ''
-    if self.name == 'normal':
-      name = str(self.distillery) + '  ' + str(int(self.age))
+    
+    if (int(self.age) == 0):
+      name = str(self.distillery)
     else:
-      name = str(self.distillery) + ' ' + str(int(self.age)) + ' - ' + self.name
+      name = str(self.distillery) + '  ' + str(int(self.age))
+    
+    if self.name != 'normal':
+      name = name + ' (' + self.name + ')'
  
     return name
   
