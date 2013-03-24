@@ -31,7 +31,11 @@
       <td>{{ bottle.id }}</td>
       <td><b>{{ bottle.distillery.name }}</b></td>
       <td>{{ bottle.whisky.name }}</td>
+      {% if bottle.age_int == 0 %}
+      <td><b> - </b></td>
+      {% else %}
       <td><b>{{ bottle.age_int }}</b></td>
+      {% endif %}
       <td>{{ bottle.alcoholPercentage_int }}</td>
       <td><b>{{ bottle.distillery.region }}</b></td>
       <td>{{ bottle.volume_liters }} L</td>
