@@ -16,6 +16,7 @@
           <th><b>Type</b></th>
           <th><b>%</b></th>
           <th><b>Region</b></th>
+          <th><b>Pronounce</b></th>
         </tr> 
       </thead>
      
@@ -31,6 +32,7 @@
           <td>{{ whisky.name }}</td>
           <td>{{ whisky.alcoholPercentage_int }}</td>
           <td>{{ whisky.distillery.region }}</td>
+          <td><a href="{{ STATIC_URL }}sounds/{{ whisky.distillery.name }}.wav">Play Sound</a></td>
         </tr>
         {% endfor %}
       </tbody>
@@ -40,5 +42,7 @@
   {% else %}
       <p>No whiskies in the database.</p>
   {% endif %}
+
+<script src="http://mediaplayer.yahoo.com/js"></script>
 
 {% endblock %}
