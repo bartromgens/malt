@@ -147,7 +147,7 @@ def getEvents():
     event.nDrinks = len(event.drinks)
     event.tempID = eventID
     
-    if (event.nDrinks > 1):
+    if (event.nDrinks > 1 and len(event.drinkers) > 1):
       eventID += 1
       events.append(event)
     j = j + 1
