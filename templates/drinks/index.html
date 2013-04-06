@@ -16,8 +16,8 @@
           <th><b>Region</b></th>
           <th><b>Price</b></th>
           <th><b>Vol</b></th>
-          <th><b>Sound</b></th>
           <th><b>Date</b></th>
+          <th><b><img src="{{ STATIC_URL }}/images/icon_sound.png" width=12px></b></th>
         </tr>
       </thead> 
       
@@ -29,12 +29,12 @@
           <td>{{ drink.bottle.whisky.distillery.region}}</td>
           <td>&euro; {{ drink.price }}</td>
           <td>{{ drink.volume_int }} ml</td>
-          {% if drink.bottle.whisky.distillery.sound %}
-            <td><a href="{{ STATIC_URL }}sounds/{{ drink.bottle.whisky.distillery.name }}.wav">play</a></td>
-          {% else %}
-            <td>-</td>
-          {% endif %}
           <td>{{ drink.date|date:"Y-m-d" }}</td>
+          {% if drink.bottle.whisky.distillery.sound %}
+            <td><a href="{{ STATIC_URL }}sounds/{{ drink.bottle.whisky.distillery.name }}.wav"></a></td>
+          {% else %}
+            <td></td>
+          {% endif %}
           </tr>
       {% endfor %}
       </tbody>
