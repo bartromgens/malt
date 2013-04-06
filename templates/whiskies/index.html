@@ -16,7 +16,7 @@
           <th><b>Type</b></th>
           <th><b>%</b></th>
           <th><b>Region</b></th>
-          <th><b>Pronounce</b></th>
+          <th><b><img src="{{ STATIC_URL }}/images/icon_sound.png" width=12px></b></th>
         </tr> 
       </thead>
      
@@ -33,9 +33,9 @@
           <td>{{ whisky.alcoholPercentage_int }}</td>
           <td>{{ whisky.distillery.region }}</td>
           {% if whisky.distillery.sound %}
-            <td><a href="{{ STATIC_URL }}sounds/{{ whisky.distillery.name }}.wav">play</a></td>
+            <td><a href="{{ STATIC_URL }}sounds/{{ whisky.distillery.name }}.wav"></a></td>
           {% else %}
-            <td>-</td>
+            <td></td>
           {% endif %}
         </tr>
         {% endfor %}
