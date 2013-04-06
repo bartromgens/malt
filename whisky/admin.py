@@ -26,10 +26,11 @@ class DistilleryAdmin(admin.ModelAdmin):
     (None, {'fields': ['region']}),
     (None, {'fields': ['lat']}),
     (None, {'fields': ['lon']}),
+    (None, {'fields': ['sound']}),
     (None, {'fields': ['url']}),
     (None, {'fields': ['image']}),
     ]
-  list_display = ('name', 'region', 'lat', 'lon', 'url', 'image')
+  list_display = ('name', 'region', 'lat', 'lon', 'sound', 'url', 'image')
   search_fields = ['name']
   date_hierarchy = 'date'
 

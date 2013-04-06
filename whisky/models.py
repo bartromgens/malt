@@ -23,6 +23,7 @@ class Distillery(models.Model):
   lon = models.FloatField('longitude', default='0.0')
   url = models.URLField(max_length=400, default='', blank=True)
   image = models.URLField(max_length=400, default='', blank=True)
+  sound = models.BooleanField(default=False, blank=True)
   
   date = models.DateTimeField(auto_now=True, auto_now_add=True)
   
