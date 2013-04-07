@@ -16,6 +16,7 @@ from django.shortcuts import redirect
 #from itertools import chain
 from base.forms import LoginForm, UserCreateForm
 from bottle.models import Bottle
+from glass.models import Glass 
 from userprofile.models import UserProfile
 import logging
 
@@ -68,6 +69,18 @@ class HomeView(BaseView):
     
     totalInStock_L = Bottle.getActualVolumeAll(Bottle())
     totalActualValue = Bottle.getActualValueAll(Bottle())
+    averagePercentageNotEmpty = Bottle.getAveragePercentageNotEmpty(Bottle())
+    drinks = Glass.objects.all()
+    
+    totalDrunk_ml = 0.0
+    totalCost = 0.0
+    
+    nBottles = Bottle.objects.filter(empty=False).count()
+    nDrinks = drinks.count()
+    
+    for drink in drinks:
+      totalDrunk_ml += drink.volume
+      totalCost += drink.getPrice()
       
     totalInStock_L_str = '%.1f' % totalInStock_L
     
@@ -76,6 +89,11 @@ class HomeView(BaseView):
     context['totalInStock_L'] = totalInStock_L_str 
     context['total_actual_value'] = totalActualValue 
     context['value_per_700ml'] = totalActualValue / totalInStock_L * 0.7
+    context['average_percentage_not_empty'] = averagePercentageNotEmpty
+    context['totalDrunk_L'] = totalDrunk_ml / 1000.0
+    context['totalCost'] = totalCost
+    context['nBottles'] = nBottles
+    context['nDrinks'] = nDrinks
     context['homesection'] = True 
 
 #    userProfile = UserProfile.objects.get(user=user)

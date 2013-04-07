@@ -51,6 +51,19 @@ class Bottle(models.Model):
         
     return totalValueStock
   
+  def getAveragePercentageNotEmpty(self):
+    bottles = Bottle.objects.filter(empty=False)
+    
+    addBottlesInfo(bottles)
+    averagePercentageLeft = 0.0
+    
+    for bottle in bottles:
+      averagePercentageLeft += bottle.percentageLeft_int
+  
+    averagePercentageLeft = averagePercentageLeft / float(len(bottles))
+    
+    return averagePercentageLeft
+  
   def __unicode__(self):
     name = str(self.whisky)    
     return name
@@ -78,6 +91,7 @@ def addBottleInfo(bottle):
   if (percentageLeft < 0.0):
     statusMeterWidth = 0.0
     
+  bottle.percentageLeft_int =  percentageLeft
   bottle.percentageLeft = '%.0f' % percentageLeft
   bottle.percentageGone = '%.0f' % percentageGone
   bottle.statusMeterWidth = '%.0f' % statusMeterWidth
