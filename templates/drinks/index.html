@@ -31,7 +31,7 @@
           <td>{{ drink.volume_int }} ml</td>
           <td>{{ drink.date|date:"Y-m-d" }}</td>
           {% if drink.bottle.whisky.distillery.sound %}
-            <td><a href="{{ STATIC_URL }}sounds/{{ drink.bottle.whisky.distillery.name }}.wav"></a></td>
+            <td><a href="{{ STATIC_URL }}sounds/{{ drink.bottle.whisky.distillery.name }}.wav">play</a></td>
           {% else %}
             <td></td>
           {% endif %}
@@ -44,14 +44,5 @@
   {% else %}
       <p>No drinks in the database.</p>
   {% endif %}
-
-<script type="text/javascript">
-  var YWPParams = 
-  {
-    autoadvance: false,
-    displaystate: 3
-  };
-</script>
-<script src="http://mediaplayer.yahoo.com/js"></script>
 
 {% endblock %}

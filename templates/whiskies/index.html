@@ -33,7 +33,7 @@
           <td>{{ whisky.alcoholPercentage_int }}</td>
           <td>{{ whisky.distillery.region }}</td>
           {% if whisky.distillery.sound %}
-            <td><a href="{{ STATIC_URL }}sounds/{{ whisky.distillery.name }}.wav"></a></td>
+            <td><a href="{{ STATIC_URL }}sounds/{{ whisky.distillery.name }}.wav">play</a></td>
           {% else %}
             <td></td>
           {% endif %}
@@ -46,14 +46,5 @@
   {% else %}
       <p>No whiskies in the database.</p>
   {% endif %}
-
-<script type="text/javascript">
-  var YWPParams = 
-  {
-    autoadvance: false,
-    displaystate: 3
-  };
-</script>
-<script src="http://mediaplayer.yahoo.com/js"></script>
 
 {% endblock %}
