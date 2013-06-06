@@ -8,7 +8,7 @@ from userprofile.models import UserProfile
 
 class Bottle(models.Model):
   whisky = models.ForeignKey(Whisky)
-  collection = models.ForeignKey(Collection)
+  collection = models.ForeignKey(Collection, null=True, blank=True)
   volume = models.FloatField('volume', default=700.0)
   volumeConsumedInitial = models.FloatField('initially consumed', default=0.0)
   empty = models.BooleanField(default=False)
