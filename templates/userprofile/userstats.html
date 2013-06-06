@@ -10,20 +10,44 @@
 <font>
   <table>
     <tr>
-      <td>Volume:</td>
+      <td>Volume</td>
       <td><b>{{ volume_ml }} ml</b></td>
     <tr>
     <tr>
-      <td>Cost:</td>
+      <td>Cost</td>
       <td><b>&euro;  {{ total_cost }}</b></td>
     </tr>
     <tr>
-      <td>Cost per drink (50ml):</td>
+      <td>Cost per drink (50ml)</td>
       <td><b>&euro;  {{ average_cost_per_50ml }}</b></td>
+    </tr>
+
+  </table>
+</font>
+</center>
+
+<br/>
+<br/>
+
+<center>
+<font>
+  <table>
+    <tr>
+      <td>Balance</td>
+      <td><b>&euro;  {{ balance }}</b></td>
+    </tr>   
+    <tr>
+      <td>Paid</td>
+      <td><b>&euro;  {{ total_paid }}</b></td>
+    </tr>
+    <tr>
+      <td>Spent</td>
+      <td><b>&euro;  {{ total_cost }}</b></td>
     </tr>
   </table>
 </font>
 </center>
+
 
 <br/>
 <center><img src="/malt/userprofile/plot/history/{{ drinker.id }}.png"></img></center>

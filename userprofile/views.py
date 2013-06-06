@@ -10,6 +10,7 @@ from userprofile.forms import EditUserProfileForm
 from userprofile.models import UserProfile
 from base.views import BaseUpdateView, BaseView
 from glass.models import Glass, addDrinksInfo
+from bottle.models import Bottle 
 
 
 class UserProfilesView(BaseView):
@@ -62,34 +63,64 @@ class StatsUserProfileView(BaseView):
     drinks = addDrinksInfo(drinks)
     
     return drinks
+    
+  def getTotalPaidNotDonated(self, userProfileId):
+    bottles = Bottle.objects.filter(donation=False, buyer__id=userProfileId)
+    
+    totalPaid = 0.0
+    
+    for bottle in bottles:
+      print bottle.whisky
+      totalPaid += bottle.price
+    
+    return totalPaid
+  
+  
+  def getTotalCostNotDonated(self, userProfileId):
+    bottles = Bottle.objects.filter(donation=True, buyer__id=userProfileId)
+    
+    totalPaid = 0.0
+    
+    for bottle in bottles:
+      print bottle.whisky
+      totalPaid += bottle.price
+    
+    return totalPaid
   
   def get_context_data(self, **kwargs):
     userProfileId = kwargs['userProfileId']    
     context = super(StatsUserProfileView, self).get_context_data(**kwargs)
     
-    drinks = self.getUserDrinks(userProfileId)
     totalVolume = 0.0
     totalCost = 0.0
+    totalCostNotDonated = 0.0
+    totalPaidNotDonated = self.getTotalPaidNotDonated(userProfileId)
     
+    drinks = self.getUserDrinks(userProfileId)
+
     for drink in drinks:
       totalVolume += drink.volume
-      totalCost += drink.bottle.price*drink.volume/drink.bottle.volume
+      cost = drink.bottle.price*drink.volume/drink.bottle.volume
+      totalCost += cost
+      if (not drink.bottle.donation):
+        totalCostNotDonated += cost
+      
+    balance = totalPaidNotDonated - totalCostNotDonated
       
     nDrinks = drinks.count()
     if (nDrinks == 0):
       averageCost50ml = 0.0
     else:
       averageCost50ml = totalCost/totalVolume * 50
-
-    volumeLiters = '%.0f' % (totalVolume)
-    totalCostStr = '%.2f' % (totalCost)
-    averageCost50mlStr = '%.2f' % (averageCost50ml)
     
     context['drinks'] = drinks
     context['drinker'] = UserProfile.objects.get(id=userProfileId)
-    context['volume_ml'] = volumeLiters
-    context['total_cost'] = totalCostStr
-    context['average_cost_per_50ml'] = averageCost50mlStr
+    context['volume_ml'] = '%.0f' % (totalVolume)
+    context['total_cost'] = '%.2f' % (totalCost)
+    context['average_cost_per_50ml'] = '%.2f' % (averageCost50ml)
+    context['total_paid'] = '%.2f' % totalPaidNotDonated
+    context['total_cost'] = '%.2f' % totalCostNotDonated
+    context['balance'] = '%.2f' % balance
     
     context['usersection'] = True
     
