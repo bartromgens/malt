@@ -138,6 +138,7 @@ INSTALLED_APPS = (
     'whisky',
     'bottle',
     'glass',
+    'collection',
 )
 
 # A sample logging configuration. The only tangible logging

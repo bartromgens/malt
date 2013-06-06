@@ -5,6 +5,7 @@ from bottle.models import Bottle
 class BottleAdmin(admin.ModelAdmin):
   fieldsets = [
     (None, {'fields': ['whisky']}),
+    (None, {'fields': ['collection']}),
     (None, {'fields': ['volume']}),
     (None, {'fields': ['price']}),
     (None, {'fields': ['buyer']}),
@@ -13,7 +14,7 @@ class BottleAdmin(admin.ModelAdmin):
     (None, {'fields': ['donation']}),
     (None, {'fields': ['date']}),
     ]
-  list_display = ('pk', 'whisky', 'volume', 'price', 'buyer', 'volumeConsumedInitial', 'empty', 'donation', 'date')
+  list_display = ('pk', 'whisky', 'collection', 'volume', 'price', 'buyer', 'volumeConsumedInitial', 'empty', 'donation', 'date')
   list_filter = ['volume']
   search_fields = ['whisky']
   date_hierarchy = 'date'
