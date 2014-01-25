@@ -153,9 +153,9 @@ def plotDrinksStackedVolumeHistory(request):
   counter = 0
   for user in users:
     if not counter:
-      ax.fill_between(x, 0.0, y_stack[counter,:], facecolor=colors[counter % len(colors)], alpha=0.6, label='test')      
+      ax.fill_between(x, 0.0, y_stack[counter,:], facecolor=colors[counter % len(colors)], alpha=0.6)      
     else:
-      ax.fill_between(x, y_stack[counter-1,:], y_stack[counter,:], facecolor=colors[counter % len(colors)], alpha=0.6, label='test')
+      ax.fill_between(x, y_stack[counter-1,:], y_stack[counter,:], facecolor=colors[counter % len(colors)], alpha=0.6)
     counter += 1
 
   ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
