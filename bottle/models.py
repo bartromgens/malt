@@ -62,7 +62,8 @@ class Bottle(models.Model):
     for bottle in bottles:
       averagePercentageLeft += bottle.percentageLeft_int
   
-    averagePercentageLeft = averagePercentageLeft / float(len(bottles))
+    if (len(bottles) != 0):
+      averagePercentageLeft = averagePercentageLeft / float(len(bottles))
     
     return averagePercentageLeft
   

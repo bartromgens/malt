@@ -88,7 +88,10 @@ class HomeView(BaseView):
     context['stock_lists'] = bottlesList 
     context['totalInStock_L'] = totalInStock_L_str 
     context['total_actual_value'] = totalActualValue 
-    context['value_per_700ml'] = totalActualValue / totalInStock_L * 0.7
+    if totalInStock_L != 0:
+      context['value_per_700ml'] = totalActualValue / totalInStock_L * 0.7
+    else:
+      context['value_per_700ml'] = 0.0
     context['average_percentage_not_empty'] = averagePercentageNotEmpty
     context['totalDrunk_L'] = totalDrunk_ml / 1000.0
     context['totalCost'] = totalCost
