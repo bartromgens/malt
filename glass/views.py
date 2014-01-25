@@ -1,4 +1,4 @@
-from matplotlib.figure import Figure
+from matplotlib.figure import Figure, Rectangle
 from matplotlib.dates import DateFormatter
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
@@ -15,6 +15,11 @@ from bottle.models import Bottle
 from glass.models import Glass, addDrinksInfo
 from glass.forms import NewDrinkForm
 from userprofile.models import UserProfile
+
+import numpy
+from itertools import permutations
+from random import sample
+
 
 class DrinksView(BaseView):
   template_name = "drinks/index.html"
@@ -102,6 +107,78 @@ def plotDrinksVolumeHistory(request):
   canvas.print_png(response)
   
   return response
+
+
+def plotDrinksStackedVolumeHistory(request):
+  fig = Figure()
+  canvas = FigureCanvas(fig)
+  ax = fig.add_subplot(111)
+  x = []
+  
+  drinks = Glass.objects.order_by('date')
+  users = UserProfile.objects.all()
+  
+  fig.suptitle("Volume history")
+    
+  volume = dict()
+  y = numpy.zeros( (len(users)+1, len(drinks)+1) )
+  
+  i = 0
+  for user in users:
+    y[i,0] = 0.0
+    volume[user] = 0.0
+    i += 1
+  
+  j = 0
+  for drink in drinks:
+    userDrink = drink.user
+    x.append(drink.date)
+    i = 0
+    for user in users:
+      y[i,j] = volume[user]
+      i += 1
+    volume[userDrink] += drink.volume
+    j += 1
+    
+  i = 0
+  x.append(datetime.now())
+  for user in users:
+    y[i,j] = volume[user]
+    i += 1
+    
+  y_stack = numpy.cumsum(y, axis=0)
+  
+  colors = ['blue', 'green', 'red', 'cyan', 'magenta', 'yellow']
+  
+  counter = 0
+  for user in users:
+    if not counter:
+      ax.fill_between(x, 0.0, y_stack[counter,:], facecolor=colors[counter % len(colors)], alpha=1.0, label='test')      
+    else:
+      ax.fill_between(x, y_stack[counter-1,:], y_stack[counter,:], facecolor=colors[counter % len(colors)], alpha=1.0, label='test')
+    counter += 1
+
+  ax.xaxis.set_major_formatter(DateFormatter('%Y-%m-%d'))
+  ax.xaxis.set_label_text('Date')
+  ax.yaxis.set_label_text('Volume [ml]')
+  
+  fig.autofmt_xdate()
+  fig.set_facecolor('white')
+
+  i = 0
+  p = []
+  userNames = []
+  for user in users:
+    p.append( Rectangle((0, 0), 1, 1, facecolor=colors[i % len(colors)] ) )
+    userNames.append(user)
+    i += 1
+  ax.legend(p, userNames, loc='upper left')
+  
+  response = HttpResponse(content_type='image/png')
+  canvas.print_png(response)
+  
+  return response
+
 
 def newDrink(request):
   def errorHandle(error):

@@ -13,6 +13,7 @@ urlpatterns = patterns('',
   url(r'^new/$', 'glass.views.newDrink'),
   url(r'^new/mobile/$', 'glass.views.newDrinkMobile'),
   url(r'^plot/history.png$', 'glass.views.plotDrinksVolumeHistory'),
+  url(r'^plot/historystack.png$', 'glass.views.plotDrinksStackedVolumeHistory'),
 #  url(r'^new/$', login_required(SelectGroupTransactionView.as_view())),
 #  url(r'^new/(?P<groupAccountId>\d+)/$', 'transaction.views.newTransaction'),
 )
