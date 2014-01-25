@@ -118,7 +118,7 @@ def plotDrinksStackedVolumeHistory(request):
   drinks = Glass.objects.order_by('date')
   users = UserProfile.objects.all()
   
-  fig.suptitle("Volume history")
+  fig.suptitle("Volume history stack")
     
   volume = dict()
   y = numpy.zeros( (len(users)+1, len(drinks)+1) )
