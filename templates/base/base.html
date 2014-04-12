@@ -2,159 +2,118 @@
 <html>
 
 <head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Malt</title>
-  <style type="text/css">
-  <!--
-  @import url("{{ STATIC_URL }}style.css");
-  -->
-  </style>
   
-  <script type="text/javascript" src="{{ STATIC_URL }}jquery/jquery-1.8.3.min.js"></script> 
-  <script type="text/javascript" src="{{ STATIC_URL }}jquery/jquery.tablesorter.min.js"></script> 
-
-  <script type="text/javascript" id="js">
-    $(document).ready(function() 
-      { 
-        $("#myTable").tablesorter({widgets: ['zebra']});
-      } 
-    ); 
-  </script>
-
-</head>
-
-<!-- <body bgcolor="#f2f4f5"> -->
- <body bgcolor="#f5f8fc" > 
-
-  <div id="container">
-
-    <div id="header">
-      <font id="logotitle" ><b>Malt</b></font></br>
-      <font id="logosubtitle" ><b>Malted Alcoholic Liquid Tracker</b></font>
-    </div>
-
-    <div id="login">
-    	{% if not isLoggedin %}
-    	  <font id="loginfont"><b>You are not logged in.</b></font>
-    	  <a href="/login/" id="loginlink">[login]</a> 
-    	  <a href="/register/" id="loginlink">[register]</a>  
-    	{% endif %}
-    	{% if isLoggedin %}
-    	  <font id="loginfont"><b>You are signed in as </b></font>
-    	   <a href="/userprofile/edit/{{ user.id}}" id="usernamelink"><b>{{ user.username }}</b></a>.  
-    	  <a href="/logout/" id="loginlink">[logout]</a>
-    	{% endif %}
-    </div>
+  {% load bootstrap3 %}
+  
+  {# Load CSS and JavaScript #}
+  {% bootstrap_css %}
+  
+  </head>
+  
+  <body> 
+  <div class="container" id="page">
     
-    <div class="horizontalmenu">
-      <ul>
-      
-	      <li>
-				{% if homesection %}
-				  <a href="/" id="selectedbutton">Home</a>
-				{% else %}
-				  <a href="/">Home</a>
-				{% endif %}
-	      </li>
-      
-	      <li>
-				{% if drinkssection %}
-				  <a href="/drinks/" id="selectedbutton">Drinks</a>
-				{% else %}
-				  <a href="/drinks/">Drinks</a>
-				{% endif %}
-	      </li>
-      
-	      <li>
-			  {% if collectionsection %}
-					<a href="/collection/" id="selectedbutton">Collection</a>
-			  {% else %}
-					<a href="/collection/">Collection</a>
-			  {% endif %}
-	      </li>
-	      
-	      <li>
-        {% if whiskiessection %}
-          <a href="/whiskies/" id="selectedbutton">Whiskies</a>
-        {% else %}
-          <a href="/whiskies/">Whiskies</a>
-        {% endif %}
-        </li>
-        
-        <li>
-        {% if distilleriessection %}
-          <a href="/whiskies/distilleries/" id="selectedbutton">Distilleries</a>
-        {% else %}
-          <a href="/whiskies/distilleries/">Distilleries</a>
-        {% endif %}
-        </li>
-
-<!--                
-        <li>
-        {% if regionssection %}
-          <a href="/malt/whiskies/regions/" id="selectedbutton">Regions</a>
-        {% else %}
-          <a href="/malt/whiskies/regions/">Regions</a>
-        {% endif %}
-        </li>
--->
-
-        <li>
-        {% if usersection %}
-          <a href="/userprofile/" id="selectedbutton">Users</a>
-        {% else %}
-          <a href="/userprofile/">Users</a>
-        {% endif %}
-        </li>
-        
-        <li>
-        {% if eventssection %}
-          <a href="/events/" id="selectedbutton">Events</a>
-        {% else %}
-          <a href="/events/">Events</a>
-        {% endif %}
-        </li>
-
-        <li>
-          <a href="/admin/">Admin</a>
-        </li>
-
-<!--
-			  <li>
-			  {% if helpsection %}
-			    <a href="/malt/help/" id="selectedbutton">Help</a>
-			  {% else %}
-			    <a href="/malt/help/">Help</a>
-			  {% endif %}
-			  </li>
-  
-			  <li>
-			  {% if aboutsection %}
-			    <a href="/malt/about/" id="selectedbutton">About</a>
-			  {% else %}
-			    <a href="/malt/about/">About</a>
-			  {% endif %}
-			  </li>
--->
-      </ul>     
-      <div id="horizontalmenubar">
+    <div class="row" id="header">
+      <div style="float: left; padding-left: 20px; padding-top: 10px;">
+        <p>
+          <h1>Malt</h1>
+          <h4>Malted Alcoholic Liquid Tracker</h4>
+        </p>
       </div>
     </div>
-
-
-    <div class="verticalmenu">
-      {% block sidebar %}{% endblock %}
-    </div>
-
-    <div id="content">
-      {% block content %}
-      {% endblock %}
-    </div>
-
-    <div id="footer">
-    </div>
-
+    
   </div>
+  
+  <!-- navbar -->
+  <div class="navbar navbar-inverse">
+    <div class="container">
+      <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+          </button>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="/malt/"><i class="glyphicon glyphicon-home"></i></a></li>
+          
+          <li class="dropdown">
+            <a href="/malt/drinks" class="dropdown-toggle" data-toggle="dropdown">Drinks <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="/malt/drinks/new"><i class="glyphicon glyphicon-plus"></i> New</a></li>
+              <li><a href="/malt/drinks/"><i class="glyphicon glyphicon-list"></i> All</a></li>
+              <li><a href="/malt/drinks/my"><i class="glyphicon glyphicon-user"></i> My</a></li>
+              <li><a href="/malt/drinks/stats"><i class="glyphicon glyphicon-stats"></i> Statistics</a></li>
+            </ul>
+          </li>
+          
+          <li class="dropdown">
+            <a href="/malt/collection" class="dropdown-toggle" data-toggle="dropdown">Collection <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="/malt/collection/stock"><i class="glyphicon glyphicon-ok-circle"></i> In stock</a></li>
+              <li><a href="/malt/collection/all"><i class="glyphicon glyphicon-record"></i> All bottles</a></li>
+              <li><a href="/malt/collection/empty"><i class="glyphicon glyphicon-remove-circle"></i> Empty bottles</a></li>
+              <li><a href="/malt/admin/bottle/bottle/add"><i class="glyphicon glyphicon-plus"></i> New</a></li>
+            </ul>
+          </li>
+          <li><a href="/malt/whiskies">Whiskies</a></li>
+          
+          <li><a href="/malt/whiskies/distilleries">Distilleries</a></li>
+          
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Community <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="/malt/userprofile"><i class="glyphicon glyphicon-thumbs-up"></i> Friends</a></li>
+              <li><a href="/malt/events"><i class="glyphicon glyphicon-globe"></i> Events</a></li>
+            </ul>
+          </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          {% if not isLoggedin %}
+          <li><a href="/malt/login"><i class="glyphicon glyphicon-log-in"></i> <b>Log in</b></a></li>
+          <li><a href="/malt/register"><i class="glyphicon glyphicon-pencil"></i> <b>Register</b></a></li>
+          {% else %}
+          <li class="dropdown">
+            <a href="/malt/userprofile/edit/{{ user.id}} class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> <b class="caret"></b></a>
+            <ul class="dropdown-menu">
+              <li><a href="/malt/logout"><i class="glyphicon glyphicon-log-out"></i> Log out</a></li>
+            </ul>
+          </li>
+          {% endif %}
+        </ul>
+
+      </div>
+        <!--/.nav-collapse -->
+    </div>
+  </div>
+    
+    
+  <div class="container">
+    
+    {% bootstrap_messages %} 
+    {% block content %}Empty page{% endblock %}
+    
+  <p>
+    <hr>
+  </p>
+      
+  <footer class="row">
+  </footer>
+        
+  </div>
+         
+
+<script src={% bootstrap_jquery_url %} ></script>
+
+{% bootstrap_javascript %}
 
 </body>
-
+        
 </html> 
+              

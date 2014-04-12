@@ -1,0 +1,69 @@
+<html>
+
+{% load bootstrap3 %}
+
+<head>
+    <title>Example</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% bootstrap_css %}
+
+</head>
+<body>
+
+<!-- navbar -->
+<div class="navbar navbar-inverse">
+  <div class="container">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+    </div>
+    <div class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="/malt/">Home</a></li>
+        
+        <li class="dropdown">
+          <a href="/malt/drinks" class="dropdown-toggle" data-toggle="dropdown">Drinks <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="/malt/drinks/new"><i class="glyphicon glyphicon-plus"></i> New</a></li>
+            <li class="divider"></li>
+            <li><a href="/malt/drinks/"><i class="glyphicon glyphicon-list"></i> All</a></li>
+            <li><a href="/malt/drinks/my"><i class="glyphicon glyphicon-user"></i> My</a></li>
+            <li><a href="/malt/drinks/stats"><i class="glyphicon glyphicon-stats"></i> Statistics</a></li>
+            <li class="divider"></li>
+            <li class="dropdown-header">Dropdown header</li>
+            <li><a href="#">Separated link</a></li>
+            <li><a href="#">One more separated link</a></li>
+          </ul>
+        </li>
+        
+        <li><a href="#">Collection</a></li>
+        <li><a href="#">Whiskies</a></li>
+        <li><a href="#">Distilleries</a></li>
+        <li><a href="#">Users</a></li>
+        <li><a href="#">Events</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        {% if not isLoggedin %}
+        <li><a href="/thermostat/login"><i class="icon-lock"></i> Login</a></li>
+        <li><a href="/thermostat/register"><i class="glyphicon glyphicon-pencil"></i> Register</a></li>
+        {% else %}
+        <li><a href="/thermostat/userprofile/edit/{{ user.id}}"><i class="glyphicon glyphicon-user"></i></a></li>
+        <li><a href="/thermostat/logout"><i class="glyphicon glyphicon-off"></i></a></li>
+        {% endif %}
+      </ul>
+
+    </div>
+      <!--/.nav-collapse -->
+  </div>
+</div>
+
+<!-- include javascript, jQuery FIRST -->
+  <script src={% bootstrap_jquery_url %} ></script>
+  {% bootstrap_javascript %}
+</body>
+
+</html> 

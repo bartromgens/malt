@@ -1,5 +1,6 @@
 {% extends "base/base_login.html" %}
 
+{% load bootstrap3 %}
 {% block title %}Care 3.0{% endblock %}
 
 {% block content %}
@@ -10,21 +11,21 @@
     {{ error }}
   {% endif %}
 
-  <center>
     <form action="." method="post">
       {% csrf_token %}
-        <table id="formtable">
-          {{ form.as_table }}
-        </table>
-      <input type="submit" value="Login" />
+      {% bootstrap_form form %}
+      {% buttons %}
+        <button type="submit" class="btn btn-primary">
+            {% bootstrap_icon "log-in" %} Log in
+        </button>
+      {% endbuttons %}
     </form>
     
     <br/>
     <br/>
     
     <font id="userMessageFont">
-      New? <a href="/register/">Register</a>!
+      New? <a href="/register/">Register here</a>.
     </font>
-  </center>
 
 {% endblock %}

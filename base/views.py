@@ -124,6 +124,16 @@ class HelpView(BaseView):
   
     return context
   
+  
+class TestView(BaseView):
+  template_name = "base/test.html"
+  context_object_name = "test"
+  
+  def get_context_data(self, **kwargs):
+    # Call the base implementation first to get a context
+    context = super(TestView, self).get_context_data(**kwargs)     
+    return context
+
 
 class Event():
   def __init__(self):

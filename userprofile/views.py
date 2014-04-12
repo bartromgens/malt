@@ -74,7 +74,6 @@ class StatsUserProfileView(BaseView):
     
     return totalPaid
   
-  
   def getTotalCostNotDonated(self, userProfileId):
     Bottle.objects.filter(donation=True, buyer__id=userProfileId)
     
