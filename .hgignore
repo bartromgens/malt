@@ -7,3 +7,4 @@ tools/tablesorter/*
 backup/*
 runMaltServer.sh
 malt.sqlite
+static/bootstrap/bootswatch/*
