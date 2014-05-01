@@ -17,17 +17,18 @@ from glass.forms import NewDrinkForm
 from userprofile.models import UserProfile
 
 import numpy
-from itertools import permutations
-from random import sample
 
 
 class DrinksView(BaseView):
   template_name = "drinks/index.html"
   context_object_name = "drinks"
   
-  def getAllDrinks(self):
-    drinks = Glass.objects.order_by('-date')[:100]  
-    
+  def getAllDrinks(self, lastN=0):
+    if lastN == 0:
+      drinks = Glass.objects.order_by('-date')
+    else:
+      drinks = Glass.objects.order_by('-date')[:lastN]
+      
     drinks = addDrinksInfo(drinks)
     return drinks
   
@@ -39,7 +40,7 @@ class DrinksView(BaseView):
   
   def get_context_data(self, **kwargs):
     context = super(DrinksView, self).get_context_data(**kwargs)
-    drinks = self.getAllDrinks()
+    drinks = self.getAllDrinks(100)
     context['all_drinks_list'] = drinks
     
     context['drinkssection'] = True
