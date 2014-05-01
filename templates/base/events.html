@@ -12,6 +12,21 @@
 <center><h3>Events</h3></center>
 
   {% if events_list %}
+  <div class="bs-docs-grid">
+  <div>
+  {% for event in events_list %}
+  {% if forloop.counter0|divisibleby:3 %}
+    </div>
+    <div class="row show-grid">
+  {% endif %}
+  
+    <div class="span4">
+      <p> {{ event.date|date:"D" }} </p>
+    </div>
+  {% endfor %}
+  </div>
+  </div>
+
     <table class="table table-striped">
       
       <thead>
