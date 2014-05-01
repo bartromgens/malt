@@ -190,7 +190,7 @@ CACHES = {
 BOOTSTRAP3 = {
     'jquery_url': 'http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', #'//code.jquery.com/jquery.min.js',
     'base_url': STATIC_URL + 'bootstrap/', #'//netdna.bootstrapcdn.com/bootstrap/3.0.3/'
-    'css_url': STATIC_URL + 'bootstrap/css/bootstrap_yeti.min.css',
+    'css_url': STATIC_URL + 'bootstrap/css/bootstrap_yeti_malt.min.css',
     'theme_url': None,
     'javascript_url': STATIC_URL + 'bootstrap/js/bootstrap.min.js',
     'horizontal_label_class': 'col-md-2',
