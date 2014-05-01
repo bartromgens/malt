@@ -206,7 +206,7 @@ def newDrink(request):
         bottle.save()
         
       form.save()
-      return redirect('/malt/drinks')
+      return redirect('/drinks/')
     else:
       error = u'form is invalid'
       return errorHandle(error)
@@ -251,7 +251,7 @@ def newDrinkMobile(request):
         bottle.save()
         
       form.save()
-      return redirect('/malt/drinks')
+      return redirect('/drinks')
     else:
       error = u'form is invalid'
       return errorHandle(error)

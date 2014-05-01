@@ -30,8 +30,8 @@
       <tbody>
       {% for drink in event.drinks %}
         <tr>
-          <td ><a href="/malt/userprofile/stats/{{ drink.user.id }}/">{{ drink.user }}</a></td>
-          <td><b><a href="/malt/collection/bottle/{{ drink.bottle.id }}/">{{ drink.bottle }}</a></b></td>
+          <td ><a href="/userprofile/stats/{{ drink.user.id }}/">{{ drink.user }}</a></td>
+          <td><b><a href="/collection/bottle/{{ drink.bottle.id }}/">{{ drink.bottle }}</a></b></td>
           <td>{{ drink.bottle.whisky.distillery.region}}</td>
           <td>&euro; {{ drink.price }}</td>
           <td>{{ drink.volume_int }} ml</td>
@@ -45,11 +45,11 @@
 
     <br />
     <center><h4>Volume</h4></center>
-    <center><img src="/malt/events/plots/volumepie/{{ event.tempID }}.png"></img></center>
+    <center><img src="/events/plots/volumepie/{{ event.tempID }}.png"></img></center>
     
     <br />
     <center><h4>Regions</h4></center>
-    <center><img src="/malt/events/plots/regions/{{ event.tempID }}.png"></img></center>
+    <center><img src="/events/plots/regions/{{ event.tempID }}.png"></img></center>
 
   {% else %}
       <h3>Event not found.</h3>

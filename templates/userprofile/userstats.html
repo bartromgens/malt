@@ -50,9 +50,9 @@
 
 
 <br/>
-<center><img src="/malt/userprofile/plot/history/{{ drinker.id }}.png"></img></center>
+<center><img src="/userprofile/plot/history/{{ drinker.id }}.png"></img></center>
 <center><h4>Regions</h4></center>
-<center><img src="/malt/userprofile/plot/region/{{ drinker.id }}.png"></img></center>
+<center><img src="/userprofile/plot/region/{{ drinker.id }}.png"></img></center>
 
 <center><h4>{{ drinker }}'s drinks</h4></center>
 
@@ -77,7 +77,7 @@
           <td><b>{{ drink.bottle.whisky.age|floatformat }}</b></td>
           <td>{{ drink.volume_int }} ml</td>
           <td>&euro; {{ drink.price }}</td>
-          <td> <a href="/malt/collection/bottle/{{ drink.bottle.id }}/">{{ drink.bottle.id }}</a> </td>
+          <td> <a href="/collection/bottle/{{ drink.bottle.id }}/">{{ drink.bottle.id }}</a> </td>
           <td>{{ drink.date|date:"Y-m-d" }}</td>
         </tr>
       {% endfor %}

@@ -10,6 +10,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
   url(r'^/$', login_required(HomeView.as_view())),
   url(r'^test/$', login_required(TestView.as_view())),
+  url(r'^login/$', 'base.views.login'),
   url(r'^logout/$', 'base.views.logout'),
   url(r'^register/$', 'base.views.register'),
   url(r'^help/$', HelpView.as_view()),

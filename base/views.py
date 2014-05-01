@@ -357,7 +357,7 @@ def login(request):
         if user.is_active:
           # Redirect to a success page.
           auth.login(request, user)
-          return redirect('/malt/')
+          return redirect('/collection/')
         else:
           # Return a 'disabled account' error message
           error = u'account disabled'
@@ -378,4 +378,4 @@ def login(request):
     
 def logout(request):
   auth.logout(request)
-  return redirect('/malt/')
+  return redirect('/login/')

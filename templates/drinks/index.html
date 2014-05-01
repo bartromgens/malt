@@ -28,13 +28,13 @@
     <center>
       <hr/>
       <p>
-        <h4><a href="/malt/collection/bottle/{{ drink.bottle.id }}/">{{ drink.bottle.whisky.distillery }}</a></h4>
+        <h4><a href="/collection/bottle/{{ drink.bottle.id }}/">{{ drink.bottle.whisky.distillery }}</a></h4>
         <h4>{{ drink.bottle.age_int }}</h4>
         <img src="{{ drink.bottle.imagename }}" height="100"/>
         <br/>
         <br/>
         &euro; {{ drink.price }}
-        <h4><a href="/malt/userprofile/stats/{{ drink.user.id }}/">{{ drink.user }}</a></h4>
+        <h4><a href="/userprofile/stats/{{ drink.user.id }}/">{{ drink.user }}</a></h4>
       </p>
     </center>
   </div>
