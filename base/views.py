@@ -161,10 +161,12 @@ def getEvents():
   
   eventID = 1
   j = 0
-  while (j < len(drinks)-1):
+  nDrinks = len(drinks)
+  while (j < nDrinks-1):
     event = Event()
     
-    while (j+1 < len(drinks) and drinks[j].date - timedelta(0, 3600*4) < drinks[j+1].date):
+    delta = timedelta(0, 3600*4)
+    while (j+1 < nDrinks and drinks[j].date - delta < drinks[j+1].date):
       event.addDrink(drinks[j])
       j = j + 1
     
