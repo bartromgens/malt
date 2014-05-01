@@ -10,22 +10,24 @@
   {% if error %}
     {{ error }}
   {% endif %}
-
-    <form action="." method="post">
-      {% csrf_token %}
-      {% bootstrap_form form %}
-      {% buttons %}
-        <button type="submit" class="btn btn-primary">
-            {% bootstrap_icon "log-in" %} Log in
-        </button>
-      {% endbuttons %}
-    </form>
-    
-    <br/>
-    <br/>
-    
-    <font id="userMessageFont">
-      New? <a href="/register/">Register here</a>.
-    </font>
-
+  <div class="row">
+    <div class="col-md-3 col-md-offset-4">
+	    <form action="." method="post">
+	      {% csrf_token %}
+	      {% bootstrap_form form %}
+	      {% buttons %}
+	        <button type="submit" class="btn btn-primary">
+	            {% bootstrap_icon "log-in" %} Log in
+	        </button>
+	      {% endbuttons %}
+	    </form>
+	    
+	    <br/>
+	    <br/>
+	    
+	    <font id="userMessageFont">
+	      New? <a href="/register/">Register here</a>.
+	    </font>
+    </div>
+  </div>
 {% endblock %}
