@@ -4,7 +4,7 @@ from django.db import models
 from whisky.models import Whisky
 from collection.models import Collection
 from userprofile.models import UserProfile 
-from base.settings import STATIC_URL
+from base.settings import APP_DIR
 
 import os.path
 from datetime import datetime
@@ -102,12 +102,12 @@ def addBottleInfo(bottle):
   bottle.percentageLeft = '%.0f' % percentageLeft
   bottle.percentageGone = '%.0f' % percentageGone
   bottle.statusMeterWidth = '%.0f' % statusMeterWidth
-  imagename = str(STATIC_URL) + 'images/bottles/' + str(bottle.whisky.distillery) +str(bottle.age_int) + '.jpg'
+  imagename = APP_DIR + 'malt/static/images/bottles/' + str(bottle.whisky.distillery) +str(bottle.age_int) + '.jpg'
   
   if os.path.isfile(imagename):
     bottle.imagename = imagename
   else:
-    bottle.imagename = STATIC_URL + 'images/bottles/unknown.jpg'
+    bottle.imagename = APP_DIR + 'malt/static/images/bottles/unknown.jpg'
 
   return bottle
 
