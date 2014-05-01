@@ -4,49 +4,53 @@
 
 {% block content %}
 
-<center><h3>{{ drinker }}'s stats</h3></center>
-
 <center>
-<font>
-  <table class="table table-striped">
-    <tr>
-      <td>Volume</td>
-      <td><b>{{ volume_ml }} ml</b></td>
-    <tr>
-    <tr>
-      <td>Cost</td>
-      <td><b>&euro;  {{ total_cost }}</b></td>
-    </tr>
-    <tr>
-      <td>Cost per drink (50ml)</td>
-      <td><b>&euro;  {{ average_cost_per_50ml }}</b></td>
-    </tr>
+  <h3>{{ drinker }}'s stats</h3>
+</center>
+<br />
+<center>
+  <div class="row">
+    <div class="col-md-4 col-md-offset-4">
+      <table class="table">
+        <tr>
+          <td>Volume</td>
+          <td><b>{{ volume_ml }} ml</b></td>
+        <tr>
+        <tr>
+          <td>Cost</td>
+          <td><b>&euro; {{ total_cost }}</b></td>
+        </tr>
+        <tr>
+          <td>Cost per drink (50ml)</td>
+          <td><b>&euro; {{ average_cost_per_50ml }}</b></td>
+        </tr>
 
-  </table>
-</font>
+      </table>
+    </div>
+  </div>
 </center>
 
 <br/>
 <br/>
 
-<center>
-<font>
-  <table class="table table-striped">
-    <tr>
-      <td>Balance</td>
-      <td><b>&euro;  {{ balance }}</b></td>
-    </tr>   
-    <tr>
-      <td>Paid</td>
-      <td><b>&euro;  {{ total_paid }}</b></td>
-    </tr>
-    <tr>
-      <td>Spent</td>
-      <td><b>&euro;  {{ total_cost }}</b></td>
-    </tr>
-  </table>
-</font>
-</center>
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    <table class="table">
+      <tr>
+        <td>Balance</td>
+        <td><b>&euro; {{ balance }}</b></td>
+      </tr>
+      <tr>
+        <td>Paid</td>
+        <td><b>&euro; {{ total_paid }}</b></td>
+      </tr>
+      <tr>
+        <td>Spent</td>
+        <td><b>&euro; {{ total_cost }}</b></td>
+      </tr>
+    </table>
+  </div>
+</div>
 
 
 <br/>
