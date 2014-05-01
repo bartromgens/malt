@@ -47,9 +47,9 @@ class Whisky(models.Model):
     name = ''
     
     if (int(self.age) == 0):
-      name = unicode(self.distillery)
+      name = str(self.distillery)
     else:
-      name = unicode(self.distillery) + '  ' + unicode(int(self.age))
+      name = str(self.distillery) + '  ' + str(int(self.age))
     
     if self.name != 'normal':
       name = name + ' (' + self.name + ')'
