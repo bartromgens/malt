@@ -34,6 +34,7 @@ class BaseView(TemplateView):
       context['user'] = self.request.user
       context['displayname'] = userProfile.displayname
       context['isLoggedin'] = True
+      context['friends'] = UserProfile.objects.all()
     return context
 
 

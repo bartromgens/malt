@@ -75,12 +75,15 @@
           <li><a href="/whiskies/distilleries">Distilleries</a></li>
           
           <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Community <b class="caret"></b></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Friends <b class="caret"></b></a>
             <ul class="dropdown-menu">
-              <li><a href="/userprofile"><i class="glyphicon glyphicon-thumbs-up"></i> Friends</a></li>
-              <li><a href="/events"><i class="glyphicon glyphicon-globe"></i> Events</a></li>
+            {% for friend in friends %}
+              <li><a href="/userprofile/stats/{{ friend.id }}">{{ friend.displayname }}</a></li>
+            {% endfor %}
             </ul>
           </li>
+          
+          <li><a href="/events">Events</a></li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
