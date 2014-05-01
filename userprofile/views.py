@@ -75,7 +75,7 @@ class StatsUserProfileView(BaseView):
     return totalPaid
   
   def getTotalCostNotDonated(self, userProfileId):
-    Bottle.objects.filter(donation=True, buyer__id=userProfileId)
+    bottles = Bottle.objects.filter(donation=True, buyer__id=userProfileId)
     
     totalPaid = 0.0
     
@@ -135,7 +135,7 @@ def plotUserVolumeHistory(request, userprofileId):
   
   drinks = Glass.objects.filter(user=userprofile).order_by('date')
   
-  fig.suptitle("Volume history " + str(userprofile.displayname))
+#   fig.suptitle("Volume history " + str(userprofile.displayname))
   
   volume = 0.0
   
