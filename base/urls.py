@@ -8,7 +8,7 @@ from base.views import HomeView, AboutView, HelpView, EventsView, EventView, Tes
 admin.autodiscover()
 
 urlpatterns = patterns('',
-  url(r'^/$', login_required(HomeView.as_view())),
+  url(r'^$', login_required(HomeView.as_view())),
   url(r'^test/$', login_required(TestView.as_view())),
   url(r'^login/$', 'base.views.login'),
   url(r'^logout/$', 'base.views.logout'),
