@@ -324,14 +324,16 @@ def register(request):
     
   if request.method == 'POST': # If the form has been submitted...
     form = UserCreateForm(request.POST) # A form bound to the POST data
-    if form.is_valid():
-      form.save()
-      context = RequestContext(request)
-      context['registered'] = True
-      return render_to_response('base/register.html', context)
-    else:
-      error = u'form is invalid'
-      return errorHandle(error)
+#     if form.is_valid():
+#       form.save()
+#       context = RequestContext(request)
+#       context['registered'] = True
+#       return render_to_response('base/register.html', context)
+#     else:
+#       error = u'form is invalid'
+#       return errorHandle(error)
+    error = u'Registrations are currently closed! Sorry!'
+    return errorHandle(error)
   else:
     form = UserCreateForm() # An unbound form
     context = RequestContext(request)
