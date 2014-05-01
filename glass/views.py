@@ -39,8 +39,8 @@ class DrinksView(BaseView):
   
   def get_context_data(self, **kwargs):
     context = super(DrinksView, self).get_context_data(**kwargs)
-    bottles = self.getAllDrinks()
-    context['all_drinks_list'] = bottles
+    drinks = self.getAllDrinks()
+    context['all_drinks_list'] = drinks
     
     context['drinkssection'] = True
     return context
