@@ -54,9 +54,18 @@
 
 <br/>
 <center><h3>{{ drinker }}'s history</h3></center>
-<center><img src="/userprofile/plot/history/{{ drinker.id }}.png"></img></center>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <img src="/userprofile/plot/history/{{ drinker.id }}.png" class="img-responsive"></img>
+  </div>
+</div>
+
 <center><h3>{{ drinker }}'s regions</h3></center>
-<center><img src="/userprofile/plot/region/{{ drinker.id }}.png"></img></center>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <img src="/userprofile/plot/region/{{ drinker.id }}.png" class="img-responsive"></img>
+  </div>
+</div>
 
 <center><h3>{{ drinker }}'s drinks</h3></center>
 

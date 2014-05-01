@@ -162,7 +162,7 @@ def plotUserVolumeHistory(request, userprofileId):
   fig.autofmt_xdate()
   fig.set_facecolor('white')
   response = HttpResponse(content_type='image/png')
-  canvas.print_png(response)
+  fig.savefig(response, format="png", dpi=100)
   
   return response
 
@@ -202,7 +202,7 @@ def plotRegionUserPieChart(request, userprofileId):
   
   fig.set_facecolor('white')
   response = HttpResponse(content_type='image/png')
-  canvas.print_png(response)
+  fig.savefig(response, format="png", dpi=100)
   
   
   return response
