@@ -26,7 +26,7 @@ class DrinksView(BaseView):
   context_object_name = "drinks"
   
   def getAllDrinks(self):
-    drinks = Glass.objects.order_by('-date')
+    drinks = Glass.objects.order_by('-date')[:100]  
     
     drinks = addDrinksInfo(drinks)
     return drinks

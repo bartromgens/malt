@@ -102,12 +102,13 @@ def addBottleInfo(bottle):
   bottle.percentageLeft = '%.0f' % percentageLeft
   bottle.percentageGone = '%.0f' % percentageGone
   bottle.statusMeterWidth = '%.0f' % statusMeterWidth
-  imagename = STATIC_URL + 'images/bottles/' + str(bottle.whisky.distillery) +str(bottle.age_int) + '.jpg'
+  imagename = str(STATIC_URL) + 'images/bottles/' + str(bottle.whisky.distillery) +str(bottle.age_int) + '.jpg'
+  
   if os.path.isfile(imagename):
     bottle.imagename = imagename
   else:
     bottle.imagename = STATIC_URL + 'images/bottles/unknown.jpg'
-    
+
   return bottle
 
 

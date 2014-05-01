@@ -27,8 +27,8 @@ class Distillery(models.Model):
   
   date = models.DateTimeField(auto_now=True, auto_now_add=True)
   
-  def __unicode__(self):
-    return self.name
+  def __str__(self):
+    return str(self.name)
   
   class Meta:
     ordering = ['name']
@@ -43,7 +43,7 @@ class Whisky(models.Model):
   
   date = models.DateTimeField(auto_now=True, auto_now_add=True)
   
-  def __unicode__(self):
+  def __str__(self):
     name = ''
     
     if (int(self.age) == 0):
