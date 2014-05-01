@@ -71,7 +71,7 @@ class Bottle(models.Model):
     
     return averagePercentageLeft
   
-  def __unicode__(self):
+  def __str__(self):
     name = str(self.whisky)    
     return name
   
