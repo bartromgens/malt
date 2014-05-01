@@ -9,5 +9,5 @@ class UserProfile(models.Model):
   displayname = models.CharField(max_length=200)
   #settings = models.ForeignKey(UserSettings)
   
-  def __unicode__(self):
+  def __str__(self):
     return self.displayname

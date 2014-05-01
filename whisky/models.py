@@ -9,7 +9,7 @@ class Region(models.Model):
   
   date = models.DateTimeField(default=datetime.now, editable=True, blank=True)
   
-  def __unicode__(self):
+  def __str__(self):
     return self.name
   
   class Meta:

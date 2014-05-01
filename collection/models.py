@@ -13,7 +13,7 @@ class Collection(models.Model):
   
   date = models.DateTimeField(auto_now=True, auto_now_add=True)
   
-  def __unicode__(self):
+  def __str__(self):
     return self.name
   
   class Meta:
