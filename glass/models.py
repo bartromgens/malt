@@ -3,7 +3,7 @@ from django.db.models import signals
 from datetime import datetime
 
 from django.db import models
-from bottle.models import Bottle
+from bottle.models import Bottle, addBottleInfo
 from userprofile.models import UserProfile
 
 class Glass(models.Model):
@@ -30,9 +30,16 @@ def addDrinkInfo(drink):
 
 
 def addDrinksInfo(drinks):
+  date = datetime.today()
   for drink in drinks:
     drink = addDrinkInfo(drink)
-    
+    drink.bottle = addBottleInfo(drink.bottle)
+    if drink.date.day < date.day:
+      drink.isnewdate = True
+    else:
+      drink.isnewdate = False
+    date = drink.date
+      
   return drinks
 
 

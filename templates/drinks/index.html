@@ -7,39 +7,39 @@
 <center><h3>Drinks </h3></center>
 
   {% if all_drinks_list %}
-    <table class="table table-striped table-hover">
-      
-      <thead>
-        <tr>
-          <th><b>Who</b></th>
-          <th><b>Bottle</b></th>
-          <th><b>Region</b></th>
-          <th><b>Price</b></th>
-          <th><b>Vol</b></th>
-          <th><b>Date</b></th>
-          <th><b><img src="{{ STATIC_URL }}/images/icon_sound.png" width=12px></b></th>
-        </tr>
-      </thead> 
-      
-      <tbody>
-      {% for drink in all_drinks_list %}
-        <tr>
-          <td ><a href="/malt/userprofile/stats/{{ drink.user.id }}/">{{ drink.user }}</a></td>
-          <td><b><a href="/malt/collection/bottle/{{ drink.bottle.id }}/">{{ drink.bottle }}</a></b></td>
-          <td>{{ drink.bottle.whisky.distillery.region}}</td>
-          <td>&euro; {{ drink.price }}</td>
-          <td>{{ drink.volume_int }} ml</td>
-          <td>{{ drink.date|date:"Y-m-d" }}</td>
-          {% if drink.bottle.whisky.distillery.sound %}
-            <td><a href="{{ STATIC_URL }}sounds/{{ drink.bottle.whisky.distillery.name }}.wav">play</a></td>
-          {% else %}
-            <td></td>
-          {% endif %}
-          </tr>
-      {% endfor %}
-      </tbody>
-    
-    </table>
+  {% for drink in all_drinks_list %}
+  {% if drink.isnewdate %}
+  <div class="col-sm-3">
+    <center>
+      <hr/>
+      <p>
+        <h4>{{ drink.date|date:"D d M" }}</h4>
+        <h4>-</h4>
+        <img src="{{ STATIC_URL }}images/glencairn_whisky_glass.jpg" height="100"/>
+        <br/>
+        <br/>
+        -
+        <h4>-</h4>
+      </p>
+    </center>
+  </div>
+  {% endif %}
+  <div class="col-sm-3">
+    <center>
+      <hr/>
+      <p>
+        <h4><a href="/malt/collection/bottle/{{ drink.bottle.id }}/">{{ drink.bottle.whisky.distillery }}</a></h4>
+        <h4>{{ drink.bottle.age_int }}</h4>
+        <img src="{{ drink.bottle.imagename }}" height="100"/>
+        <br/>
+        <br/>
+        &euro; {{ drink.price }}
+        <h4><a href="/malt/userprofile/stats/{{ drink.user.id }}/">{{ drink.user }}</a></h4>
+      </p>
+    </center>
+  </div>
+  {% endfor %}
+  </div>
 
   {% else %}
       <p>No drinks in the database.</p>
