@@ -1,5 +1,6 @@
-{% extends "collection/base.html" %}
+{% extends "base/base.html" %}
 
+{% load bootstrap3 %}
 
 {% block title %}Malt{% endblock %}
 
@@ -8,52 +9,38 @@
 <center><h3>Collection</h3></center>
 
   {% if full_collection_list %}
-    <table class="table table-striped table-hover">
-    <thead>
-    <tr>
-      <th><b>#</b></th>
-      <th><b>Distillery</b></th>
-      <th><b>Type</b></th>
-      <th><b>Age</b></th>
-      <th><b>%</b></th>
-      <th><b>Region</b></th>
-      <th><b>Vol.</b></th>
-      <th><b>Status</b></th>
-      <th><b>Price</b></th>
-      <th><b>Date</b></th>
-      <th><b></b></th>
-    </tr>
-    </thead> 
-    <tbody>
+
+
+<div class="row">
     {% for bottle in full_collection_list %}
-    <tr>
-      <td>{{ bottle.id }}</td>
-      <td><b>{{ bottle.distillery.name }}</b></td>
-      <td>{{ bottle.whisky.name }}</td>
-      {% if bottle.age_int == 0 %}
-      <td><b> - </b></td>
-      {% else %}
-      <td><b>{{ bottle.age_int }}</b></td>
-      {% endif %}
-      <td>{{ bottle.alcoholPercentage_int }}</td>
-      <td><b>{{ bottle.distillery.region }}</b></td>
-      <td>{{ bottle.volume_liters }} L</td>
-      <td>
-        <div class="meter-wrap" style="background: #ffffff url({{ STATIC_URL }}images/bottle_meter_outline_28px.png)">
-            <div class="meter-value" style="background: #ffffff url({{ STATIC_URL }}images/bottle_meter_outline_28px.png); background-color: #ded05a; width: {{ bottle.statusMeterWidth }}%;">
-                <div class="meter-text">
-                    {{ bottle.percentageLeft }}%
-                </div>
-            </div>
+
+  <div class="col-sm-3">
+    <center>
+      <hr/>
+      <p>
+        <h3><a href="/malt/collection/bottle/{{ bottle.id }}">{{ bottle.distillery.name }}</a></h3>
+        {{ bottle.whisky.name }}
+        <br/>
+        <br/>
+
+        <img src="{{ bottle.imagename }}" height="200"/>
+        
+        {% if bottle.age_int == 0 %}
+        <h3> - </h3>
+        {% else %}
+        <h3>{{ bottle.age_int }}</h3>
+        {% endif %}
+
+        <div class="progress">
+          <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ bottle.percentageLeft }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ bottle.percentageLeft }}%">
+          </div>
         </div>
-      </td>
-      <td>&euro; {{ bottle.price }}</td>
-      <td>{{ bottle.date|date:"Y-m-d" }}</td>
-      <td> <a href="/malt/collection/bottle/{{ bottle.id }}/"><i class="glyphicon glyphicon-stats"></i> </a></td>
-    </tr>
+      </p>
+    </center>
+  </div>
+
     {% endfor %}
-    </tbody> 
-    </table>
+</div>
 
   {% else %}
       <p>No bottles available.</p>
