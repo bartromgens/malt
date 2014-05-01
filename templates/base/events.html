@@ -12,7 +12,7 @@
 <center><h3>Events</h3></center>
 
   {% if events_list %}
-  <div class="bs-docs-grid">
+<!--   <div class="bs-docs-grid">
   <div>
   {% for event in events_list %}
   {% if forloop.counter0|divisibleby:3 %}
@@ -25,42 +25,44 @@
     </div>
   {% endfor %}
   </div>
-  </div>
-
-    <table class="table table-striped">
-      
-      <thead>
-        <tr>
-          <th><b>Day</b></th>
-          <th><b>Date</b></th>
-          <th><b># Drinks</b></th>
-          <th><b>Volume</b></th>
-          <th><b>Cost</b></th>
-          <th><b>Drinkers</b></th>
-          <th><b></b></th>
-        </tr>
-      </thead> 
-      
-      <tbody>
-      {% for event in events_list %}
-        <tr>
-          <td>{{ event.date|date:"D" }}</td>
-          <td>{{ event.date|date:"Y-m-d" }}</td>
-          <td>{{ event.nDrinks }}</td>
-          <td>{{ event.volume_str }} ml</td>
-          <td>&euro; {{ event.cost_str }}</td>
-          <td>
-            {% for drinker in event.drinkers %}
-              {{ drinker }}
+  </div> -->
+   <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <table class="table table-striped">
+  
+        <thead>
+          <tr>
+            <th><b>Day</b></th>
+            <th><b>Date</b></th>
+            <th><b># Drinks</b></th>
+            <th><b>Volume</b></th>
+            <th><b>Cost</b></th>
+            <th><b>Drinkers</b></th>
+            <th><b></b></th>
+          </tr>
+        </thead>
+  
+        <tbody>
+          {% for event in events_list %}
+          <tr>
+            <td>{{ event.date|date:"D" }}</td>
+            <td>{{ event.date|date:"Y-m-d" }}</td>
+            <td>{{ event.nDrinks }}</td>
+            <td>{{ event.volume_str }} ml</td>
+            <td>&euro; {{ event.cost_str }}</td>
+            <td>
+            {% for drinker in event.drinkers %} 
+              {{ drinker }} 
             {% endfor %}
-          </td>
-          <td><a href="/events/{{ event.tempID }}/"><i class="glyphicon glyphicon-stats"></i> </a></td>
-        </tr>
-      {% endfor %}
-      </tbody>
-    
-    </table>
-
+            </td>
+            <td><a href="/events/{{ event.tempID }}/"><i class="glyphicon glyphicon-stats"></i> </a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+  
+      </table>
+    </div>
+  </div> 
   {% else %}
       <h3>No Events in the database.</h3>
   {% endif %}
