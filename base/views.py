@@ -156,8 +156,7 @@ class Event():
     
 
 def getEvents():
-  from glass.views import DrinksView
-  drinks = DrinksView().getAllDrinks()
+  drinks = Glass.objects.order_by('-date')
   events = []
   
   eventID = 1
@@ -170,15 +169,14 @@ def getEvents():
       j = j + 1
     
     event.addDrink(drinks[j])
-    
-    event.volume_str = '%.0f' % event.volume
-    event.cost_str = '%.2f' % event.cost
-    
-    event.date = drinks[j].date
     event.nDrinks = len(event.drinks)
-    event.tempID = eventID
-    
+
     if (event.nDrinks > 1 and len(event.drinkers) > 1):
+      event.volume_str = '%.0f' % event.volume
+      event.cost_str = '%.2f' % event.cost
+      
+      event.date = drinks[j].date
+      event.tempID = eventID
       eventID += 1
       events.append(event)
     j = j + 1
