@@ -54,40 +54,46 @@
 
 
 <br/>
+<center><h3>{{ drinker }}'s history</h3></center>
 <center><img src="/userprofile/plot/history/{{ drinker.id }}.png"></img></center>
-<center><h4>Regions</h4></center>
+<center><h3>{{ drinker }}'s regions</h3></center>
 <center><img src="/userprofile/plot/region/{{ drinker.id }}.png"></img></center>
 
-<center><h4>{{ drinker }}'s drinks</h4></center>
+<center><h3>{{ drinker }}'s drinks</h3></center>
 
   {% if drinks %}
-    <table class="table table-striped">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <table class="table table-striped">
+        
+        <thead>
+          <tr>
+            <th><b>Whisky</b></th>
+            <th><b>Age</b></th>
+            <th><b>Volume</b></th>
+            <th><b>Price</b></th>
+            <th><b>Bottle</b></th>
+            <th><b>Date</b></th>
+          </tr>
+        </thead> 
+        
+        <tbody>
+        {% for drink in drinks %}
+          <tr>
+            <td><b>{{ drink.bottle.whisky.distillery }}</b></td>
+            <td><b>{{ drink.bottle.whisky.age|floatformat }}</b></td>
+            <td>{{ drink.volume_int }} ml</td>
+            <td>&euro; {{ drink.price }}</td>
+            <td> <a href="/collection/bottle/{{ drink.bottle.id }}/">{{ drink.bottle.id }}</a> </td>
+            <td>{{ drink.date|date:"Y-m-d" }}</td>
+          </tr>
+        {% endfor %}
+        </tbody>
       
-      <thead>
-        <tr>
-          <th><b>Whisky</b></th>
-          <th><b>Age</b></th>
-          <th><b>Volume</b></th>
-          <th><b>Price</b></th>
-          <th><b>Bottle</b></th>
-          <th><b>Date</b></th>
-        </tr>
-      </thead> 
-      
-      <tbody>
-      {% for drink in drinks %}
-        <tr>
-          <td><b>{{ drink.bottle.whisky.distillery }}</b></td>
-          <td><b>{{ drink.bottle.whisky.age|floatformat }}</b></td>
-          <td>{{ drink.volume_int }} ml</td>
-          <td>&euro; {{ drink.price }}</td>
-          <td> <a href="/collection/bottle/{{ drink.bottle.id }}/">{{ drink.bottle.id }}</a> </td>
-          <td>{{ drink.date|date:"Y-m-d" }}</td>
-        </tr>
-      {% endfor %}
-      </tbody>
-    
-    </table>
+      </table>
+    </div>
+  </div>
+  
 
   {% else %}
       <p>No drinks in the database.</p>
