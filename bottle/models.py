@@ -68,7 +68,7 @@ class Bottle(models.Model):
     return averagePercentageLeft
   
   def __unicode__(self):
-    name = unicode(self.whisky)    
+    name = str(self.whisky)    
     return name
   
   class Meta:

@@ -3,7 +3,6 @@ from matplotlib.figure import Figure
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
 from datetime import timedelta
-from sets import Set
 
 from django.http import HttpResponse 
 from django.views.generic import TemplateView
@@ -134,7 +133,7 @@ class Event():
     self.cost = 0.0
     self.cost_str = ''
     self.drinks = []
-    self.drinkers = Set()
+    self.drinkers = set()
     self.nDrinks = 0
     self.tempID = 0
     
@@ -248,13 +247,9 @@ def plotVolumeEventPieChart(request, eventId):
     fracs.append(users[key])
     explode.append(0.0)
   
-  try:
-    ax.pie(fracs, explode=explode, colors=('#87F881', '#8F96F4', '#FFDE85', '#FF8488', 'r', 'g', 'b'), \
+  ax.pie(fracs, explode=explode, colors=('#87F881', '#8F96F4', '#FFDE85', '#FF8488', 'r', 'g', 'b'), \
            labels=labels, autopct='%1.0f%%', shadow=False)
-  except:
-    print 'ERROR in pie chart'
-    return
-  
+   
   fig.set_facecolor('white')
   response = HttpResponse(content_type='image/png')
   canvas.print_png(response)
@@ -299,12 +294,8 @@ def plotRegionEventPieChart(request, eventId):
     fracs.append(regions[key])
     explode.append(0.0)
   
-  try:
-    ax.pie(fracs, explode=explode, colors=('#87F881', '#8F96F4', '#FFDE85', '#FF8488', 'r', 'g', 'b'), \
+  ax.pie(fracs, explode=explode, colors=('#87F881', '#8F96F4', '#FFDE85', '#FF8488', 'r', 'g', 'b'), \
            labels=labels, autopct='%1.0f%%', shadow=False)
-  except:
-    print 'ERROR in pie chart'
-    return
   
   fig.set_facecolor('white')
   response = HttpResponse(content_type='image/png')

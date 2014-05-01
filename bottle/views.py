@@ -172,12 +172,8 @@ def plotBottleUserPieChart(request, bottleId):
     fracs.append(users[key])
     explode.append(0.0)
   
-  try:
-    ax.pie(fracs, explode=explode, colors=('#87F881', '#8F96F4', '#FFDE85', '#FF8488', 'r', 'g', 'b'), \
+  ax.pie(fracs, explode=explode, colors=('#87F881', '#8F96F4', '#FFDE85', '#FF8488', 'r', 'g', 'b'), \
            labels=labels, autopct='%1.0f%%', shadow=False)
-  except:
-    print 'ERROR in pie chart'
-    return
   
   fig.set_facecolor('white')
   response = HttpResponse(content_type='image/png')

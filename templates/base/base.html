@@ -35,13 +35,13 @@
     <div id="login">
     	{% if not isLoggedin %}
     	  <font id="loginfont"><b>You are not logged in.</b></font>
-    	  <a href="/malt/login/" id="loginlink">[login]</a> 
-    	  <a href="/malt/register/" id="loginlink">[register]</a>  
+    	  <a href="/login/" id="loginlink">[login]</a> 
+    	  <a href="/register/" id="loginlink">[register]</a>  
     	{% endif %}
     	{% if isLoggedin %}
     	  <font id="loginfont"><b>You are signed in as </b></font>
-    	   <a href="/malt/userprofile/edit/{{ user.id}}" id="usernamelink"><b>{{ user.username }}</b></a>.  
-    	  <a href="/malt/logout/" id="loginlink">[logout]</a>
+    	   <a href="/userprofile/edit/{{ user.id}}" id="usernamelink"><b>{{ user.username }}</b></a>.  
+    	  <a href="/logout/" id="loginlink">[logout]</a>
     	{% endif %}
     </div>
     
@@ -50,41 +50,41 @@
       
 	      <li>
 				{% if homesection %}
-				  <a href="/malt/" id="selectedbutton">Home</a>
+				  <a href="/" id="selectedbutton">Home</a>
 				{% else %}
-				  <a href="/malt/">Home</a>
+				  <a href="/">Home</a>
 				{% endif %}
 	      </li>
       
 	      <li>
 				{% if drinkssection %}
-				  <a href="/malt/drinks/" id="selectedbutton">Drinks</a>
+				  <a href="/drinks/" id="selectedbutton">Drinks</a>
 				{% else %}
-				  <a href="/malt/drinks/">Drinks</a>
+				  <a href="/drinks/">Drinks</a>
 				{% endif %}
 	      </li>
       
 	      <li>
 			  {% if collectionsection %}
-					<a href="/malt/collection/" id="selectedbutton">Collection</a>
+					<a href="/collection/" id="selectedbutton">Collection</a>
 			  {% else %}
-					<a href="/malt/collection/">Collection</a>
+					<a href="/collection/">Collection</a>
 			  {% endif %}
 	      </li>
 	      
 	      <li>
         {% if whiskiessection %}
-          <a href="/malt/whiskies/" id="selectedbutton">Whiskies</a>
+          <a href="/whiskies/" id="selectedbutton">Whiskies</a>
         {% else %}
-          <a href="/malt/whiskies/">Whiskies</a>
+          <a href="/whiskies/">Whiskies</a>
         {% endif %}
         </li>
         
         <li>
         {% if distilleriessection %}
-          <a href="/malt/whiskies/distilleries/" id="selectedbutton">Distilleries</a>
+          <a href="/whiskies/distilleries/" id="selectedbutton">Distilleries</a>
         {% else %}
-          <a href="/malt/whiskies/distilleries/">Distilleries</a>
+          <a href="/whiskies/distilleries/">Distilleries</a>
         {% endif %}
         </li>
 
@@ -100,22 +100,22 @@
 
         <li>
         {% if usersection %}
-          <a href="/malt/userprofile/" id="selectedbutton">Users</a>
+          <a href="/userprofile/" id="selectedbutton">Users</a>
         {% else %}
-          <a href="/malt/userprofile/">Users</a>
+          <a href="/userprofile/">Users</a>
         {% endif %}
         </li>
         
         <li>
         {% if eventssection %}
-          <a href="/malt/events/" id="selectedbutton">Events</a>
+          <a href="/events/" id="selectedbutton">Events</a>
         {% else %}
-          <a href="/malt/events/">Events</a>
+          <a href="/events/">Events</a>
         {% endif %}
         </li>
 
         <li>
-          <a href="/malt/admin/">Admin</a>
+          <a href="/admin/">Admin</a>
         </li>
 
 <!--

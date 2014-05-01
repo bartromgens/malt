@@ -19,7 +19,7 @@ class Glass(models.Model):
     return self.bottle.price * self.volume / self.bottle.volume
   
   def __unicode__(self):
-    return unicode(self.volume) + '[ml] of ' + unicode(self.bottle)
+    return str(self.volume) + '[ml] of ' + str(self.bottle)
 
 
 def addDrinkInfo(drink):

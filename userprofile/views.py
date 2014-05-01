@@ -70,19 +70,17 @@ class StatsUserProfileView(BaseView):
     totalPaid = 0.0
     
     for bottle in bottles:
-      print bottle.whisky
       totalPaid += bottle.price
     
     return totalPaid
   
   
   def getTotalCostNotDonated(self, userProfileId):
-    bottles = Bottle.objects.filter(donation=True, buyer__id=userProfileId)
+    Bottle.objects.filter(donation=True, buyer__id=userProfileId)
     
     totalPaid = 0.0
     
     for bottle in bottles:
-      print bottle.whisky
       totalPaid += bottle.price
     
     return totalPaid
@@ -200,12 +198,8 @@ def plotRegionUserPieChart(request, userprofileId):
     fracs.append(regions[key])
     explode.append(0.0)
   
-  try:
-    ax.pie(fracs, explode=explode, colors=('#87F881', '#8F96F4', '#FFDE85', '#FF8488', 'r', 'g', 'b'), \
-           labels=labels, autopct='%1.0f%%', shadow=False)
-  except:
-    print 'ERROR in pie chart'
-    return
+  ax.pie(fracs, explode=explode, colors=('#87F881', '#8F96F4', '#FFDE85', '#FF8488', 'r', 'g', 'b'), \
+         labels=labels, autopct='%1.0f%%', shadow=False)
   
   fig.set_facecolor('white')
   response = HttpResponse(content_type='image/png')
