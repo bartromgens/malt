@@ -195,7 +195,7 @@ def getEvents():
 class EventsView(BaseView):
   template_name = "base/events.html"
   context_object_name = "events"
-  events = ''
+  events = getEvents()
   
   def get_context_data(self, **kwargs):
     context = super(EventsView, self).get_context_data(**kwargs)
