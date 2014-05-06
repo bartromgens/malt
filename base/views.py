@@ -195,13 +195,14 @@ def getEvents():
 class EventsView(BaseView):
   template_name = "base/events.html"
   context_object_name = "events"
+  events = ''
   
   def get_context_data(self, **kwargs):
     context = super(EventsView, self).get_context_data(**kwargs)
 
-    events = getEvents()
+    EventsView.events = getEvents()
       
-    context['events_list'] = events
+    context['events_list'] = EventsView.events
     context['eventssection'] = True
     return context
 
@@ -215,7 +216,7 @@ class EventView(BaseView):
     eventId = int(kwargs['eventId'])  
     context = super(EventView, self).get_context_data(**kwargs)
     
-    EventView.events = getEvents()
+    EventView.events = EventsView.events
     
     selectedEvent = 0
     
