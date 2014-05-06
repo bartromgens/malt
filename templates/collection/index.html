@@ -14,7 +14,7 @@
   {% for bottle in full_collection_list %}
 
   <div class="col-xs-2" align="center">
-      <a href="/collection/bottle/{{ bottle.id }}"><img src="{{ bottle.imagename }}" height="100"/></a>
+      <a href="./#{{ bottle.id }}"><img src="{{ bottle.imagename }}" height="100"/></a>
       <br>
        {{ bottle.age_int }}
   </div>
@@ -28,7 +28,7 @@
   <div class="col-sm-3" align="center">
   <div id="fixed-height-drinks">
     <hr>
-      <h3><a href="/collection/bottle/{{ bottle.id }}">{{ bottle.distillery.name }}</a></h3>
+      <h3><a href="/collection/bottle/{{ bottle.id }}" name="{{ bottle.id }}">{{ bottle.distillery.name }}</a></h3>
       {{ bottle.whisky.name }}
       <br>
       <br>
