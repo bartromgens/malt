@@ -6,40 +6,54 @@
 
 <center><h3>{{ bottle }}</h3></center>
 
-<font>
-  <table>
-    <tr>
-      <td> Distillery: </td>
-      <td><b> {{ bottle.whisky.distillery }} </b></td>
-    <tr>
-    <tr>
-      <td> Age: </td>
-      <td><b> {{ bottle.age_int }} </b></td>
-    </tr>
-    <tr>
-      <td> Type: </td>
-      <td><b> {{ bottle.whisky.name }} </b></td>
-    </tr>
-    <tr>
-      <td> Alcohol: </td>
-      <td><b> {{ bottle.alcoholPercentage_int }} %</b></td>
-    </tr>
-    <tr>
-      <td> Region: </td>
-      <td><b> {{ bottle.whisky.distillery.region }} </b></td>
-    </tr>
-    <tr>
-      <td> Volume: </td>
-      <td><b> {{ bottle.volume_liters }} L </b></td>
-    </tr>
-  </table>
-</font>
-
+<div class="row">
+  <div class="col-md-4 col-md-offset-4">
+    <table class="table">
+      <tr>
+        <td> Distillery: </td>
+        <td><b> {{ bottle.whisky.distillery }} </b></td>
+      <tr>
+      <tr>
+        <td> Age: </td>
+        <td><b> {{ bottle.age_int }} </b></td>
+      </tr>
+      <tr>
+        <td> Type: </td>
+        <td><b> {{ bottle.whisky.name }} </b></td>
+      </tr>
+      <tr>
+        <td> Alcohol: </td>
+        <td><b> {{ bottle.alcoholPercentage_int }} %</b></td>
+      </tr>
+      <tr>
+        <td> Region: </td>
+        <td><b> {{ bottle.whisky.distillery.region }} </b></td>
+      </tr>
+      <tr>
+        <td> Volume: </td>
+        <td><b> {{ bottle.volume_liters }} L </b></td>
+      </tr>
+    </table>
+  </div>
+</div>
+  
 <center><h4>Who consumed the {{ bottle }}?</h4></center>
-<center><img src="/collection/plot/users/{{ bottle.id }}.png"></img></center>
+<center>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+      <img src="/collection/plot/users/{{ bottle.id }}.png" class="img-responsive"></img>
+  </div>
+</div>
+</center>
 
 <center><h4>Volume history {{ bottle }}</h4></center>
-<center><img src="/collection/plot/history/{{ bottle.id }}.png"></img></center>
+<center>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+      <img src="/collection/plot/history/{{ bottle.id }}.png" class="img-responsive"></img>
+  </div>
+</div>
+</center>
 
 {% endblock %}
 

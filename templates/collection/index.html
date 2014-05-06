@@ -13,6 +13,18 @@
 <div class="row">
   {% for bottle in full_collection_list %}
 
+  <div class="col-xs-2" align="center">
+      <a href="/collection/bottle/{{ bottle.id }}"><img src="{{ bottle.imagename }}" height="100"/></a>
+      <br>
+       {{ bottle.age_int }}
+  </div>
+
+  {% endfor %}
+</div>
+
+<div class="row">
+  {% for bottle in full_collection_list %}
+
   <div class="col-sm-3" align="center">
   <div id="fixed-height-drinks">
     <hr>
