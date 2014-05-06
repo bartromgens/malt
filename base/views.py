@@ -192,17 +192,28 @@ def getEvents():
   return events
 
 
+class Events(object):
+  events = ''
+  
+  @staticmethod
+  def getEvents():
+    if len(Events.events) > 0:
+      return Events.events
+    else:
+      Events.events = getEvents()
+      return Events.events
+
+
 class EventsView(BaseView):
   template_name = "base/events.html"
   context_object_name = "events"
-  events = getEvents()
   
   def get_context_data(self, **kwargs):
     context = super(EventsView, self).get_context_data(**kwargs)
 
-    EventsView.events = getEvents()
+    events = Events.getEvents()
       
-    context['events_list'] = EventsView.events
+    context['events_list'] = events
     context['eventssection'] = True
     return context
 
@@ -210,17 +221,16 @@ class EventsView(BaseView):
 class EventView(BaseView):
   template_name = "base/event.html"
   context_object_name = "event"
-  events = ''
   
   def get_context_data(self, **kwargs):
     eventId = int(kwargs['eventId'])  
     context = super(EventView, self).get_context_data(**kwargs)
     
-    EventView.events = EventsView.events
+    events = Events.getEvents()
     
     selectedEvent = 0
     
-    for event in EventView.events:
+    for event in events:
       if event.tempID == eventId:
         selectedEvent = event
         break
@@ -236,7 +246,7 @@ def plotVolumeEventPieChart(request, eventId):
   ax = fig.add_axes([0,0,1,1])
   ax.axis('equal')
 
-  events = EventView().events
+  events = Events.getEvents()
   
   selectedEvent = 0
   for event in events:
@@ -281,7 +291,7 @@ def plotRegionEventPieChart(request, eventId):
   ax = fig.add_axes([0,0,1,1])
   ax.axis('equal')
 
-  events = EventView().events
+  events = Events.getEvents()
   
   selectedEvent = 0
   for event in events:
