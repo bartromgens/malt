@@ -6,43 +6,37 @@
 
 <center><h3>Drinks </h3></center>
 
-  {% if all_drinks_list %}
+{% if all_drinks_list %}
+
+<div class="row">
   {% for drink in all_drinks_list %}
   {% if drink.isnewdate %}
-  <div class="col-sm-3">
-    <center>
+    <div class="col-sm-3" align="center">
       <hr/>
-      <p>
-        <h4>{{ drink.date|date:"D d M" }}</h4>
-        <h4>-</h4>
-        <img src="{{ STATIC_URL }}images/glencairn_whisky_glass.jpg" height="100"/>
-        <br/>
-        <br/>
-        -
-        <h4>-</h4>
-      </p>
-    </center>
-  </div>
+      <h4>{{ drink.date|date:"D d M" }}</h4>
+      <h4>-</h4>
+      <img src="{{ STATIC_URL }}images/glencairn_whisky_glass.jpg" height="100"/>
+      <br/>
+      <br/>
+      -
+      <h4>-</h4>
+    </div>
   {% endif %}
-  <div class="col-sm-3">
-    <center>
+    <div class="col-sm-3" align="center">
       <hr/>
-      <p>
-        <h4><a href="/collection/bottle/{{ drink.bottle.id }}/">{{ drink.bottle.whisky.distillery }}</a></h4>
-        <h4>{{ drink.bottle.age_int }}</h4>
-        <a href="/collection/bottle/{{ drink.bottle.id }}"><img src="{{ drink.bottle.imagename }}" height="100"/></a>
-        <br/>
-        <br/>
-        &euro; {{ drink.price }}
-        <h4><a href="/userprofile/stats/{{ drink.user.id }}/">{{ drink.user }}</a></h4>
-      </p>
-    </center>
-  </div>
+      <h4><a href="/collection/bottle/{{ drink.bottle.id }}/">{{ drink.bottle.whisky.distillery }}</a></h4>
+      <h4>{{ drink.bottle.age_int }}</h4>
+      <a href="/collection/bottle/{{ drink.bottle.id }}"><img src="{{ drink.bottle.imagename }}" height="100"/></a>
+      <br/>
+      <br/>
+      &euro; {{ drink.price }}
+      <h4><a href="/userprofile/stats/{{ drink.user.id }}/">{{ drink.user }}</a></h4>
+    </div>
   {% endfor %}
-  </div>
+</div>
 
-  {% else %}
-      <p>No drinks in the database.</p>
-  {% endif %}
+{% else %}
+  <p>No drinks in the database.</p>
+{% endif %}
 
 {% endblock %}

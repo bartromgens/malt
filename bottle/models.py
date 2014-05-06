@@ -1,13 +1,14 @@
-from django.db import models
-
-
 from whisky.models import Whisky
 from collection.models import Collection
 from userprofile.models import UserProfile 
 from base.settings import APP_DIR, STATIC_URL, DEBUG
 
+from django.db import models
+
 import os.path
 from datetime import datetime
+import logging
+
 
 
 class Bottle(models.Model):
@@ -104,7 +105,6 @@ def addBottleInfo(bottle):
   bottle.statusMeterWidth = '%.0f' % statusMeterWidth
   imagename = APP_DIR + 'malt/static/images/bottles/' + str(bottle.whisky.distillery) + str(bottle.age_int) + '.jpg'
 
-    
   if os.path.isfile(imagename):
     bottle.imagename = STATIC_URL + 'images/bottles/' + str(bottle.whisky.distillery) + str(bottle.age_int) + '.jpg'
   else:

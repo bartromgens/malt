@@ -9,51 +9,49 @@
 
 {% block content %}
 
-  {% if event %}
+{% if event %}
   
-    <center><h3>Event {{ event.tempID }} - {{ event.date|date:"D  d M Y" }} </h3></center>
-  
-    <center><h4>Drinks</h4></center>
-    <table class="table table-striped">
-      
-      <thead>
-        <tr>
-          <th><b>Who</b></th>
-          <th><b>Bottle</b></th>
-          <th><b>Region</b></th>
-          <th><b>Price</b></th>
-          <th><b>Volume</b></th>
-          <th><b>Date</b></th>
-        </tr>
-      </thead> 
-      
-      <tbody>
-      {% for drink in event.drinks %}
-        <tr>
-          <td ><a href="/userprofile/stats/{{ drink.user.id }}/">{{ drink.user }}</a></td>
-          <td><b><a href="/collection/bottle/{{ drink.bottle.id }}/">{{ drink.bottle }}</a></b></td>
-          <td>{{ drink.bottle.whisky.distillery.region}}</td>
-          <td>&euro; {{ drink.price }}</td>
-          <td>{{ drink.volume_int }} ml</td>
-          <td>{{ drink.date|date:"Y-m-d" }}</td>
-          </tr>
-        </tr>
-      {% endfor %}
-      </tbody>
-    
-    </table>
+<center><h3>Event {{ event.tempID }} - {{ event.date|date:"D  d M Y" }} </h3></center>
+ 
+<center><h3>Volume</h3></center>
+<center>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <img src="/events/plots/volumepie/{{ event.tempID }}.png" class="img-responsive"></img>
+  </div>
+</div>
+</center>   
 
-    <br />
-    <center><h4>Volume</h4></center>
-    <center><img src="/events/plots/volumepie/{{ event.tempID }}.png"></img></center>
-    
-    <br />
-    <center><h4>Regions</h4></center>
-    <center><img src="/events/plots/regions/{{ event.tempID }}.png"></img></center>
+<center><h3>Regions</h3></center>
+<center>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <img src="/events/plots/regions/{{ event.tempID }}.png" class="img-responsive"></img>
+  </div>
+</div>      
+</center>
 
-  {% else %}
-      <h3>Event not found.</h3>
-  {% endif %}
+
+<center><h3>Drinks</h3></center>
+
+<div class="row">
+  {% for drink in event.drinks %}
+  <div class="col-sm-3" align="center">
+    <hr/>
+    <h4><a href="/collection/bottle/{{ drink.bottle.id }}/">{{ drink.bottle.whisky.distillery }}</a></h4>
+    <h4>{{ drink.bottle.age_int }}</h4>
+    <a href="/collection/bottle/{{ drink.bottle.id }}"><img src="{{ drink.bottle.imagename }}" height="100"/></a>
+    <br/>
+    <br/>
+    &euro; {{ drink.price }}
+    <h4><a href="/userprofile/stats/{{ drink.user.id }}/">{{ drink.user }}</a></h4>
+  </div>
+  {% endfor %}
+</div>
+
+{% else %}
+  <h3>Event not found.</h3>
+{% endif %}
   
 
 {% endblock %}

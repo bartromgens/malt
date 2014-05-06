@@ -15,7 +15,7 @@ from django.shortcuts import redirect
 #from itertools import chain
 from base.forms import LoginForm, UserCreateForm
 from bottle.models import Bottle, addBottlesInfo
-from glass.models import Glass
+from glass.models import Glass, addDrinksInfo
 from userprofile.models import UserProfile
 import logging
 
@@ -231,9 +231,9 @@ class EventView(BaseView):
     selectedEvent = 0
     
     for event in events:
+      event.drinks = addDrinksInfo(event.drinks)
       if event.tempID == eventId:
         selectedEvent = event
-        break
       
     context['event'] = selectedEvent
     context['eventssection'] = True
