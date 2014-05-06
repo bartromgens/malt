@@ -30,6 +30,39 @@
   </div>
 </center>
 
+<center><h3>{{ drinker }}'s history</h3></center>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <img src="/userprofile/plot/history/{{ drinker.id }}.png" class="img-responsive"></img>
+  </div>
+</div>
+
+<center><h3>{{ drinker }}'s regions</h3></center>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <img src="/userprofile/plot/region/{{ drinker.id }}.png" class="img-responsive"></img>
+  </div>
+</div>
+
+<center><h3>{{ drinker }}'s drinks</h3></center>
+
+
+{% if drinks %}
+<div class="row">
+  {% for drink in drinks %}
+  <div class="col-sm-3" align="center">
+    <hr/>
+    <h4><a href="/collection/bottle/{{ drink.bottle.id }}/">{{ drink.bottle.whisky.distillery }}</a></h4>
+    <h4>{{ drink.bottle.age_int }}</h4>
+    <a href="/collection/bottle/{{ drink.bottle.id }}"><img src="{{ drink.bottle.imagename }}" height="100"/></a>
+    <br/>
+    <br/>
+    &euro; {{ drink.price }}
+    <h4><a href="/userprofile/stats/{{ drink.user.id }}/">{{ drink.user }}</a></h4>
+  </div>
+  {% endfor %}
+</div>
+  
 <center><h3>{{ drinker }}'s balance</h3></center>
 <br />
 <div class="row">
@@ -51,60 +84,8 @@
   </div>
 </div>
 
-
-<br/>
-<center><h3>{{ drinker }}'s history</h3></center>
-<div class="row">
-  <div class="col-md-8 col-md-offset-2">
-    <img src="/userprofile/plot/history/{{ drinker.id }}.png" class="img-responsive"></img>
-  </div>
-</div>
-
-<center><h3>{{ drinker }}'s regions</h3></center>
-<div class="row">
-  <div class="col-md-8 col-md-offset-2">
-    <img src="/userprofile/plot/region/{{ drinker.id }}.png" class="img-responsive"></img>
-  </div>
-</div>
-
-<center><h3>{{ drinker }}'s drinks</h3></center>
-
-  {% if drinks %}
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-      <table class="table table-striped">
-        
-        <thead>
-          <tr>
-            <th><b>Whisky</b></th>
-            <th><b>Age</b></th>
-            <th><b>Volume</b></th>
-            <th><b>Price</b></th>
-            <th><b>Bottle</b></th>
-            <th><b>Date</b></th>
-          </tr>
-        </thead> 
-        
-        <tbody>
-        {% for drink in drinks %}
-          <tr>
-            <td><b>{{ drink.bottle.whisky.distillery }}</b></td>
-            <td><b>{{ drink.bottle.whisky.age|floatformat }}</b></td>
-            <td>{{ drink.volume_int }} ml</td>
-            <td>&euro; {{ drink.price }}</td>
-            <td> <a href="/collection/bottle/{{ drink.bottle.id }}/">{{ drink.bottle.id }}</a> </td>
-            <td>{{ drink.date|date:"Y-m-d" }}</td>
-          </tr>
-        {% endfor %}
-        </tbody>
-      
-      </table>
-    </div>
-  </div>
-  
-
-  {% else %}
-      <p>No drinks in the database.</p>
-  {% endif %}
+{% else %}
+  <p>No drinks in the database.</p>
+{% endif %}
 
 {% endblock %}
