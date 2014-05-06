@@ -14,8 +14,8 @@ from django.shortcuts import redirect
 
 #from itertools import chain
 from base.forms import LoginForm, UserCreateForm
-from bottle.models import Bottle
-from glass.models import Glass 
+from bottle.models import Bottle, addBottlesInfo
+from glass.models import Glass
 from userprofile.models import UserProfile
 import logging
 
@@ -145,6 +145,7 @@ class Event():
     self.cost_str = ''
     self.drinks = []
     self.drinkers = set()
+    self.bottles = set()
     self.nDrinks = 0
     self.tempID = 0
     
@@ -153,6 +154,10 @@ class Event():
     self.volume += drink.volume
     self.cost += drink.getPrice()
     self.drinkers.add(drink.user.displayname)
+    self.bottles.add(drink.bottle)
+  
+  def addInfo(self):
+    self.bottles = addBottlesInfo(self.bottles) 
     
 
 def getEvents():
@@ -180,6 +185,7 @@ def getEvents():
       event.date = drinks[j].date
       event.tempID = eventID
       eventID += 1
+      event.addInfo()
       events.append(event)
     j = j + 1
     
