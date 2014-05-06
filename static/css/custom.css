@@ -1,2 +1,14 @@
-body { padding-top: 50px; }
+body { 
+  padding-top: 50px; 
+}
+
+#fixed-height-drinks {
+  overflow: hidden;
+  height: 420px;
+}
+
+#fixed-height-events {
+  overflow: hidden;
+  height: 290px;
+}
  
