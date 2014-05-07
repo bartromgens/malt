@@ -4,6 +4,11 @@ body {
 
 #fixed-height-drinks {
   overflow: hidden;
+  height: 270px;
+}
+
+#fixed-height-bottle {
+  overflow: hidden;
   height: 400px;
 }
 
