@@ -44,25 +44,6 @@
   </div>
 </div>
 
-<center><h3>{{ drinker }}'s drinks</h3></center>
-
-
-{% if drinks %}
-<div class="row">
-  {% for drink in drinks %}
-  <div class="col-sm-3" align="center">
-    <hr/>
-    <h4><a href="/collection/bottle/{{ drink.bottle.id }}/">{{ drink.bottle.whisky.distillery }}</a></h4>
-    <h4>{{ drink.bottle.age_int }}</h4>
-    <a href="/collection/bottle/{{ drink.bottle.id }}"><img src="{{ drink.bottle.imagename }}" height="100"/></a>
-    <br/>
-    <br/>
-    &euro; {{ drink.price }}
-    <h4><a href="/userprofile/stats/{{ drink.user.id }}/">{{ drink.user }}</a></h4>
-  </div>
-  {% endfor %}
-</div>
-  
 <center><h3>{{ drinker }}'s balance</h3></center>
 <br />
 <div class="row">
@@ -82,6 +63,24 @@
       </tr>
     </table>
   </div>
+</div>
+
+<center><h3>{{ drinker }}'s drinks</h3></center>
+
+{% if drinks %}
+<div class="row">
+  {% for drink in drinks %}
+  <div class="col-sm-3" align="center">
+    <hr/>
+    <h4><a href="/collection/bottle/{{ drink.bottle.id }}/">{{ drink.bottle.whisky.distillery }}</a></h4>
+    <h4>{{ drink.bottle.age_int }}</h4>
+    <a href="/collection/bottle/{{ drink.bottle.id }}"><img src="{{ drink.bottle.imagename }}" height="100"/></a>
+    <br/>
+    <br/>
+    &euro; {{ drink.price }}
+    <h4><a href="/userprofile/stats/{{ drink.user.id }}/">{{ drink.user }}</a></h4>
+  </div>
+  {% endfor %}
 </div>
 
 {% else %}
