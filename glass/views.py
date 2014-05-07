@@ -106,7 +106,7 @@ def plotDrinksVolumeHistory(request):
   fig.autofmt_xdate()
   fig.set_facecolor('white')
   response = HttpResponse(content_type='image/png')
-  canvas.print_png(response)
+  fig.savefig(response, format="png", dpi=100)
   
   return response
 
@@ -177,7 +177,7 @@ def plotDrinksStackedVolumeHistory(request):
   ax.legend(p, userNames, loc='upper left')
   
   response = HttpResponse(content_type='image/png')
-  canvas.print_png(response)
+  fig.savefig(response, format="png", dpi=100)
   
   return response
 
