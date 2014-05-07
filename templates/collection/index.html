@@ -23,7 +23,7 @@
 
   {% endfor %}
 </div>
-
+<hr>
 <center><h3>Bottles</h3></center>
 
 <div class="row">
@@ -32,36 +32,36 @@
   <div class="col-sm-3" align="center">
     <a name="{{ bottle.id }}"></a>
     <div id="fixed-height-bottle">
-      <hr>
-        <h3><a href="/collection/bottle/{{ bottle.id }}" name="{{ bottle.id }}">{{ bottle.distillery.name }}</a></h3>
-        {{ bottle.whisky.name }}
-        <br>
-        <br>
-  
-        <a href="/collection/bottle/{{ bottle.id }}"><img src="{{ bottle.imagename }}" height="200"/></a>
-        
-        {% if bottle.age_int == 0 %}
-        <h4> - </h4>
-        {% else %}
-        <h4>{{ bottle.age_int }}</h4>
-        {% endif %}
-  
-
-        <div class="row">
-          <div class="col-xs-2 " align="center">
-            <a href="/drinks/new/{{ bottle.id }}"><i class="glyphicon glyphicon-plus"></i></a>
-          </div>
-          <div class="col-xs-8" align="center">
-            <div class="progress">
-              <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ bottle.percentageLeft }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ bottle.percentageLeft }}%">
-              </div>
+      <h3><a href="/collection/bottle/{{ bottle.id }}" name="{{ bottle.id }}">{{ bottle.distillery.name }}</a></h3>
+      {{ bottle.whisky.name }}
+      <br>
+      <br>
+      
+      <a href="/collection/bottle/{{ bottle.id }}"><img src="{{ bottle.imagename }}" height="200"/></a>
+      
+      {% if bottle.age_int == 0 %}
+      <h4> - </h4>
+      {% else %}
+      <h4>{{ bottle.age_int }}</h4>
+      {% endif %}
+      
+      
+      <div class="row">
+        <div class="col-xs-2 " align="center">
+          <a href="/drinks/new/{{ bottle.id }}"><i class="glyphicon glyphicon-plus"></i></a>
+        </div>
+        <div class="col-xs-8" align="center">
+          <div class="progress">
+            <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ bottle.percentageLeft }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ bottle.percentageLeft }}%">
             </div>
           </div>
-          
-          <div class="col-xs-2" align="center">
-            <a href="./#top"><i class="glyphicon glyphicon-chevron-up"></i></a>
-          </div>
         </div>
+        
+        <div class="col-xs-2" align="center">
+          <a href="./#top"><i class="glyphicon glyphicon-chevron-up"></i></a>
+        </div>
+      </div>
+      <hr>
     </div>
   </div>
 
