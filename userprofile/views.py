@@ -111,9 +111,9 @@ class StatsUserProfileView(BaseView):
       averageCost50ml = totalCost/totalVolume * 50
     
     context['drinks'] = drinks
+    context['nDrinks'] = nDrinks
     context['drinker'] = UserProfile.objects.get(id=userProfileId)
     context['volume_ml'] = '%.0f' % (totalVolume)
-    context['total_cost'] = '%.2f' % (totalCost)
     context['average_cost_per_50ml'] = '%.2f' % (averageCost50ml)
     context['total_paid'] = '%.2f' % totalPaidNotDonated
     context['total_cost'] = '%.2f' % totalCostNotDonated
