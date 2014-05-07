@@ -4,7 +4,7 @@ body {
 
 #fixed-height-drinks {
   overflow: hidden;
-  height: 430px;
+  height: 400px;
 }
 
 #fixed-height-events {
@@ -15,5 +15,10 @@ body {
 #fixed-height-distilleries {
   overflow: hidden;
   height: 270px;
+}
+ 
+#fixed-height-whiskies {
+  overflow: hidden;
+  height: 200px;
 }
  

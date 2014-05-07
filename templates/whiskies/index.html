@@ -6,48 +6,32 @@
 
 <center><h3>Whiskies</h3></center>
 
-  {% if whiskies_list %}
-  <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-      <table class="table table-striped">
-        
-        <thead>
-          <tr>
-            <th><b>Distillery</b></th>
-            <th><b>Age</b></th>
-            <th><b>Type</b></th>
-            <th><b>%</b></th>
-            <th><b>Region</b></th>
-            <th><b><img src="{{ STATIC_URL }}images/icon_sound.png" width=12px></b></th>
-          </tr> 
-        </thead>
-       
-        <tbody>    
-          {% for whisky in whiskies_list %}
-          <tr>
-            <td><b>{{ whisky.distillery }}<b></td>
-            {% if whisky.age_int == 0 %}
-              <td><b> - </b></td>
-            {% else %}
-              <td><b>{{ whisky.age_int }}</b></td>
-            {% endif %}
-            <td>{{ whisky.name }}</td>
-            <td>{{ whisky.alcoholPercentage_int }}</td>
-            <td>{{ whisky.distillery.region }}</td>
-            {% if whisky.distillery.sound %}
-              <td><a href="{{ STATIC_URL }}sounds/{{ whisky.distillery.name }}.wav">play</a></td>
-            {% else %}
-              <td></td>
-            {% endif %}
-          </tr>
-          {% endfor %}
-        </tbody>
-       
-      </table>
+{% if whiskies_list %}
+
+<div class="row">
+  {% for whisky in whiskies_list %}
+
+  <div class="col-sm-3" align="center">
+    <div id="fixed-height-whiskies">
+      <hr>
+      <h4>{{ whisky.distillery }}</h4>
+      {{ whisky.name }}
+      {% if whisky.age_int == 0 %}
+        <h4>-</h4>
+      {% else %}
+        <h4>{{ whisky.age_int }}</h4>
+      {% endif %}
+      {{ whisky.alcoholPercentage_int }}%
+      <br>
+      {{ whisky.distillery.region }}
     </div>
-  </div> 
-  {% else %}
-      <p>No whiskies in the database.</p>
-  {% endif %}
+  </div>
+
+  {% endfor %}
+</div>
+
+{% else %}
+    <p>No whiskies in the database.</p>
+{% endif %}
 
 {% endblock %}
