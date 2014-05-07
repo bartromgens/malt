@@ -10,13 +10,13 @@
 
 {% if full_collection_list %}
 
-<a href="./#top">
+<a href="./#top"></a>
 
 <div class="row">
   {% for bottle in full_collection_list %}
 
-  <div class="col-xs-2" align="center">
-      <a href="./#{{ bottle.id }}"><img src="{{ bottle.imagename }}" height="100"/></a>
+  <div class="col-xs-2" align="center" >
+      <a href="./#{{ bottle.id }}"><img src="{{ bottle.imagename }}" height="120"/></a>
       <br>
        {{ bottle.age_int }}
   </div>
@@ -46,12 +46,22 @@
         <h4>{{ bottle.age_int }}</h4>
         {% endif %}
   
-        <div class="progress" style="width:80%">
-          <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ bottle.percentageLeft }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ bottle.percentageLeft }}%">
+
+        <div class="row">
+          <div class="col-xs-2 " align="center">
+            <a href="/drinks/new/{{ bottle.id }}"><i class="glyphicon glyphicon-plus"></i></a>
+          </div>
+          <div class="col-xs-8" align="center">
+            <div class="progress">
+              <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ bottle.percentageLeft }}" aria-valuemin="0" aria-valuemax="100" style="width: {{ bottle.percentageLeft }}%">
+              </div>
+            </div>
+          </div>
+          
+          <div class="col-xs-2" align="center">
+            <a href="./#top"><i class="glyphicon glyphicon-chevron-up"></i></a>
           </div>
         </div>
-        <a href="/drinks/new/{{ bottle.id }}"><i class="glyphicon glyphicon-plus"></i></a>
-        <a href="./#top"><i class="glyphicon glyphicon-chevron-up"></i></a>
     </div>
   </div>
 
