@@ -7,35 +7,25 @@
 <center><h3>Distilleries</h3></center>
 
   {% if distilleries_list %}
-  <div class="row">
-    <div class="col-md-8 col-md-offset-2">
-      <table class="table table-striped">
-      
-        <thead>
-        <tr>
-          <th><b>Name</b></th>
-          <th><b>Region</b></th>
-          <th><b>Image</b></th>
-        </tr>
-        </thead>
-        
-        <tbody>
-        {% for distillery in distilleries_list %}
-          <tr>
-            <td><b>{{ distillery.name }}</b></td>
-            <td><b>{{ distillery.region }}</b></td>
-            {% if distillery.image != '' %}
-              <td> <a href="{{ distillery.image }}"><img src="{{ distillery.image }}" height="150px"/></a> </td>
-            {% else %}
-              <td></td>          
-            {% endif %}
-          </tr>
-        {% endfor %}
-        </tbody>
-      
-      </table>
+  
+    <div class="row">
+    {% for distillery in distilleries_list %}
+    
+      <div class="col-sm-3" align="center">
+        <div id="fixed-height-distilleries">
+          <hr/>
+          <h4>{{ distillery.name }}</h4>
+          <b>{{ distillery.region }}</b>
+          <br>
+          {% if distillery.image != '' %}
+          <a href="{{ distillery.image }}"><img src="{{ STATIC_URL }}images/distilleries/resize_{{ distillery.name }}.jpg" height="150px" class="img-responsive"/></a>
+          {% endif %} 
+        </div>
+      </div>
+  
+    {% endfor %}
     </div>
-  </div> 
+    
   {% else %}
       <p>No distilleries available.</p>
   {% endif %}

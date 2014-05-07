@@ -12,3 +12,8 @@ body {
   height: 290px;
 }
  
+#fixed-height-distilleries {
+  overflow: hidden;
+  height: 270px;
+}
+ 
