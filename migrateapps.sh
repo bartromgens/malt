@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# create a database backup
+cp malt.sqlite malt.sqliteBeforeMigration
+
+# migrate the apps
 python manage.py schemamigration bottle --auto
 python manage.py migrate bottle
 
