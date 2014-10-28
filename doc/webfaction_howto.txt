@@ -1,5 +1,14 @@
 webfaction
 
+Login at www.webfaction.com
+Create a new Django application 'malt'
+Create a new static application 'maltstatic'
+
+- Follow the webfaction documentation of creating a new app
+http://docs.webfaction.com/software/django/getting-started.html
+
+- Useful server commands - 
+
 read errors:
 less ~/logs/user/error_malt.log
 
@@ -7,4 +16,8 @@ apache restart:
 ~/webapps/malt/apache2/bin/restart
 
 install python package for webapp:
+south
+django-bootstrap3
+django-registration
+
 PYTHONPATH=$HOME/webapps/malt/lib/python3.3 easy_install-3.3 --install-dir=$HOME/webapps/malt/lib/python3.3 --script-dir=$HOME/webapps/malt/bin django-bootstrap3
