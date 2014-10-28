@@ -1,26 +1,30 @@
 # Django settings for Malt project.
 
-DEBUG = False
+from base.settings_secret import * 
+
+DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    ('Bart Römgens', ''),
+    ('Bart Römgens', 'bart.romgens@gmail.com'),
 )
 
-APP_DIR = '/home/bartromgens/webapps/malt/'
+APP_DIR = '/home/bart/dev/malt/'
 
 MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': APP_DIR + 'malt/malt.sqlite',                      # Or path to database file if using sqlite3.
+        'NAME': APP_DIR + 'malt.sqlite',                      # Or path to database file if using sqlite3.
         'USER': '',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
+
+ALLOWED_HOSTS = ['*']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -61,18 +65,20 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = '/home/bartromgens/webapps/maltstatic/'
+#STATIC_ROOT = '/home/bartromgens/webapps/maltstatic/'
+STATIC_ROOT = ''
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
-STATIC_URL = 'http://www.malttracker.com/maltstatic/'
+#STATIC_URL = 'http://www.malttracker.com/maltstatic/'
+STATIC_URL = APP_DIR + 'static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    APP_DIR + 'malt/static',
+    APP_DIR + 'static',
 )
 
 # List of finder classes that know how to find static files in
@@ -80,17 +86,12 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
-
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = ''
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -99,8 +100,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    # Uncomment the next line for simple clickjacking protection:
-    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
 ROOT_URLCONF = 'base.urls'
@@ -112,7 +111,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    APP_DIR + 'malt/templates'
+    APP_DIR + 'templates'
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -162,7 +161,13 @@ LOGGING = {
             'level': 'ERROR',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler'
-        }
+        },
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': 'care.log',
+            'formatter': 'verbose'
+        },
     },
     'loggers': {
         'django.request': {
@@ -170,7 +175,25 @@ LOGGING = {
             'level': 'ERROR',
             'propagate': True,
         },
-    }
+        'django': {
+            'handlers':['file'],
+            'propagate': True,
+            'level':'ERROR',
+        },
+        '': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+        },
+    },
+    'formatters': {
+        'verbose': {
+            'format' : "[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s - %(funcName)20s()]: %(message)s",
+            'datefmt' : "%d/%b/%Y %H:%M:%S"
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
 }
 
 # redirect here when used is not logged in and logged in is required
@@ -180,12 +203,12 @@ LOGIN_URL = '/login/'
 
 ALLOWED_HOSTS = ['www.malttracker.com']
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
-        'LOCATION': 'unix:</home/bartromgens/memcached.sock>',
-    }
-}
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+#         'LOCATION': 'unix:</home/bartromgens/memcached.sock>',
+#     }
+# }
     
 BOOTSTRAP3 = {
     'jquery_url': 'http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', #'//code.jquery.com/jquery.min.js',
