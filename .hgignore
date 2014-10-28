@@ -8,3 +8,6 @@ backup/*
 runMaltServer.sh
 malt.sqlite
 static/bootstrap/bootswatch/*
+env/*
+care.log
+base/settings_secret.py
