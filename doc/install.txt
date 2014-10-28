@@ -1,0 +1,15 @@
+Install system packages:
+numpy
+matplotlib
+
+Create a virtualenv for python 3, we use system-site-packages for numpy and matplotlib:
+$ virtualenv --system-site-packages --python=/usr/bin/python3.4 ./env
+
+Activate the virtualenv:
+$ source ./env/bin/activate
+
+Install the required modules:
+$ pip install requirements.txt
+
+Create the secret_settings.py file and change these settings:
+$ cp ./base/secret_settings_example.py ./base/secret_settings.py
