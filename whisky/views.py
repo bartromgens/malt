@@ -5,57 +5,57 @@ from whisky.models import Distillery
 from whisky.models import Region
 
 class WhiskiesView(BaseView):
-  template_name = "whiskies/index.html"
+    template_name = "whiskies/index.html"
 
-  def addExtraInfo(self, malts):
-    for malt in malts:
-      malt.alcoholPercentage_int = int(malt.alcoholPercentage)
-      malt.age_int = int(malt.age)
-  
-  def getAllWhiskies(self):
-    malts = Whisky.objects.order_by("distillery")
+    def addExtraInfo(self, malts):
+        for malt in malts:
+            malt.alcoholPercentage_int = int(malt.alcoholPercentage)
+            malt.age_int = int(malt.age)
 
-    self.addExtraInfo(malts)
-    return malts
-  
-  def get_context_data(self, **kwargs):
-    context = super(WhiskiesView, self).get_context_data(**kwargs)
-    malts = self.getAllWhiskies()
-    context['whiskies_list'] = malts
-    
-    context['whiskiessection'] = True
-    return context
-  
+    def getAllWhiskies(self):
+        malts = Whisky.objects.order_by("distillery")
+
+        self.addExtraInfo(malts)
+        return malts
+
+    def get_context_data(self, **kwargs):
+        context = super(WhiskiesView, self).get_context_data(**kwargs)
+        malts = self.getAllWhiskies()
+        context['whiskies_list'] = malts
+
+        context['whiskiessection'] = True
+        return context
+
 
 class DistilleriesView(BaseView):
-  template_name = "distilleries/index.html"
-  
-  def getAllDistilleries(self):
-    distilleries = Distillery.objects.order_by("name")
+    template_name = "distilleries/index.html"
 
-    return distilleries
-  
-  def get_context_data(self, **kwargs):
-    context = super(DistilleriesView, self).get_context_data(**kwargs)
-    distilleries = self.getAllDistilleries()
-    context['distilleries_list'] = distilleries
-    
-    context['distilleriessection'] = True
-    return context
-  
-  
+    def getAllDistilleries(self):
+        distilleries = Distillery.objects.order_by("name")
+
+        return distilleries
+
+    def get_context_data(self, **kwargs):
+        context = super(DistilleriesView, self).get_context_data(**kwargs)
+        distilleries = self.getAllDistilleries()
+        context['distilleries_list'] = distilleries
+
+        context['distilleriessection'] = True
+        return context
+
+
 class RegionsView(BaseView):
-  template_name = "regions/index.html"
-  
-  def getAllRegions(self):
-    distilleries = Region.objects.order_by("name")
+    template_name = "regions/index.html"
 
-    return distilleries
-  
-  def get_context_data(self, **kwargs):
-    context = super(RegionsView, self).get_context_data(**kwargs)
-    regions = self.getAllRegions()
-    context['region_list'] = regions
-    
-    context['regionssection'] = True
-    return context
+    def getAllRegions(self):
+        distilleries = Region.objects.order_by("name")
+
+        return distilleries
+
+    def get_context_data(self, **kwargs):
+        context = super(RegionsView, self).get_context_data(**kwargs)
+        regions = self.getAllRegions()
+        context['region_list'] = regions
+
+        context['regionssection'] = True
+        return context

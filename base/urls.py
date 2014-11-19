@@ -21,7 +21,7 @@ urlpatterns = patterns('',
   url(r'^events/plots/regions/(?P<eventId>\d+).png$', 'base.views.plotRegionEventPieChart'),
   url(r'^events/plots/volumepie/(?P<eventId>\d+).png$', 'base.views.plotVolumeEventPieChart'),
   url(r'^about/$', AboutView.as_view()),
-  
+
   url(r'^userprofile/', include('userprofile.urls')),
   url(r'^drinks/', include('glass.urls')),
   url(r'^collection/', include('bottle.urls')),

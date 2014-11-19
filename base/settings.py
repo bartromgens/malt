@@ -1,6 +1,6 @@
 # Django settings for Malt project.
 
-from base.settings_secret import * 
+from base.settings_secret import *
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
@@ -135,7 +135,7 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'south', # for database migration
-    'bootstrap3', #bootstrap3 see: https://github.com/dyve/django-bootstrap3 
+    'bootstrap3', #bootstrap3 see: https://github.com/dyve/django-bootstrap3
     'userprofile',
     'whisky',
     'bottle',
@@ -209,7 +209,7 @@ ALLOWED_HOSTS = ['www.malttracker.com']
 #         'LOCATION': 'unix:</home/bartromgens/memcached.sock>',
 #     }
 # }
-    
+
 BOOTSTRAP3 = {
     'jquery_url': 'http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js', #'//code.jquery.com/jquery.min.js',
     'base_url': STATIC_URL + 'bootstrap/', #'//netdna.bootstrapcdn.com/bootstrap/3.0.3/'
@@ -219,4 +219,3 @@ BOOTSTRAP3 = {
     'horizontal_label_class': 'col-md-2',
     'horizontal_field_class': 'col-md-4',
 }
-

@@ -3,7 +3,7 @@ from django.conf.urls import patterns, url
 from django.contrib.auth.decorators import login_required
 
 from bottle.views import CollectionView
-from bottle.views import BottleView 
+from bottle.views import BottleView
 from bottle.views import StockView
 from bottle.views import OverviewView
 from bottle.views import EmptyBottleView
@@ -17,7 +17,7 @@ urlpatterns = patterns('',
   url(r'^plot/history/(?P<bottleId>\d+).png$', 'bottle.views.plotBottleHistory'),
   url(r'^plot/users/(?P<bottleId>\d+).png$', 'bottle.views.plotBottleUserPieChart'),
   url(r'^bottle/(?P<bottleId>\d+)/$', login_required(BottleView.as_view())),
-  
+
 #  url(r'^new/$', login_required(SelectGroupTransactionView.as_view())),
 #  url(r'^new/(?P<groupAccountId>\d+)/$', 'transaction.views.newTransaction'),
 )
