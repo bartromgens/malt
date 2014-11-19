@@ -1,14 +1,12 @@
 from whisky.models import Whisky
 from collection.models import Collection
 from userprofile.models import UserProfile
-from base.settings import APP_DIR, STATIC_URL, DEBUG
+from base.settings import APP_DIR, STATIC_URL
 
 from django.db import models
 
 import os.path
 from datetime import datetime
-import logging
-
 
 
 class Bottle(models.Model):

@@ -1,8 +1,6 @@
 from django import forms
-
 from glass.models import Glass
 
-import logging
 
 class NumberInput(forms.widgets.TextInput):
     input_type = 'number'

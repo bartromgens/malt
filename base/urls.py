@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib.auth.decorators import login_required
 from django.contrib import admin
-from base.views import HomeView, AboutView, HelpView, EventsView, EventView, TestView
+from base.views import AboutView, HelpView, EventsView, EventView, TestView
 from bottle.views import StockView
 
 # Uncomment the next two lines to enable the admin:
