@@ -9,7 +9,7 @@ from django.http import HttpResponse
 from userprofile.forms import EditUserProfileForm
 from userprofile.models import UserProfile
 from base.views import BaseUpdateView, BaseView
-from glass.models import Glass, addDrinksInfo
+from glass.models import Glass, add_drinks_info
 from bottle.models import Bottle
 
 
@@ -58,13 +58,13 @@ class SuccessEditUserProfileView(BaseView):
 class StatsUserProfileView(BaseView):
     template_name = "userprofile/userstats.html"
 
-    def getUserDrinks(self, userProfileId):
+    def get_user_drinks(self, userProfileId):
         drinks = Glass.objects.filter(user__id=userProfileId).order_by("bottle")
-        drinks = addDrinksInfo(drinks)
+        drinks = add_drinks_info(drinks)
 
         return drinks
 
-    def getTotalPaidNotDonated(self, userProfileId):
+    def get_total_paid_not_donated(self, userProfileId):
         bottles = Bottle.objects.filter(donation=False, buyer__id=userProfileId)
 
         totalPaid = 0.0
@@ -74,7 +74,7 @@ class StatsUserProfileView(BaseView):
 
         return totalPaid
 
-    def getTotalCostNotDonated(self, userProfileId):
+    def get_total_cost_not_donated(self, userProfileId):
         bottles = Bottle.objects.filter(donation=True, buyer__id=userProfileId)
 
         totalPaid = 0.0
@@ -91,9 +91,9 @@ class StatsUserProfileView(BaseView):
         totalVolume = 0.0
         totalCost = 0.0
         totalCostNotDonated = 0.0
-        totalPaidNotDonated = self.getTotalPaidNotDonated(userProfileId)
+        totalPaidNotDonated = self.get_total_paid_not_donated(userProfileId)
 
-        drinks = self.getUserDrinks(userProfileId)
+        drinks = self.get_user_drinks(userProfileId)
 
         for drink in drinks:
             totalVolume += drink.volume
@@ -124,7 +124,7 @@ class StatsUserProfileView(BaseView):
         return context
 
 
-def plotUserVolumeHistory(request, userprofileId):
+def plot_user_volume_history(request, userprofileId):
     userprofile = UserProfile.objects.get(id=userprofileId)
 
     fig=Figure()
@@ -167,7 +167,7 @@ def plotUserVolumeHistory(request, userprofileId):
     return response
 
 
-def plotRegionUserPieChart(request, userprofileId):
+def plot_region_user_pie_chart(request, userprofileId):
     fig = Figure()
     canvas = FigureCanvas(fig)
     ax = fig.add_axes([0,0,1,1])

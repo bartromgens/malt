@@ -8,7 +8,7 @@ from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from django.http import HttpResponse
 
 from base.views import BaseView
-from bottle.models import Bottle, addBottleInfo, addBottlesInfo
+from bottle.models import Bottle, add_bottle_info, add_bottles_info
 from glass.models import Glass
 
 
@@ -19,7 +19,7 @@ class BottleView(BaseView):
         context = super(BottleView, self).get_context_data(**kwargs)
         bottleId = kwargs['bottleId']
         bottle = Bottle.objects.get(id=bottleId)
-        bottle = addBottleInfo(bottle)
+        bottle = add_bottle_info(bottle)
 
         context['bottle'] = bottle
         context['collectionsection'] = True
@@ -30,38 +30,38 @@ class BottleView(BaseView):
 class CollectionView(BaseView):
     template_name = "collection/index.html"
 
-    def getAllBottles(self):
+    def get_all_bottles(self):
         bottles = Bottle.objects.order_by("whisky")
 
-        bottles = addBottlesInfo(bottles)
+        bottles = add_bottles_info(bottles)
         return bottles
 
-    def getStockBottles(self):
+    def get_stock_bottles(self):
         bottles = Bottle.objects.filter(empty=False).order_by("whisky")
 
-        bottles = addBottlesInfo(bottles)
+        bottles = add_bottles_info(bottles)
         return bottles
 
-    def getEmptyBottles(self):
+    def get_empty_bottles(self):
         bottles = Bottle.objects.filter(empty=True).order_by("whisky")
 
-        bottles = addBottlesInfo(bottles)
+        bottles = add_bottles_info(bottles)
         return bottles
 
-    def getOverviewBottleLists(self):
+    def get_overview_bottle_lists(self):
         bottlesList = []
         nPerRow = 13
         for i in range( 0, int(Bottle.objects.count()/nPerRow)+1 ):
             bottles = Bottle.objects.filter(empty=False).order_by("whisky")[(i*nPerRow):(i+1)*nPerRow]
             if bottles.count() != 0:
-                addBottlesInfo(bottles)
+                add_bottles_info(bottles)
                 bottlesList.append(bottles)
 
         return bottlesList
 
     def get_context_data(self, **kwargs):
         context = super(CollectionView, self).get_context_data(**kwargs)
-        bottles = self.getAllBottles()
+        bottles = self.get_all_bottles()
         context['full_collection_list'] = bottles
 
         context['collectionsection'] = True
@@ -73,7 +73,7 @@ class StockView(CollectionView):
 
     def get_context_data(self, **kwargs):
         context = super(StockView, self).get_context_data(**kwargs)
-        bottles = self.getStockBottles()
+        bottles = self.get_stock_bottles()
         context['full_collection_list'] = bottles
 
         context['collectionsection'] = True
@@ -85,7 +85,7 @@ class EmptyBottleView(CollectionView):
 
     def get_context_data(self, **kwargs):
         context = super(EmptyBottleView, self).get_context_data(**kwargs)
-        bottles = self.getEmptyBottles()
+        bottles = self.get_empty_bottles()
         context['full_collection_list'] = bottles
 
         context['collectionsection'] = True
@@ -97,14 +97,14 @@ class OverviewView(CollectionView):
 
     def get_context_data(self, **kwargs):
         context = super(OverviewView, self).get_context_data(**kwargs)
-        bottlesList = self.getOverviewBottleLists()
+        bottlesList = self.get_overview_bottle_lists()
         context['stock_lists'] = bottlesList
 
         context['collectionsection'] = True
         return context
 
 
-def plotBottleHistory(request, bottleId):
+def plot_bottle_history(request, bottleId):
     fig=Figure()
     canvas = FigureCanvas(fig)
     ax=fig.add_subplot(111)
@@ -145,7 +145,7 @@ def plotBottleHistory(request, bottleId):
     return response
 
 
-def plotBottleUserPieChart(request, bottleId):
+def get_bottles_user_pie_chart(request, bottleId):
     fig = Figure()
     canvas = FigureCanvas(fig)
     ax = fig.add_axes([0,0,1,1])

@@ -8,8 +8,8 @@ urlpatterns = patterns('',
   url(r'^edit/(?P<pk>\d+)/$', login_required(EditUserProfileView.as_view(success_url="/userprofile/edit/success/"))),
   url(r'^edit/success/$', login_required(SuccessEditUserProfileView.as_view())),
   url(r'^stats/(?P<userProfileId>\d+)/$', login_required(StatsUserProfileView.as_view())),
-  url(r'^plot/history/(?P<userprofileId>\d+).png$', 'userprofile.views.plotUserVolumeHistory'),
-  url(r'^plot/region/(?P<userprofileId>\d+).png$', 'userprofile.views.plotRegionUserPieChart'),
+  url(r'^plot/history/(?P<userprofileId>\d+).png$', 'userprofile.views.plot_user_volume_history'),
+  url(r'^plot/region/(?P<userprofileId>\d+).png$', 'userprofile.views.plot_region_user_pie_chart'),
 )
 
 urlpatterns += staticfiles_urlpatterns()

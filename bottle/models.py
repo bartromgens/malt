@@ -5,7 +5,7 @@ from base.settings import APP_DIR, STATIC_URL
 
 from django.db import models
 
-import os.path
+import os.path 
 from datetime import datetime
 
 
@@ -21,7 +21,7 @@ class Bottle(models.Model):
 
     date = models.DateTimeField(default=datetime.now, editable=True, blank=True)
 
-    def getActualVolume(self):
+    def get_actual_volume(self):
 
         from glass.models import Glass
         drinks = Glass.objects.filter(bottle__id=self.id)
@@ -34,32 +34,32 @@ class Bottle(models.Model):
 
         return actualVolume
 
-    def getActualVolumeAll(self):
+    def get_actual_volume_all(self):
         bottles = Bottle.objects.order_by("volume")
 
         totalInStock_L = 0.0
 
         for bottle in bottles:
             if not bottle.empty:
-                totalInStock_L += bottle.getActualVolume() / 1000.0
+                totalInStock_L += bottle.get_actual_volume() / 1000.0
 
         return totalInStock_L
 
-    def getActualValueAll(self):
+    def get_actual_value_all(self):
         bottles = Bottle.objects.order_by("volume")
 
         totalValueStock = 0.0
 
         for bottle in bottles:
             if not bottle.empty:
-                totalValueStock += bottle.getActualVolume() / bottle.volume * bottle.price
+                totalValueStock += bottle.get_actual_volume() / bottle.volume * bottle.price
 
         return totalValueStock
 
-    def getAveragePercentageNotEmpty(self):
+    def get_average_percentage_not_empty(self):
         bottles = Bottle.objects.filter(empty=False)
 
-        addBottlesInfo(bottles)
+        add_bottles_info(bottles)
         averagePercentageLeft = 0.0
 
         for bottle in bottles:
@@ -78,10 +78,10 @@ class Bottle(models.Model):
         ordering = ['whisky']
 
 
-def addBottleInfo(bottle):
+def add_bottle_info(bottle):
     bottle.distillery = bottle.whisky.distillery
     bottle.volume_liters = '%.1f' % (bottle.volume / 1000.0)
-    bottle.volumeActual = bottle.getActualVolume()
+    bottle.volumeActual = bottle.get_actual_volume()
     bottle.age_int = int(bottle.whisky.age)
     bottle.alcoholPercentage_int = int(bottle.whisky.alcoholPercentage)
 
@@ -111,8 +111,8 @@ def addBottleInfo(bottle):
     return bottle
 
 
-def addBottlesInfo(bottles):
+def add_bottles_info(bottles):
     for bottle in bottles:
-        addBottleInfo(bottle)
+        add_bottle_info(bottle)
 
     return bottles

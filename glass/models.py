@@ -3,7 +3,7 @@ from django.db.models import signals
 from datetime import datetime
 
 from django.db import models
-from bottle.models import Bottle, addBottleInfo
+from bottle.models import Bottle, add_bottle_info
 from userprofile.models import UserProfile
 
 class Glass(models.Model):
@@ -15,25 +15,25 @@ class Glass(models.Model):
 
     date = models.DateTimeField(default=datetime.now, editable=True, blank=True)
 
-    def getPrice(self):
+    def get_price(self):
         return self.bottle.price * self.volume / self.bottle.volume
 
     def __str__(self):
         return str(self.volume) + '[ml] of ' + str(self.bottle)
 
 
-def addDrinkInfo(drink):
-    drink.price = '%.2f' % drink.getPrice()
+def add_drink_info(drink):
+    drink.price = '%.2f' % drink.get_price()
     drink.volume_int = '%.0f' % drink.volume
 
     return drink
 
 
-def addDrinksInfo(drinks):
+def add_drinks_info(drinks):
     date = datetime.today()
     for drink in drinks:
-        drink = addDrinkInfo(drink)
-        drink.bottle = addBottleInfo(drink.bottle)
+        drink = add_drink_info(drink)
+        drink.bottle = add_bottle_info(drink.bottle)
         if drink.date.day < date.day:
             drink.isnewdate = True
         else:
@@ -43,7 +43,7 @@ def addDrinksInfo(drinks):
     return drinks
 
 
-def updateMassAndVolume(sender, **kwargs):
+def update_mass_and_volume(sender, **kwargs):
     drink = kwargs["instance"]
 
     alcoholPer = drink.bottle.whisky.alcoholPercentage
@@ -58,4 +58,4 @@ def updateMassAndVolume(sender, **kwargs):
             drink.mass = drink.volume * density
             drink.save()
 
-signals.post_save.connect(updateMassAndVolume, sender=Glass, dispatch_uid="drink_creation_signal")
+signals.post_save.connect(update_mass_and_volume, sender=Glass, dispatch_uid="drink_creation_signal")

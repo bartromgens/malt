@@ -12,7 +12,7 @@ from django.shortcuts import redirect
 from base.views import BaseView
 
 from bottle.models import Bottle
-from glass.models import Glass, addDrinksInfo
+from glass.models import Glass, add_drinks_info
 from glass.forms import NewDrinkForm
 from userprofile.models import UserProfile
 
@@ -24,24 +24,24 @@ class DrinksView(BaseView):
     template_name = "drinks/index.html"
     context_object_name = "drinks"
 
-    def getAllDrinks(self, lastN=0):
+    def get_all_drinks(self, lastN=0):
         if lastN == 0:
             drinks = Glass.objects.order_by('-date')
         else:
             drinks = Glass.objects.order_by('-date')[:lastN]
 
-        drinks = addDrinksInfo(drinks)
+        drinks = add_drinks_info(drinks)
         return drinks
 
-    def getMyDrinks(self, userProfileId):
+    def get_my_drinks(self, userProfileId):
         drinks = Glass.objects.filter(user__id=userProfileId).order_by('-date')
 
-        drinks = addDrinksInfo(drinks)
+        drinks = add_drinks_info(drinks)
         return drinks
 
     def get_context_data(self, **kwargs):
         context = super(DrinksView, self).get_context_data(**kwargs)
-        drinks = self.getAllDrinks(100)
+        drinks = self.get_all_drinks(100)
         context['all_drinks_list'] = drinks
 
         context['drinkssection'] = True
@@ -56,7 +56,7 @@ class MyDrinksView(DrinksView):
         userProfile = UserProfile.objects.get(user=self.request.user)
 
         context = super(MyDrinksView, self).get_context_data(**kwargs)
-        bottles = self.getMyDrinks(userProfile.id)
+        bottles = self.get_my_drinks(userProfile.id)
         context['all_drinks_list'] = bottles
 
         context['drinkssection'] = True
@@ -73,7 +73,7 @@ class DrinksStatsView(BaseView):
         return context
 
 
-def plotDrinksVolumeHistory(request):
+def plot_drinks_volume_history(request):
     fig = Figure()
     canvas = FigureCanvas(fig)
     ax = fig.add_subplot(111)
@@ -111,7 +111,7 @@ def plotDrinksVolumeHistory(request):
     return response
 
 
-def plotDrinksStackedVolumeHistory(request):
+def plot_drinks_stacked_volume_history(request):
     fig = Figure()
     canvas = FigureCanvas(fig)
     ax = fig.add_subplot(111)
@@ -185,7 +185,7 @@ def plotDrinksStackedVolumeHistory(request):
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.StreamHandler())
 
-def newDrink(request, bottleId = 0):
+def new_drink(request, bottleId = 0):
     def errorHandle(error):
         kwargs = {'user' : request.user, 'bottleId' : bottleId}
         logger.error('error in new drink')

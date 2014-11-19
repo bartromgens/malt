@@ -14,10 +14,11 @@ from django.shortcuts import redirect
 
 #from itertools import chain
 from base.forms import LoginForm, UserCreateForm
-from bottle.models import Bottle, addBottlesInfo
-from glass.models import Glass, addDrinksInfo
+from bottle.models import Bottle, add_bottles_info
+from glass.models import Glass, add_drinks_info
 from userprofile.models import UserProfile
 import logging
+
 
 class BaseView(TemplateView):
     template_name = "base/base.html"
@@ -67,9 +68,9 @@ class HomeView(BaseView):
         from bottle.views import CollectionView
         collectionView = CollectionView()
 
-        totalInStock_L = Bottle.getActualVolumeAll(Bottle())
-        totalActualValue = Bottle.getActualValueAll(Bottle())
-        averagePercentageNotEmpty = Bottle.getAveragePercentageNotEmpty(Bottle())
+        totalInStock_L = Bottle.get_actual_volume_all(Bottle())
+        totalActualValue = Bottle.get_actual_value_all(Bottle())
+        averagePercentageNotEmpty = Bottle.get_average_percentage_not_empty(Bottle())
         drinks = Glass.objects.all()
 
         totalDrunk_ml = 0.0
@@ -80,11 +81,11 @@ class HomeView(BaseView):
 
         for drink in drinks:
             totalDrunk_ml += drink.volume
-            totalCost += drink.getPrice()
+            totalCost += drink.get_price()
 
         totalInStock_L_str = '%.1f' % totalInStock_L
 
-        bottlesList = CollectionView.getOverviewBottleLists(collectionView)
+        bottlesList = CollectionView.get_overview_bottle_lists(collectionView)
         context['stock_lists'] = bottlesList
         context['totalInStock_L'] = totalInStock_L_str
         context['total_actual_value'] = totalActualValue
@@ -149,18 +150,18 @@ class Event():
         self.nDrinks = 0
         self.tempID = 0
 
-    def addDrink(self, drink):
+    def add_drink(self, drink):
         self.drinks.append(drink)
         self.volume += drink.volume
-        self.cost += drink.getPrice()
+        self.cost += drink.get_price()
         self.drinkers.add(drink.user.displayname)
         self.bottles.add(drink.bottle)
 
-    def addInfo(self):
-        self.bottles = addBottlesInfo(self.bottles)
+    def add_info(self):
+        self.bottles = add_bottles_info(self.bottles)
 
 
-def getEvents():
+def get_events():
     drinks = Glass.objects.order_by('-date')
     events = []
 
@@ -172,10 +173,10 @@ def getEvents():
 
         delta = timedelta(0, 3600*4)
         while (j+1 < nDrinks and drinks[j].date - delta < drinks[j+1].date):
-            event.addDrink(drinks[j])
+            event.add_drink(drinks[j])
             j = j + 1
 
-        event.addDrink(drinks[j])
+        event.add_drink(drinks[j])
         event.nDrinks = len(event.drinks)
 
         if (event.nDrinks > 1 and len(event.drinkers) > 1):
@@ -185,7 +186,7 @@ def getEvents():
             event.date = drinks[j].date
             event.tempID = eventID
             eventID += 1
-            event.addInfo()
+            event.add_info()
             events.append(event)
         j = j + 1
 
@@ -196,11 +197,11 @@ class Events(object):
     events = ''
 
     @staticmethod
-    def getEvents():
+    def get_events():
         if len(Events.events) > 0:
             return Events.events
         else:
-            Events.events = getEvents()
+            Events.events = get_events()
             return Events.events
 
 
@@ -211,7 +212,7 @@ class EventsView(BaseView):
     def get_context_data(self, **kwargs):
         context = super(EventsView, self).get_context_data(**kwargs)
 
-        events = Events.getEvents()
+        events = Events.get_events()
 
         context['events_list'] = events
         context['eventssection'] = True
@@ -226,12 +227,12 @@ class EventView(BaseView):
         eventId = int(kwargs['eventId'])
         context = super(EventView, self).get_context_data(**kwargs)
 
-        events = Events.getEvents()
+        events = Events.get_events()
 
         selectedEvent = 0
 
         for event in events:
-            event.drinks = addDrinksInfo(event.drinks)
+            event.drinks = add_drinks_info(event.drinks)
             if event.tempID == eventId:
                 selectedEvent = event
 
@@ -240,13 +241,13 @@ class EventView(BaseView):
         return context
 
 
-def plotVolumeEventPieChart(request, eventId):
+def plot_volume_event_pie_chart(request, eventId):
     fig = Figure()
     canvas = FigureCanvas(fig)
     ax = fig.add_axes([0,0,1,1])
     ax.axis('equal')
 
-    events = Events.getEvents()
+    events = Events.get_events()
 
     selectedEvent = 0
     for event in events:
@@ -285,13 +286,13 @@ def plotVolumeEventPieChart(request, eventId):
     return response
 
 
-def plotRegionEventPieChart(request, eventId):
+def plot_region_event_pie_chart(request, eventId):
     fig = Figure()
     canvas = FigureCanvas(fig)
     ax = fig.add_axes([0,0,1,1])
     ax.axis('equal')
 
-    events = Events.getEvents()
+    events = Events.get_events()
 
     selectedEvent = 0
     for event in events:

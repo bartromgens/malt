@@ -7,4 +7,3 @@ urlpatterns = patterns('',
   url(r'^$', login_required(CollectionView.as_view())),
 )
 
-#urlpatterns += staticfiles_urlpatterns()
