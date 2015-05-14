@@ -1,15 +1,8 @@
 # Django settings for Malt project.
 
-from base.settings_secret import *
+from base.local_settings import *
 
-DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-
-ADMINS = (
-    ('Bart Römgens', 'bart.romgens@gmail.com'),
-)
-
-APP_DIR = '/home/bart/dev/malt/'
 
 MANAGERS = ADMINS
 
@@ -199,8 +192,6 @@ LOGGING = {
 LOGIN_URL = '/login/'
 
 #FORCE_SCRIPT_NAME = '/malt'
-
-ALLOWED_HOSTS = ['www.malttracker.com']
 
 # CACHES = {
 #     'default': {
