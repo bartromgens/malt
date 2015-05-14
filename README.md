@@ -39,7 +39,7 @@ $ pip install -r requirements.txt
 #### Configure settings
 Generate a local settings file from the example local settings,
 ```bash
-$ python `create_local_settings.py`
+$ python create_local_settings.py
 ```
 And change the settings in `local_settings.py` to your local environment.
 
