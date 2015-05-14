@@ -1,6 +1,5 @@
 syntax: glob
 *.pyc
-*/migrations/*
 *.sass-cache/*
 *~
 tools/tablesorter/*

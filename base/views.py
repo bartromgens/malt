@@ -392,9 +392,10 @@ def login(request):
             return errorHandle(error)
     else:
         form = LoginForm() # An unbound form
-        context = RequestContext(request)
-        context['form'] = form
-        return render_to_response('base/login.html', context)
+        context = {
+            'form':form
+        }
+        return render_to_response('base/login.html', context, RequestContext(request))
 
 
 def logout(request):

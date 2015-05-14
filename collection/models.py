@@ -10,8 +10,7 @@ class Collection(models.Model):
     virtual = models.BooleanField(default=False)
     owner = models.ForeignKey(UserProfile, null=True, blank=True)
     group = models.ForeignKey(Group, null=True, blank=True)
-
-    date = models.DateTimeField(auto_now=True, auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.name

@@ -25,7 +25,7 @@ class Distillery(models.Model):
     image = models.URLField(max_length=400, default='', blank=True)
     sound = models.BooleanField(default=False, blank=True)
 
-    date = models.DateTimeField(auto_now=True, auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return str(self.name)
@@ -41,7 +41,7 @@ class Whisky(models.Model):
     alcoholPercentage = models.FloatField('alcohol %')
     url = models.URLField(max_length=400, default='', blank=True)
 
-    date = models.DateTimeField(auto_now=True, auto_now_add=True)
+    date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         name = ''

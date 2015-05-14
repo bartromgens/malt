@@ -111,7 +111,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    APP_DIR + 'templates'
+    APP_DIR + 'templates',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -134,7 +134,6 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'south', # for database migration
     'bootstrap3', #bootstrap3 see: https://github.com/dyve/django-bootstrap3
     'userprofile',
     'whisky',
