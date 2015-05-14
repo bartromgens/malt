@@ -20,10 +20,8 @@ class BottleView(BaseView):
         bottleId = kwargs['bottleId']
         bottle = Bottle.objects.get(id=bottleId)
         bottle = add_bottle_info(bottle)
-
         context['bottle'] = bottle
         context['collectionsection'] = True
-
         return context
 
 
@@ -32,19 +30,16 @@ class CollectionView(BaseView):
 
     def get_all_bottles(self):
         bottles = Bottle.objects.order_by("whisky")
-
         bottles = add_bottles_info(bottles)
         return bottles
 
     def get_stock_bottles(self):
         bottles = Bottle.objects.filter(empty=False).order_by("whisky")
-
         bottles = add_bottles_info(bottles)
         return bottles
 
     def get_empty_bottles(self):
         bottles = Bottle.objects.filter(empty=True).order_by("whisky")
-
         bottles = add_bottles_info(bottles)
         return bottles
 
@@ -56,14 +51,12 @@ class CollectionView(BaseView):
             if bottles.count() != 0:
                 add_bottles_info(bottles)
                 bottlesList.append(bottles)
-
         return bottlesList
 
     def get_context_data(self, **kwargs):
         context = super(CollectionView, self).get_context_data(**kwargs)
         bottles = self.get_all_bottles()
         context['full_collection_list'] = bottles
-
         context['collectionsection'] = True
         return context
 
@@ -75,10 +68,9 @@ class StockView(CollectionView):
         context = super(StockView, self).get_context_data(**kwargs)
         bottles = self.get_stock_bottles()
         context['full_collection_list'] = bottles
-
-        total_in_stock_liter = Bottle.get_actual_volume_all(Bottle())
-        total_actual_value = Bottle.get_actual_value_all(Bottle())
-        average_percentage_not_empty = Bottle.get_average_percentage_not_empty(Bottle())
+        total_in_stock_liter = Bottle.get_actual_volume_all()
+        total_actual_value = Bottle.get_actual_value_all()
+        average_percentage_not_empty = Bottle.get_average_percentage_not_empty()
         drinks = Glass.objects.all()
 
         total_drunk_ml = 0.0
@@ -116,7 +108,6 @@ class EmptyBottleView(CollectionView):
         context = super(EmptyBottleView, self).get_context_data(**kwargs)
         bottles = self.get_empty_bottles()
         context['full_collection_list'] = bottles
-
         context['collectionsection'] = True
         return context
 
@@ -128,7 +119,6 @@ class OverviewView(CollectionView):
         context = super(OverviewView, self).get_context_data(**kwargs)
         bottlesList = self.get_overview_bottle_lists()
         context['stock_lists'] = bottlesList
-
         context['collectionsection'] = True
         return context
 
@@ -207,6 +197,4 @@ def get_bottles_user_pie_chart(request, bottleId):
     fig.set_facecolor('white')
     response = HttpResponse(content_type='image/png')
     canvas.print_png(response)
-
-
     return response
