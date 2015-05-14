@@ -1,12 +1,12 @@
+from datetime import datetime
+
 from django.db import models
 
-from datetime import datetime
 
 class Region(models.Model):
     name = models.CharField(max_length=200)
     lat = models.FloatField('latitude', default='0.0')
     lon = models.FloatField('longitude', default='0.0')
-
     date = models.DateTimeField(default=datetime.now, editable=True, blank=True)
 
     def __str__(self):
@@ -24,7 +24,6 @@ class Distillery(models.Model):
     url = models.URLField(max_length=400, default='', blank=True)
     image = models.URLField(max_length=400, default='', blank=True)
     sound = models.BooleanField(default=False, blank=True)
-
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -40,20 +39,16 @@ class Whisky(models.Model):
     age = models.FloatField('age')
     alcoholPercentage = models.FloatField('alcohol %')
     url = models.URLField(max_length=400, default='', blank=True)
-
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         name = ''
-
-        if (int(self.age) == 0):
+        if int(self.age) == 0:
             name = str(self.distillery)
         else:
             name = str(self.distillery) + '  ' + str(int(self.age))
-
         if self.name != 'normal':
             name = name + ' (' + self.name + ')'
-
         return name
 
     class Meta:

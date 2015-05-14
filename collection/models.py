@@ -1,7 +1,7 @@
+from django.contrib.auth.models import Group
 from django.db import models
 
 from userprofile.models import UserProfile
-from django.contrib.auth.models import Group
 
 
 class Collection(models.Model):

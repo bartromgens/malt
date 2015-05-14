@@ -18,57 +18,45 @@ class Bottle(models.Model):
     buyer = models.ForeignKey(UserProfile, default=1)
     price = models.FloatField('price', default=0.0)
     donation = models.BooleanField(default=False)
-
     date = models.DateTimeField(default=datetime.now, editable=True, blank=True)
 
     def get_actual_volume(self):
-
         from glass.models import Glass
         drinks = Glass.objects.filter(bottle__id=self.id)
-
-        volumeDrunk = 0.0
+        volume_drunk = 0.0
         for drink in drinks:
-            volumeDrunk += drink.volume
+            volume_drunk += drink.volume
+        actual_volume = self.volume - self.volumeConsumedInitial - volume_drunk
+        return actual_volume
 
-        actualVolume = self.volume - self.volumeConsumedInitial - volumeDrunk
-
-        return actualVolume
-
-    def get_actual_volume_all(self):
+    @staticmethod
+    def get_actual_volume_all():
         bottles = Bottle.objects.order_by("volume")
-
-        totalInStock_L = 0.0
-
+        total_instock_liter = 0.0
         for bottle in bottles:
             if not bottle.empty:
-                totalInStock_L += bottle.get_actual_volume() / 1000.0
+                total_instock_liter += bottle.get_actual_volume() / 1000.0
+        return total_instock_liter
 
-        return totalInStock_L
-
-    def get_actual_value_all(self):
+    @staticmethod
+    def get_actual_value_all():
         bottles = Bottle.objects.order_by("volume")
-
-        totalValueStock = 0.0
-
+        total_value_stock = 0.0
         for bottle in bottles:
             if not bottle.empty:
-                totalValueStock += bottle.get_actual_volume() / bottle.volume * bottle.price
+                total_value_stock += bottle.get_actual_volume() / bottle.volume * bottle.price
+        return total_value_stock
 
-        return totalValueStock
-
-    def get_average_percentage_not_empty(self):
+    @staticmethod
+    def get_average_percentage_not_empty():
         bottles = Bottle.objects.filter(empty=False)
-
         add_bottles_info(bottles)
-        averagePercentageLeft = 0.0
-
+        average_percentage_left = 0.0
         for bottle in bottles:
-            averagePercentageLeft += bottle.percentageLeft_int
-
-        if (len(bottles) != 0):
-            averagePercentageLeft = averagePercentageLeft / float(len(bottles))
-
-        return averagePercentageLeft
+            average_percentage_left += bottle.percentageLeft_int
+        if len(bottles) != 0:
+            average_percentage_left /= float(len(bottles))
+        return average_percentage_left
 
     def __str__(self):
         name = str(self.whisky)
@@ -85,34 +73,31 @@ def add_bottle_info(bottle):
     bottle.age_int = int(bottle.whisky.age)
     bottle.alcoholPercentage_int = int(bottle.whisky.alcoholPercentage)
 
-    percentageLeft = 0.0
-    percentageGone = 100.0
-    statusMeterWidth = 0.0
+    percentage_left = 0.0
+    percentage_gone = 100.0
+    status_meter_width = 0.0
 
-    if (bottle.volume != 0.0):
-        percentageLeft = bottle.volumeActual/bottle.volume * 100.0
-        percentageGone = 100 - (bottle.volumeActual/bottle.volume * 100.0)
-        statusMeterWidth = bottle.volumeActual/bottle.volume * 75.0 + 4
+    if bottle.volume != 0.0:
+        percentage_left = bottle.volumeActual/bottle.volume * 100.0
+        percentage_gone = 100 - (bottle.volumeActual/bottle.volume * 100.0)
+        status_meter_width = bottle.volumeActual/bottle.volume * 75.0 + 4
 
-    if (percentageLeft < 0.0):
-        statusMeterWidth = 0.0
+    if percentage_left < 0.0:
+        status_meter_width = 0.0
 
-    bottle.percentageLeft_int =  percentageLeft
-    bottle.percentageLeft = '%.0f' % percentageLeft
-    bottle.percentageGone = '%.0f' % percentageGone
-    bottle.statusMeterWidth = '%.0f' % statusMeterWidth
+    bottle.percentageLeft_int = percentage_left
+    bottle.percentageLeft = '%.0f' % percentage_left
+    bottle.percentageGone = '%.0f' % percentage_gone
+    bottle.statusMeterWidth = '%.0f' % status_meter_width
     imagename = APP_DIR + 'static/images/bottles/' + str(bottle.whisky.distillery) + str(bottle.age_int) + '.jpg'
-
     if os.path.isfile(imagename):
         bottle.imagename = STATIC_URL + 'images/bottles/' + str(bottle.whisky.distillery) + str(bottle.age_int) + '.jpg'
     else:
         bottle.imagename = STATIC_URL + 'images/bottles/unknown.jpg'
-
     return bottle
 
 
 def add_bottles_info(bottles):
     for bottle in bottles:
         add_bottle_info(bottle)
-
     return bottles

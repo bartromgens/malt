@@ -1,8 +1,8 @@
-from matplotlib.figure import Figure
-#from matplotlib.dates import DateFormatter
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-
 from datetime import timedelta
+import logging
+
+from matplotlib.figure import Figure
+from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 
 from django.http import HttpResponse
 from django.views.generic import TemplateView
@@ -12,18 +12,15 @@ from django.contrib import auth
 from django.views.generic.edit import UpdateView
 from django.shortcuts import redirect
 
-#from itertools import chain
 from base.forms import LoginForm, UserCreateForm
 from bottle.models import Bottle, add_bottles_info
 from glass.models import Glass, add_drinks_info
 from userprofile.models import UserProfile
-import logging
 
 
 class BaseView(TemplateView):
     template_name = "base/base.html"
     context_object_name = "base"
-
     logger = logging.getLogger(__name__)
     logger.addHandler(logging.StreamHandler())
 
@@ -42,7 +39,6 @@ class BaseView(TemplateView):
 class BaseUpdateView(UpdateView):
     template_name = "base/base.html"
     context_object_name = "base"
-
     logger = logging.getLogger(__name__)
     logger.addHandler(logging.StreamHandler())
 
@@ -84,7 +80,6 @@ class HelpView(BaseView):
         # Call the base implementation first to get a context
         context = super(HelpView, self).get_context_data(**kwargs)
         context['helpsection'] = True
-
         return context
 
 
@@ -172,9 +167,7 @@ class EventsView(BaseView):
 
     def get_context_data(self, **kwargs):
         context = super(EventsView, self).get_context_data(**kwargs)
-
         events = Events.get_events()
-
         context['events_list'] = events
         context['eventssection'] = True
         return context
@@ -187,16 +180,12 @@ class EventView(BaseView):
     def get_context_data(self, **kwargs):
         eventId = int(kwargs['eventId'])
         context = super(EventView, self).get_context_data(**kwargs)
-
         events = Events.get_events()
-
         selectedEvent = 0
-
         for event in events:
             event.drinks = add_drinks_info(event.drinks)
             if event.tempID == eventId:
                 selectedEvent = event
-
         context['event'] = selectedEvent
         context['eventssection'] = True
         return context
@@ -207,17 +196,13 @@ def plot_volume_event_pie_chart(request, eventId):
     canvas = FigureCanvas(fig)
     ax = fig.add_axes([0,0,1,1])
     ax.axis('equal')
-
     events = Events.get_events()
-
     selectedEvent = 0
     for event in events:
         if event.tempID == int(eventId):
             selectedEvent = event
             break
-
     drinks = selectedEvent.drinks
-
     drinksVolume = 0.0
     users = dict()
     labels = []
@@ -229,7 +214,6 @@ def plot_volume_event_pie_chart(request, eventId):
             users[drink.user] = users[drink.user] + drink.volume
         else:
             users[drink.user] = drink.volume
-
         drinksVolume = drinksVolume + drink.volume
 
     for key in users:
@@ -238,12 +222,11 @@ def plot_volume_event_pie_chart(request, eventId):
         explode.append(0.0)
 
     ax.pie(fracs, explode=explode, colors=('#87F881', '#8F96F4', '#FFDE85', '#FF8488', 'r', 'g', 'b'), \
-             labels=labels, autopct='%1.0f%%', shadow=False)
+           labels=labels, autopct='%1.0f%%', shadow=False)
 
     fig.set_facecolor('white')
     response = HttpResponse(content_type='image/png')
     canvas.print_png(response)
-
     return response
 
 
@@ -252,23 +235,18 @@ def plot_region_event_pie_chart(request, eventId):
     canvas = FigureCanvas(fig)
     ax = fig.add_axes([0,0,1,1])
     ax.axis('equal')
-
     events = Events.get_events()
-
     selectedEvent = 0
     for event in events:
         if event.tempID == int(eventId):
             selectedEvent = event
             break
-
     drinks = selectedEvent.drinks
-
     drinksVolume = 0.0
     regions = dict()
     labels = []
     fracs = []
     explode = []
-
 
     for drink in drinks:
         region = drink.bottle.whisky.distillery.region
@@ -290,7 +268,6 @@ def plot_region_event_pie_chart(request, eventId):
     fig.set_facecolor('white')
     response = HttpResponse(content_type='image/png')
     canvas.print_png(response)
-
     return response
 
 
