@@ -335,11 +335,11 @@ def plot_region_event_pie_chart(request, eventId):
 
 def register(request):
     def errorHandle(error):
-        form = UserCreateForm()
-        context = RequestContext(request)
-        context['error'] = error
-        context['form'] = form
-        return render_to_response('base/register.html', context)
+        context_new = {
+            'error': error,
+            'form': UserCreateForm(),
+        }
+        return render_to_response('base/register.html', context_new, RequestContext(request))
 
     if request.method == 'POST': # If the form has been submitted...
         form = UserCreateForm(request.POST) # A form bound to the POST data
@@ -355,18 +355,19 @@ def register(request):
         return errorHandle(error)
     else:
         form = UserCreateForm() # An unbound form
-        context = RequestContext(request)
-        context['form'] = form
-        return render_to_response('base/register.html', context)
+        context = {
+            'form': form
+        }
+        return render_to_response('base/register.html', context, RequestContext(request))
 
 
 def login(request):
     def errorHandle(error):
-        form = LoginForm()
-        context = RequestContext(request)
-        context['error'] = error
-        context['form'] = form
-        return render_to_response('base/login.html', context)
+        context_new = {
+            'error': error,
+            'form': LoginForm(),
+        }
+        return render_to_response('base/login.html', context_new, RequestContext(request))
 
     if request.method == 'POST': # If the form has been submitted...
         form = LoginForm(request.POST) # A form bound to the POST data
@@ -391,9 +392,8 @@ def login(request):
             error = u'form is invalid'
             return errorHandle(error)
     else:
-        form = LoginForm() # An unbound form
         context = {
-            'form':form
+            'form': LoginForm()
         }
         return render_to_response('base/login.html', context, RequestContext(request))
 

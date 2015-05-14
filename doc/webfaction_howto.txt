@@ -16,8 +16,9 @@ apache restart:
 ~/webapps/malt/apache2/bin/restart
 
 install python package for webapp:
-south
 django-bootstrap3
 django-registration
+numpy
+matplotlib
 
-PYTHONPATH=$HOME/webapps/malt/lib/python3.3 easy_install-3.3 --install-dir=$HOME/webapps/malt/lib/python3.3 --script-dir=$HOME/webapps/malt/bin django-bootstrap3
+PYTHONPATH=$HOME/webapps/malt/lib/python3.4 easy_install-3.4 --install-dir=$HOME/webapps/malt/lib/python3.4 --script-dir=$HOME/webapps/malt/bin django-bootstrap3

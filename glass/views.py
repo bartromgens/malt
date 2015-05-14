@@ -185,20 +185,23 @@ def plot_drinks_stacked_volume_history(request):
 logger = logging.getLogger(__name__)
 logger.addHandler(logging.StreamHandler())
 
+
 def new_drink(request, bottleId = 0):
     def errorHandle(error):
-        kwargs = {'user' : request.user, 'bottleId' : bottleId}
+        kwargs = {'user': request.user, 'bottleId': bottleId}
         logger.error('error in new drink')
         form = NewDrinkForm(**kwargs)
-
-        context = RequestContext(request)
-        context['error'] = error
-        context['form'] = form
+        context = {
+            'error': error,
+            'form': form,
+        }
         if request.user.is_authenticated():
-            context['user'] = request.user
-            context['isLoggedin'] = True
-            context['drinkssection'] = True
-        return render_to_response('drinks/new.html', context)
+            context += {
+                'user': request.user,
+                'isLoggedin': True,
+                'drinkssection': True
+            }
+        return render_to_response('drinks/new.html', context, RequestContext(request))
 
     if request.method == 'POST': # If the form has been submitted...
         logger.error('post new drink')
@@ -225,7 +228,7 @@ def new_drink(request, bottleId = 0):
         kwargs = {'user' : request.user, 'bottleId' : bottleId}
         form = NewDrinkForm(**kwargs) # An unbound form
         form.fields["bottle"].queryset = Bottle.objects.filter(empty=False)
-        context = RequestContext(request)
+        context = dict()
         context['form'] = form
         context['drinkssection'] = True
 
@@ -233,4 +236,4 @@ def new_drink(request, bottleId = 0):
             context['user'] = request.user
             context['isLoggedin'] = True
 
-        return render_to_response('drinks/new.html', context)
+        return render_to_response('drinks/new.html', context, RequestContext(request))
