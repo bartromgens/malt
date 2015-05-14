@@ -3,6 +3,8 @@ Malt
 
 A Django based whisky tracker with Bootstrap web interface.
 
+![Homepage desktop](https://github.com/bartromgens/malt/blob/master/doc/images/homescreen_desktop.png)
+
 Dependencies
 ------------
 - Python 3
@@ -19,12 +21,12 @@ Install the numpy and matplotlib python modules with your system package manager
 #### Virtual environment
 Create a virtualenv for python 3.x, we use system-site-packages for numpy and matplotlib,
 ```bash
-$ virtualenv --system-site-packages --python=/usr/bin/python3.x [virtualenvdir]
+$ virtualenv --system-site-packages --python=/usr/bin/python3.x env
 ```
 
 Activate the virtualenv,
 ```bash
-$ source [virtualenvdir]/bin/activate
+$ source env/bin/activate
 ```
 
 Install the required modules,
