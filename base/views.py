@@ -61,46 +61,7 @@ class HomeView(BaseView):
     template_name = "base/index.html"
 
     def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
         context = super(HomeView, self).get_context_data(**kwargs)
-#    user = self.request.user
-
-        from bottle.views import CollectionView
-        collectionView = CollectionView()
-
-        totalInStock_L = Bottle.get_actual_volume_all(Bottle())
-        totalActualValue = Bottle.get_actual_value_all(Bottle())
-        averagePercentageNotEmpty = Bottle.get_average_percentage_not_empty(Bottle())
-        drinks = Glass.objects.all()
-
-        totalDrunk_ml = 0.0
-        totalCost = 0.0
-
-        nBottles = Bottle.objects.filter(empty=False).count()
-        nDrinks = drinks.count()
-
-        for drink in drinks:
-            totalDrunk_ml += drink.volume
-            totalCost += drink.get_price()
-
-        totalInStock_L_str = '%.1f' % totalInStock_L
-
-        bottlesList = CollectionView.get_overview_bottle_lists(collectionView)
-        context['stock_lists'] = bottlesList
-        context['totalInStock_L'] = totalInStock_L_str
-        context['total_actual_value'] = totalActualValue
-        if totalInStock_L != 0:
-            context['value_per_700ml'] = totalActualValue / totalInStock_L * 0.7
-        else:
-            context['value_per_700ml'] = 0.0
-        context['average_percentage_not_empty'] = averagePercentageNotEmpty
-        context['totalDrunk_L'] = totalDrunk_ml / 1000.0
-        context['totalCost'] = totalCost
-        context['nBottles'] = nBottles
-        context['nDrinks'] = nDrinks
-        context['homesection'] = True
-
-#    userProfile = UserProfile.objects.get(user=user)
         return context
 
 

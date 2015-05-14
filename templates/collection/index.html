@@ -6,6 +6,7 @@
 
 {% block content %}
 
+
 <center><h3>Collection</h3></center>
 
 {% if full_collection_list %}
@@ -23,6 +24,30 @@
 
   {% endfor %}
 </div>
+
+<hr>
+<div class="row">
+    <div class="col-xs-2" align="center">
+        {{ nBottles }} bottles
+    </div>
+    <div class="col-xs-2" align="center">
+        {{ totalInStock_L|floatformat:1 }} liter
+    </div>
+    <div class="col-xs-2" align="center">
+        &euro;{{ total_actual_value|floatformat:0 }}
+    </div>
+    <div class="col-xs-2" align="center">
+        {{ average_percentage_not_empty|floatformat:0 }}% full
+    </div>
+    <div class="col-xs-2" align="center">
+        {{ nDrinks }} drinks
+    </div>
+    <div class="col-xs-2" align="center">
+        &euro;{{ totalCost|floatformat:0 }}
+    </div>
+</div>
+
+
 <hr>
 <center><h3>Bottles</h3></center>
 

@@ -76,6 +76,35 @@ class StockView(CollectionView):
         bottles = self.get_stock_bottles()
         context['full_collection_list'] = bottles
 
+        total_in_stock_liter = Bottle.get_actual_volume_all(Bottle())
+        total_actual_value = Bottle.get_actual_value_all(Bottle())
+        average_percentage_not_empty = Bottle.get_average_percentage_not_empty(Bottle())
+        drinks = Glass.objects.all()
+
+        total_drunk_ml = 0.0
+        total_cost= 0.0
+
+        n_bottles = Bottle.objects.filter(empty=False).count()
+        n_drinks = drinks.count()
+
+        for drink in drinks:
+            total_drunk_ml += drink.volume
+            total_cost += drink.get_price()
+
+        total_in_stock_liter_str = '%.1f' % total_in_stock_liter
+
+        context['totalInStock_L'] = total_in_stock_liter_str
+        context['total_actual_value'] = total_actual_value
+        if total_in_stock_liter != 0:
+            context['value_per_700ml'] = total_actual_value / total_in_stock_liter * 0.7
+        else:
+            context['value_per_700ml'] = 0.0
+        context['average_percentage_not_empty'] = average_percentage_not_empty
+        context['totalDrunk_L'] = total_drunk_ml / 1000.0
+        context['totalCost'] = total_cost
+        context['nBottles'] = n_bottles
+        context['nDrinks'] = n_drinks
+
         context['collectionsection'] = True
         return context
 
