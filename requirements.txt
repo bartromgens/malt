@@ -1,3 +1,4 @@
 Django==1.8
 django-bootstrap3==5.4.0
+django-dual-authentication==1.0.0
 signals

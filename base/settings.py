@@ -197,3 +197,9 @@ BOOTSTRAP3 = {
     'horizontal_label_class': 'col-md-2',
     'horizontal_field_class': 'col-md-4',
 }
+
+## django-dual-authentication settings ##
+AUTHENTICATION_BACKENDS = ['django-dual-authentication.backends.DualAuthentication']
+
+# You can authenticate your users by 'username', 'email', 'both'. Default: 'both'.
+AUTHENTICATION_METHOD = 'both'
