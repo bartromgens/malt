@@ -1,7 +1,7 @@
 Malt
 ====
 
-A Django based whisky tracker with Bootstrap web interface.
+A whisky collection administration and drink tracking web application based on Django and Bootstrap.
 
 ![Homepage desktop](https://github.com/bartromgens/malt/blob/master/doc/images/homescreen_desktop.png)
 
@@ -9,9 +9,11 @@ Dependencies
 ------------
 - Python 3
 - Django 1.8
+- numpy
+- matplotlib
 - django-bootstrap3
-- signals
 - django-dual-authenticaon
+- signals
 
 Installation
 -----------
@@ -35,8 +37,11 @@ $ pip install -r requirements.txt
 ```
 
 #### Configure settings
-- Copy `user_settings_example.py` to `user_settings.py`.
-- Configure `user_settings.py` with your system specific settings.
+Generate a local settings file from the example local settings,
+```bash
+$ python `create_local_settings.py`
+```
+And change the settings in `local_settings.py` to your local environment.
 
 #### Create database
 Create initial database:
