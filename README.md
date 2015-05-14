@@ -5,11 +5,11 @@ A Django based whisky tracker with Bootstrap web interface.
 
 Dependencies
 ------------
-- Python 3.x
-- Django 1.6
-- South 8.3
-- django-bootstrap3 4.11
+- Python 3
+- Django 1.8
+- django-bootstrap3
 - signals
+- django-dual-authenticaon
 
 Installation
 -----------
@@ -37,28 +37,23 @@ $ pip install -r requirements.txt
 - Configure `user_settings.py` with your system specific settings.
 
 #### Create database
-Create initial database migrations for the following apps:
-- bottle
-- collection
-- glass
-- userprofile
-- whisky
+Create initial database:
 
 ```bash
-$ python manage.py schemamigration <appname> --initial
-```
-Migrate all apps,
-```bash
-$ manage.py migrate <appname>
+$ python manage.py migrate
 ```
 
-Run syncdb and create a Django root user,
+Create a Django root user,
 ```bash
-$ python manage.py syncdb
+$ python manage.py createsuperuser
 ```
 
 #### Test run
 Run test server,
 ```bash
-$ python manage.py runserver 127.0.0.1:8000
+$ python manage.py runserver
 ```
+
+View the test server on http://127.0.0.1:8000.
+
+Create a UserProfile for the root user via the admin before you login on the main site, http://127.0.0.1:8000/admin
