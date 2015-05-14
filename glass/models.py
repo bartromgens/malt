@@ -1,6 +1,6 @@
 from django.db.models import signals
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django.db import models
 from bottle.models import Bottle, add_bottle_info
@@ -31,10 +31,11 @@ def add_drink_info(drink):
 
 def add_drinks_info(drinks):
     date = datetime.today()
+    date += timedelta(2)
     for drink in drinks:
         drink = add_drink_info(drink)
         drink.bottle = add_bottle_info(drink.bottle)
-        if drink.date.day < date.day:
+        if drink.date.day < date.day or drink.date.month != date.month:
             drink.isnewdate = True
         else:
             drink.isnewdate = False
