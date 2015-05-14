@@ -333,9 +333,9 @@ def login(request):
     if request.method == 'POST': # If the form has been submitted...
         form = LoginForm(request.POST) # A form bound to the POST data
         if form.is_valid(): # All validation rules pass
-            username = request.POST['username']
+            username_or_email = request.POST['username_or_email']
             password = request.POST['password']
-            user = auth.authenticate(username=username, password=password)
+            user = auth.authenticate(username=username_or_email, password=password)
             if user is not None:
                 if user.is_active:
                     # Redirect to a success page.
