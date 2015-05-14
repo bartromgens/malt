@@ -25,6 +25,7 @@
   {% endfor %}
 </div>
 
+{% if nBottles %}
 <hr>
 <div class="row">
     <div class="col-xs-2" align="center">
@@ -46,7 +47,7 @@
         &euro;{{ totalCost|floatformat:0 }}
     </div>
 </div>
-
+{% endif %}
 
 <hr>
 <center><h3>Bottles</h3></center>
