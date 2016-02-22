@@ -1,6 +1,6 @@
 Malt
 ====
-
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/bartromgens/malt/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/bartromgens/malt/?branch=master)  
 A whisky collection administration and drink tracking web application based on Django and Bootstrap.
 
 ![Homepage desktop](https://github.com/bartromgens/malt/blob/master/doc/images/homescreen_desktop.png)
