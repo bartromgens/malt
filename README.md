@@ -21,9 +21,9 @@ Installation
 Install the numpy and matplotlib python modules with your system package manager. These are large modules with dependencies that may not install using pip.
 
 #### Virtual environment
-Create a virtualenv for python 3.x, we use system-site-packages for numpy and matplotlib,
+Create a virtualenv for python 3.x,
 ```bash
-$ virtualenv --system-site-packages --python=/usr/bin/python3.x env
+$ virtualenv --python=/usr/bin/python3.x env
 ```
 
 Activate the virtualenv,
@@ -31,7 +31,7 @@ Activate the virtualenv,
 $ source env/bin/activate
 ```
 
-Install the required modules,
+Install the required packages,
 ```bash
 $ pip install -r requirements.txt
 ```
