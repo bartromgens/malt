@@ -10,15 +10,11 @@ http://docs.webfaction.com/software/django/getting-started.html
 - Useful server commands - 
 
 read errors:
-less ~/logs/user/error_malt.log
+$ less ~/logs/user/error_malt.log
 
 apache restart:
-~/webapps/malt/apache2/bin/restart
+$ ~/webapps/malt/apache2/bin/restart
 
-install python package for webapp:
-django-bootstrap3
-django-registration
-numpy
-matplotlib
+install requirements:
 
-PYTHONPATH=$HOME/webapps/malt/lib/python3.4 easy_install-3.4 --install-dir=$HOME/webapps/malt/lib/python3.4 --script-dir=$HOME/webapps/malt/bin django-bootstrap3
+$ pip3.4 install --target=$HOME/webapps/malt_0_2/lib/python3.4 -r requirements.txt
