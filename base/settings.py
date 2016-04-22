@@ -145,7 +145,7 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': 'care.log',
+            'filename': 'malt.log',
             'formatter': 'verbose'
         },
     },
